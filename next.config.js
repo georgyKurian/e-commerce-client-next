@@ -6,6 +6,6 @@ module.exports = withCSS({
   poweredByHeader: false,
   distDir: "dist",
   env: {
-    REACT_APP_API_URL: isProd ? "https://e-commerce-serve.herokuapp.com/":"http://localhost:8085"
+    REACT_APP_API_URL: isProd ? "https://e-commerce-serve.herokuapp.com":"http://localhost:8085"
   }
 });
