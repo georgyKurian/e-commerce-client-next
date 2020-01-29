@@ -1,13 +1,12 @@
 import React from "react";
 import App from "next/app";
-import { createStore } from "redux";
 import NProgress from "nprogress";
 import Router from "next/router";
 import Head from "next/head";
-import eCommerceApp from "../redux/reducers/index";
+
 import { Provider } from "react-redux";
 
-const store = createStore(eCommerceApp);
+
 
 Router.events.on("routeChangeStart", url => {
   console.log(`Loading: ${url}`);
