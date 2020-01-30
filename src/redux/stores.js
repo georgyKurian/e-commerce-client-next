@@ -1,6 +1,7 @@
-import eCommerceApp from "../redux/reducers/index";
-import { createStore } from "redux";
+import reducers from "../redux/reducers/index";
+import thunk from "redux-thunk";
+import { createStore, applyMiddleware } from "redux";
 
-export default initStore = initialState => {
-  return createStore(eCommerceApp, initialState);
+export const initStore = (initialState = {}) => {
+  return createStore(reducers, initialState, applyMiddleware(thunk));
 };

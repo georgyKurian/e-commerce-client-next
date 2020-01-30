@@ -3,10 +3,9 @@ import App from "next/app";
 import NProgress from "nprogress";
 import Router from "next/router";
 import Head from "next/head";
-
+import withRedux from "next-redux-wrapper";
 import { Provider } from "react-redux";
-
-
+import { initStore } from "../redux/stores";
 
 Router.events.on("routeChangeStart", url => {
   console.log(`Loading: ${url}`);
@@ -15,9 +14,19 @@ Router.events.on("routeChangeStart", url => {
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-export default class MyApp extends App {
+class MyApp extends App {
+  static async getInitialProps({ Component, ctx }) {
+    return {
+      pageProps: {
+        ...(Component.getInitialProps
+          ? await Component.getInitialProps(ctx)
+          : {})
+      }
+    };
+  }
+
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, store } = this.props;
     return (
       <React.Fragment>
         <Head>
@@ -31,3 +40,5 @@ export default class MyApp extends App {
     );
   }
 }
+
+export default withRedux(initStore, { debug: true })(MyApp);
