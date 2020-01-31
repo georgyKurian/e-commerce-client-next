@@ -13,8 +13,8 @@ class Index extends React.Component {
     return { productDataList: [] };
   }
 
-  render() {
-    const productList = this.props.productDataList.map(
+  render() {    
+    const productList = this.props.products.products.items.map(
       productData => new Product(productData)
     );
     return (
