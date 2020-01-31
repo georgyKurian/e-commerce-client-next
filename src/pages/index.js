@@ -4,11 +4,13 @@ import { getProducts } from "../api/Product";
 import "../../styles/main.css";
 import ProductList from "../components/product/ProductList";
 import Product from "../models/Product";
+import { fetchProducts } from "../redux/actions/products";
+import { connect } from "react-redux";
 
 class Index extends React.Component {
-  static async getInitialProps(ctx) {
-    const productDataList = await getProducts();
-    return { productDataList };
+  static async getInitialProps({ store }) {
+    const products = await store.dispatch(fetchProducts()).then((data) => { debugger;});
+    return { productDataList: [] };
   }
 
   render() {
@@ -23,4 +25,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+export default connect(state => state)(Index);
