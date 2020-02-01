@@ -8,7 +8,7 @@ import { getReviews } from "../../api/Review";
 import ReviewList from "../../components/product/ReviewList";
 
 class Products extends React.Component {
-  static async getInitialProps(ctx) {
+  static async getInitialProps({query}) {
     const data = await Promise.all([
       getProduct(ctx.query.id),
       getReviews(ctx.query.id)

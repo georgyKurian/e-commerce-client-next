@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import Link from "next/link";
 
-import { Link } from "react-router-dom";
+const isAdmin = false;
+const isLoggedIn = false;
 
 export default class NavigationBar extends Component {
   render() {
@@ -10,7 +12,7 @@ export default class NavigationBar extends Component {
       <div className="NavigationBar flex justify-around">
         <Link to="/">Home</Link>
         <Link to="/category/online">#online</Link>
-        <Link to="/category/mobile">#mobile</Link>
+        <Link href="/category/[categoryName]" as={`/products/mobile`}>#mobile</Link>
         {isAdmin && (
           <Fragment>
             <Link to="/admin/users">Users</Link>
@@ -27,8 +29,8 @@ export default class NavigationBar extends Component {
             <Link to="/logout">Logout</Link>
           </Fragment>
         ) : (
-          <Link to="/account">Login</Link>
-        )}
+            <Link to="/account">Login</Link>
+          )}
       </div>
     );
   }

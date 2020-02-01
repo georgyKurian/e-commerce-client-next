@@ -4,18 +4,15 @@ const products = (state = [], action) => {
   switch (action.type) {
     case "REQUEST_PRODUCTS":
       return Object.assign({}, state, {
-        products: {
-          isFetching: true,
-          didInvalidate: false
-        }
+        isFetching: true,
+        didInvalidate: false
       });
     case "RECEIVE_PRODUCTS":
       return Object.assign({}, state, {
-        products: {
-          isFetching: false,
-          didInvalidate: false,
-          items: action.productDataList
-        }
+        isFetching: false,
+        didInvalidate: false,
+        lastFetched: Date.now(),
+        items: action.productDataList
       });
     default:
       return state;

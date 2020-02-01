@@ -6,7 +6,6 @@ const defaultOption = {
 };
 
 export default (url, options) => {
-  console.log(baseURL + url);
   return fetch(baseURL + url, { ...defaultOption, ...options })
     .then(r => {
       if (r.ok) return r.json();
@@ -18,7 +17,6 @@ export default (url, options) => {
 };
 
 export const getResponse = (url, options) => {
-  console.log(baseURL + url);
   return fetch(baseURL + url, { ...defaultOption, ...options }).catch(err => {
     console.log(err);
   });

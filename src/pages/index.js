@@ -1,6 +1,5 @@
 import MyLayout from "../components/Layouts/MyLayout";
 import React from "react";
-import { getProducts } from "../api/Product";
 import "../../styles/main.css";
 import ProductList from "../components/product/ProductList";
 import Product from "../models/Product";
@@ -9,12 +8,11 @@ import { connect } from "react-redux";
 
 class Index extends React.Component {
   static async getInitialProps({ store }) {
-    const products = await store.dispatch(fetchProducts()).then((data) => { debugger;});
-    return { productDataList: [] };
+    const products = await store.dispatch(fetchProducts());
   }
 
   render() {    
-    const productList = this.props.products.products.items.map(
+    const productList = this.props.items.map(
       productData => new Product(productData)
     );
     return (
@@ -25,4 +23,6 @@ class Index extends React.Component {
   }
 }
 
-export default connect(state => state)(Index);
+export default connect(state => {
+  return state.products;
+})(Index);

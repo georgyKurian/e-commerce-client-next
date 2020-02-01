@@ -11,12 +11,11 @@ const Header = () => (
       <Link href="/">
         <a className={cssClasses}>Home</a>
       </Link>
-      <Link href="/shop">
+      <Link href="/shop"> 
         <a className={cssClasses}>Shop</a>
       </Link>
-      <Link href="/category/mobile">
-        <a className={cssClasses}>#mobile</a>
-      </Link>
+      <Link href="/category/[categoryName]" as={`/category/mobile`}>
+        <a className={cssClasses}>#mobile</a></Link>
       {isAdmin && (
         <Fragment>
           <Link href="/admin/users">
@@ -43,10 +42,10 @@ const Header = () => (
           </Link>
         </Fragment>
       ) : (
-        <Link href="/login">
-          <a className={cssClasses}>Login</a>
-        </Link>
-      )}
+          <Link href="/login">
+            <a className={cssClasses}>Login</a>
+          </Link>
+        )}
     </nav>
   </header>
 );

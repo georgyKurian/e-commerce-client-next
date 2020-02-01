@@ -5,7 +5,6 @@ export default async email => {
     method: "POST",
     body: JSON.stringify({ email })
   }).then(response => {
-    debugger;
     if (response.ok) {
       return { sussess: true };
     }

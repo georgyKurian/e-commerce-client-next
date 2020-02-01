@@ -8,7 +8,6 @@ import { Provider } from "react-redux";
 import { initStore } from "../redux/stores";
 
 Router.events.on("routeChangeStart", url => {
-  console.log(`Loading: ${url}`);
   NProgress.start();
 });
 Router.events.on("routeChangeComplete", () => NProgress.done());
@@ -33,12 +32,12 @@ class MyApp extends App {
           {/* Import CSS for nprogress */}
           <link rel="stylesheet" type="text/css" href="/nprogress.css" />
         </Head>
-        <Provider store={store}>
-          <Component {...pageProps} />
+        <Provider store={store} cssStyle="min-width:10px;">
+          <Component {...pageProps}  cssStyle="min-width:10px;"/>
         </Provider>
       </React.Fragment>
     );
   }
 }
 
-export default withRedux(initStore, { debug: true })(MyApp);
+export default withRedux(initStore, { debug: false })(MyApp);
