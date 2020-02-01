@@ -1,14 +1,9 @@
-html{
-  height: 100%;
-}
-
-body{
-  min-height: 100%;
-}
-
-#__next,
-#__next>div
-{
+html,
+body,
+body > div:first-child,
+div#__next,
+div#__next > div,
+div#__next > div > div {
   min-height: 100%;
 }
 
@@ -17,7 +12,7 @@ body{
 }
 
 footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
 }
