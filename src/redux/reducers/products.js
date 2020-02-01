@@ -1,15 +1,22 @@
+import { REQUEST_PRODUCTS, RECEIVE_PRODUCTS } from "./../actions/products";
+
 const products = (state = [], action) => {
   switch (action.type) {
-    case "ADD_PRODUCT":
-      return [...state, action.product];
-    case "UPDATE_PRODUCT":
-      return state.map(product => {
-        if (action.product.id === product.id) {
-          return Object.assign({}, product, action.product);
-        }
-        return product;
+    case "REQUEST_PRODUCTS":
+      return Object.assign({}, state, {
+        isFetching: true,
+        didInvalidate: false
+      });
+    case "RECEIVE_PRODUCTS":
+      return Object.assign({}, state, {
+        isFetching: false,
+        didInvalidate: false,
+        lastFetched: Date.now(),
+        items: action.productDataList
       });
     default:
       return state;
   }
 };
+
+export default products;

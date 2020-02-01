@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Link from "next/link";
-import "./ProductCard.css";
 import { PrimaryButton, SecondaryButton } from "../Button";
 import PropTypes from "prop-types";
 import FeaturedTag from "./FeaturedTag";

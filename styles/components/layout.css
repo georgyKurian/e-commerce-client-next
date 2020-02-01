@@ -1,5 +1,20 @@
+html,
+body,
+body > div:first-child,
+div#__next,
+div#__next > div,
+div#__next > div > div {
+  min-height: 100%;
+}
+
 .inner-wrap {
   @apply w-10/12 mx-auto;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
 
 @screen md {
