@@ -3,6 +3,7 @@ import { getProducts } from "../../api/Product";
 export const REQUEST_PRODUCTS = "REQUEST_PRODUCTS";
 export const RECEIVE_PRODUCTS = "RECEIVE_PRODUCTS";
 export const SELECT_PRODUCT = "SELECT_PRODUCT";
+export const SELECT_PRODUCT = "RECEIVE_PRODUCT";
 
 function requestProducts() {
   return {
