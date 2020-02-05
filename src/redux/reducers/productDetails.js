@@ -1,22 +1,22 @@
-import { REQUEST_PRODUCTS, RECEIVE_PRODUCTS } from "../actions/products";
+import { REQUEST_PRODUCT_DETAILS, RECEIVE_PRODUCT_DETAILS } from "../actions/productDetails";
 
-const products = (state = [], action) => {
+const productDetails = (state = [], action) => {
   switch (action.type) {
-    case "REQUEST_PRODUCTS":
+    case REQUEST_PRODUCT_DETAILS:
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false
       });
-    case "RECEIVE_PRODUCTS":
+    case RECEIVE_PRODUCT_DETAILS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
         lastFetched: Date.now(),
-        items: action.productDataList
+        data: action.productData
       });
     default:
       return state;
   }
 };
 
-export default products;
+export default productDetails;

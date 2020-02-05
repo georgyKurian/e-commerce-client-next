@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 class Index extends React.Component {
   static async getInitialProps({ store }) {
-    const products = await store.dispatch(fetchProducts());
+    await store.dispatch(fetchProducts());
   }
 
   render() {    

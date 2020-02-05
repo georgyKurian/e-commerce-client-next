@@ -7,18 +7,20 @@ import { getProductDetails } from "../../api/Product";
 import { getReviews } from "../../api/Review";
 import ReviewList from "../../components/product/ReviewList";
 import { connect } from "react-redux";
+import { fetchProductDetails } from "../../redux/actions/productDetails";
 
 class ProductPage extends React.Component {
-  static async getInitialProps({query}) {
+  static async getInitialProps({store, query}) {
+  
     const data = await Promise.all([
-      getProductDetails(query.id),
-      getReviews(query.id)
+      getReviews(query.id),
+      store.dispatch(fetchProductDetails(query.id))
     ]);
-    return { productData: data[0], reviewDataList: data[1] };
+    return { reviewDataList: data[0] };
   }
 
   render() {
-    const product = new Product(this.props.productData);
+    const product = new Product(this.props.data);
     const reviews = this.props.reviewDataList.map(
       reviewData => new Review(reviewData)
     );
@@ -31,4 +33,4 @@ class ProductPage extends React.Component {
   }
 }
 
-export default connect(state => state.selectedProduct )(ProductPage);
+export default connect(state => state.productDetails )(ProductPage);

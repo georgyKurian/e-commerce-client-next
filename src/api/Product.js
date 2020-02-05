@@ -6,7 +6,7 @@ export const getProducts = async categories => {
   });
 };
 
-export const getProduct = async id => {
+export const getProductDetails = async id => {
   return fetch(`/v1/products${id ? `/${id}` : ""}`, {
     method: "GET"
   });
