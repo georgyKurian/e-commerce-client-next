@@ -1,6 +1,6 @@
 import { REQUEST_REVIEWS, RECEIVE_REVIEWS } from "../actions/reviews";
 
-const reviews = (state = [], action) => {
+const reviews = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_REVIEWS:
       return Object.assign({}, state, {

@@ -9,10 +9,11 @@ import "../../../styles/main.css";
 class CategoryPage extends React.Component {
   static async getInitialProps({ store, query }) {
     console.log(query);
-    const products = await store.dispatch(fetchProducts(query.categorgyName));
+    await store.dispatch(fetchProducts(query.categorgyName));
   }
 
   render() {    
+    debugger;
     const productList = this.props.items.map(
       productData => new Product(productData)
     );

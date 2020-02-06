@@ -1,6 +1,6 @@
 import { REQUEST_PRODUCT_DETAILS, RECEIVE_PRODUCT_DETAILS } from "../actions/productDetails";
 
-const productDetails = (state = [], action) => {
+const productDetails = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_PRODUCT_DETAILS:
       return Object.assign({}, state, {
