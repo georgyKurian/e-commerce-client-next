@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { _ } from "lodash";
-import "./Button.css";
 
 class Button extends Component {
   render() {

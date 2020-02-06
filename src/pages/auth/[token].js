@@ -4,8 +4,9 @@ import store from "store2";
 import { getCurrentUser } from "../../api/Auth";
 
 export default class Auth extends Component {
-  static async getInitialProps(ctx) {
-    const token = ctx.query.token;
+  static async getInitialProps({query, store}) {
+    const token = query.token;
+    store.dispatch(auth(token));
     const userData = await getCurrentUser(token);
     console.log({ token, userData });
     return { token, userData };
