@@ -7,44 +7,29 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "Client Chrome",
+      "name": "Client Next: Chrome",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}/client/src",
-      "cwd": "${workspaceFolder}/client",
+      "webRoot": "${workspaceFolder}/src/pages"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Server - nodemon",
-      "cwd": "${workspaceFolder}/server",
-      "program": "${workspaceFolder}/server/src/index.js",
-      "stopOnEntry": false,
-      "args": [],
-      "preLaunchTask": "npm: debug-build - server",
-      "runtimeExecutable": null,
-      "runtimeArgs": [
-        "--nolazy"
-      ],
-      "env": {
-        "NODE_ENV": "development"
-      },
-      "console": "integratedTerminal",
-      "sourceMaps": true,
-      "trace": true,
-      "outFiles": [
-        "${workspaceRoot}/server/dist/**.js"
-      ]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Next.js",
-      "cwd": "${workspaceFolder}/client-next",
-      "runtimeExecutable": "${workspaceFolder}\\client-next\\node_modules\\.bin\\next",
-      "port": 9229,
+      "name": "Client Next: Node",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
       "env": {
         "NODE_OPTIONS": "--inspect"
-      }
+      },
+      "port": 9229,
+      "console": "integratedTerminal"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Client Next: Full",
+      "configurations": [
+        "Client Next: Node",
+        "Client Next: Chrome"
+      ]
     }
   ]
 }

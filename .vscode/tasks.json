@@ -6,7 +6,7 @@
     {
       "type": "npm",
       "script": "debug-build",
-      "path": "server/",
+      "path": "/",
       "group": "build"
     }
   ]
