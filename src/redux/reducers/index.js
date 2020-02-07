@@ -1,13 +1,11 @@
 import { combineReducers } from "redux";
-import token from "./token";
-import user from "./user";
+import auth from "./auth";
 import products from "./products";
 import productDetails from "./productDetails";
 import reviews from "./reviews";
 
 export default combineReducers({
-  token,
-  user,
+  auth,
   products,
   productDetails,
   reviews
