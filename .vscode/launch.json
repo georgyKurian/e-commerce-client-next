@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Client Next: Chrome",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}/src/pages"
+      "webRoot": "${workspaceFolder}"
     },
     {
       "type": "node",
