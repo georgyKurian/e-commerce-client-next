@@ -1,8 +1,8 @@
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from './Header';
+import Footer from './Footer';
 
 const linkStyle = {
-  marginRight: 15
+  marginRight: 15,
 };
 
 const MyLayout = (props) => (

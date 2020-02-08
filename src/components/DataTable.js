@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import SpicyDataTable from "spicy-datatable";
-import "./DataTable.css";
+import React, { Component } from 'react';
+import SpicyDataTable from 'spicy-datatable';
+import './DataTable.css';
 
 export default class DataTable extends Component {
   render() {

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import BaseInput from "./BaseInput";
+import React, { Component } from 'react';
+import BaseInput from './BaseInput';
 
 export default class CheckboxInput extends Component {
   render() {

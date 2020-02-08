@@ -1,18 +1,18 @@
-import { getProductDetails } from "../../api/Product";
+import { getProductDetails } from '../../api/Product';
 
-export const REQUEST_PRODUCT_DETAILS = "REQUEST_PRODUCT_DETAILS";
-export const RECEIVE_PRODUCT_DETAILS = "RECEIVE_PRODUCT_DETAILS";
+export const REQUEST_PRODUCT_DETAILS = 'REQUEST_PRODUCT_DETAILS';
+export const RECEIVE_PRODUCT_DETAILS = 'RECEIVE_PRODUCT_DETAILS';
 
 function requestProductDetails() {
   return {
-    type: REQUEST_PRODUCT_DETAILS
+    type: REQUEST_PRODUCT_DETAILS,
   };
 }
 
 function receiveProductDetails(productData) {
   return {
     type: RECEIVE_PRODUCT_DETAILS,
-    productData: productData
+    productData,
   };
 }
 
@@ -20,10 +20,10 @@ function receiveProductDetails(productData) {
  * Thunk action creator
  */
 export function fetchProductDetails(productId) {
-  return function(dispatch) {
+  return (dispatch) => {
     dispatch(requestProductDetails());
-    return getProductDetails(productId).then(productData =>
-      dispatch(receiveProductDetails(productData))
+    return getProductDetails(productId).then(
+      (productData) => dispatch(receiveProductDetails(productData)),
     );
   };
 }

@@ -1,10 +1,10 @@
-import MyLayout from "../../components/Layouts/MyLayout";
-import React from "react";
-import ProductList from "../../components/product/ProductList";
-import Product from "../../models/Product";
-import { fetchProducts } from "../../redux/actions/products";
-import { connect } from "react-redux";
-import "../../../styles/main.css";
+import React from 'react';
+import { connect } from 'react-redux';
+import MyLayout from '../../components/Layouts/MyLayout';
+import ProductList from '../../components/product/ProductList';
+import Product from '../../models/Product';
+import { fetchProducts } from '../../redux/actions/products';
+import '../../../styles/main.css';
 
 class CategoryPage extends React.Component {
   static async getInitialProps({ store, query }) {
@@ -12,10 +12,10 @@ class CategoryPage extends React.Component {
     await store.dispatch(fetchProducts(query.categorgyName));
   }
 
-  render() {    
+  render() {
     debugger;
     const productList = this.props.items.map(
-      productData => new Product(productData)
+      (productData) => new Product(productData),
     );
     return (
       <MyLayout>
@@ -25,6 +25,4 @@ class CategoryPage extends React.Component {
   }
 }
 
-export default connect(state => {
-  return state.products;
-})(CategoryPage);
+export default connect((state) => state.products)(CategoryPage);

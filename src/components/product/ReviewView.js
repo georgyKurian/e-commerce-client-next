@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import Review from "../../models/Review";
-import PropTypes from "prop-types";
-import Rating from "./Rating";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Review from '../../models/Review';
+import Rating from './Rating';
 
 export default class ReviewView extends Component {
   render() {
@@ -18,5 +18,5 @@ export default class ReviewView extends Component {
 }
 
 ReviewView.propTypes = {
-  review: PropTypes.instanceOf(Review)
+  review: PropTypes.instanceOf(Review),
 };

@@ -1,26 +1,26 @@
-import { getProducts } from "../../api/Product";
+import { getProducts } from '../../api/Product';
 
-export const ADD_TOKEN = "ADD_PRODUCTS";
-export const REQUEST_USER = "REQUEST_USER";
-export const RECEIVED_USER = "RECEIVED_USER";
+export const AUTH_ADD_TOKEN = 'AUTH_ADD_TOKEN';
+export const AUTH_REQUEST_USER = 'AUTH_REQUEST_USER';
+export const AUTH_RECEIVED_USER = 'AUTH_RECEIVED_USER';
 
 function addToken(token) {
   return {
-    type: ADD_TOKEN,
-    token
+    type: AUTH_ADD_TOKEN,
+    token,
   };
 }
 
-function requestUserDetails(){
+function requestUserDetails() {
   return {
-    type: REQUEST_USER,
+    type: AUTH_REQUEST_USER,
   };
 }
 
 function receiveUserDetails(userData) {
   return {
-    type: RECEIVED_USER,
-    userData
+    type: AUTH_RECEIVED_USER,
+    userData,
   };
 }
 
@@ -29,10 +29,9 @@ function receiveUserDetails(userData) {
  * Thunk action creator
  */
 export function verifyToken(token) {
-  return function(dispatch) {
+  return (dispatch) => {
+    dispatch(addToken(token));
     dispatch(requestUserDetails());
-    return getProducts(token).then(userData =>
-      dispatch(receiveUserDetails(userData))
-    );
+    return getProducts(token).then((userData) => dispatch(receiveUserDetails(userData)));
   };
 }

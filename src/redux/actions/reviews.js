@@ -1,18 +1,18 @@
-import { getReviews } from "../../api/Review";
+import { getReviews } from '../../api/Review';
 
-export const REQUEST_REVIEWS = "REQUEST_REVIEWS";
-export const RECEIVE_REVIEWS = "RECEIVE_REVIEWS";
+export const REQUEST_REVIEWS = 'REQUEST_REVIEWS';
+export const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
 
 function requestReviews() {
   return {
-    type: REQUEST_REVIEWS
+    type: REQUEST_REVIEWS,
   };
 }
 
 function receiveReviews(reviewsDataList) {
   return {
     type: RECEIVE_REVIEWS,
-    reviewsDataList
+    reviewsDataList,
   };
 }
 
@@ -20,10 +20,8 @@ function receiveReviews(reviewsDataList) {
  * Thunk action creator
  */
 export function fetchReviews(productId) {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(requestReviews());
-    return getReviews(productId).then(reviewsDataList =>
-      dispatch(receiveReviews(reviewsDataList))
-    );
+    return getReviews(productId).then((reviewsDataList) => dispatch(receiveReviews(reviewsDataList)));
   };
 }

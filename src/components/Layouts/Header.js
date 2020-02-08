@@ -1,9 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const isAdmin = false;
 const isLoggedIn = false;
 
-const cssClasses = "flex-1 text-center py-4 text-sm text-themeGray-300 hover:text-white";
+const cssClasses = 'flex-1 text-center py-4 text-sm text-themeGray-300 hover:text-white';
 
 const Header = () => (
   <header className="fixed top-0 w-full bg-themeGray-700 z-10">
@@ -11,11 +11,12 @@ const Header = () => (
       <Link href="/">
         <a className={cssClasses}>Home</a>
       </Link>
-      <Link href="/shop"> 
+      <Link href="/shop">
         <a className={cssClasses}>Shop</a>
       </Link>
-      <Link href="/category/[categoryName]" as={`/category/mobile`}>
-        <a className={cssClasses}>#mobile</a></Link>
+      <Link href="/category/[categoryName]" as="/category/mobile">
+        <a className={cssClasses}>#mobile</a>
+      </Link>
       {isAdmin && (
         <Fragment>
           <Link href="/admin/users">
@@ -33,8 +34,9 @@ const Header = () => (
           </Link>
           <Link href="/cart">
             <a className={cssClasses}>
-              My Cart{" "}
-              {this.props.itemsInCart > 0 ? `(${this.props.itemsInCart})` : ``}
+              My Cart
+              {' '}
+              {this.props.itemsInCart > 0 ? `(${this.props.itemsInCart})` : ''}
             </a>
           </Link>
           <Link href="/logout">
@@ -42,10 +44,10 @@ const Header = () => (
           </Link>
         </Fragment>
       ) : (
-          <Link href="/login">
-            <a className={cssClasses}>Login</a>
-          </Link>
-        )}
+        <Link href="/login">
+          <a className={cssClasses}>Login</a>
+        </Link>
+      )}
     </nav>
   </header>
 );

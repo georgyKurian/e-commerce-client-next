@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const cssClasses = {};
 const currentYear = new Date().getFullYear();
@@ -15,7 +15,11 @@ const Footer = () => (
       </div>
       <div className="w-full border-t border-themeGray-500 pt-1">
         <span className="block text-themeGray-500">
-          Copyright © {currentYear} Georgi. All rights reserved.
+          Copyright ©
+          {' '}
+          {currentYear}
+          {' '}
+          Georgi. All rights reserved.
         </span>
       </div>
     </div>

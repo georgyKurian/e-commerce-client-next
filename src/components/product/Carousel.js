@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Carousel } from 'react-responsive-carousel';
 
 export default class ImageCarousel extends Component {
   render() {
-    var settings = {
+    const settings = {
       autoPlay: true,
       autoplaySpeed: 3000,
       showStatus: false,
@@ -14,7 +14,7 @@ export default class ImageCarousel extends Component {
       infiniteLoop: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
     };
     return (
       <Carousel {...settings}>
@@ -29,5 +29,5 @@ export default class ImageCarousel extends Component {
 }
 
 ImageCarousel.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.string)
+  images: PropTypes.arrayOf(PropTypes.string),
 };
