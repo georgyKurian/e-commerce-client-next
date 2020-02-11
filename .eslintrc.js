@@ -10,7 +10,9 @@ module.exports = {
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
+    'React': 'writable',
   },
+  parser: "babel-eslint",
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -22,5 +24,6 @@ module.exports = {
     'react',
   ],
   rules: {
+    "react/react-in-jsx-scope": "off"
   },
 };
