@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import "./BaseInput.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import './BaseInput.css';
 
 export default class BaseInput extends Component {
   static defaultProps = {
-    label: ""
+    label: '',
   };
 
   render() {
     return (
       <div
         className={`BaseInput ${
-          this.props.type === "checkbox" ? "BaseInputReverse" : ""
+          this.props.type === 'checkbox' ? 'BaseInputReverse' : ''
         }`}
       >
         <label htmlFor={this.props.name}>{this.props.label}</label>
@@ -24,5 +24,5 @@ export default class BaseInput extends Component {
 BaseInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
-  type: PropTypes.oneOf(["checkbox", "text", "password"]).isRequired
+  type: PropTypes.oneOf(['checkbox', 'text', 'password']).isRequired,
 };

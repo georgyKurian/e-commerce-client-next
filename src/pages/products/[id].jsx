@@ -17,15 +17,15 @@ class ProductPage extends React.Component {
   }
 
   render() {
-    const data = this.props
-    const product = new Product(this.props.productDetails.data);
-    const reviews = this.props.reviews.items.map(
+    const { productDetails, reviews } = this.props;
+    const product = new Product(productDetails.data);
+    const reviewsList = reviews.items.map(
       (reviewData) => new Review(reviewData),
     );
     return (
       <MyLayout>
         <ProductView product={product} />
-        <ReviewList reviews={reviews} />
+        <ReviewList reviews={reviewsList} />
       </MyLayout>
     );
   }

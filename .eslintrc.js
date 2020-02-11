@@ -24,6 +24,8 @@ module.exports = {
     'react',
   ],
   rules: {
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/destructuring-assignment": [1, "always", { "ignoreClassFields": true }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
   },
 };

@@ -7,7 +7,9 @@ export default class Review {
    * @param  {number} rating
    * @param  {string} updatedAt
    */
-  constructor({ _id, title, comment, customerName, rating, updatedAt }) {
+  constructor({
+    _id, title, comment, customerName, rating, updatedAt,
+  }) {
     this._id = _id;
     this._title = title;
     this._comment = comment;
@@ -55,6 +57,6 @@ export default class Review {
     price: this._comment,
     isFeatured: this._customerName,
     formattedPrice: this._rating,
-    updatedAt: this._updatedAt
+    updatedAt: this._updatedAt,
   });
 }

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import Router from "next/router";
-import store from "store2";
-import { getCurrentUser } from "../../api/Auth";
+import React, { Component } from 'react';
+import Router from 'next/router';
+import store from 'store2';
+import { getCurrentUser } from '../../api/Auth';
 
 export default class Auth extends Component {
-  static async getInitialProps({query, store}) {
-    const token = query.token;
+  static async getInitialProps({ query, store }) {
+    const { token } = query;
     store.dispatch(auth(token));
     const userData = await getCurrentUser(token);
     console.log({ token, userData });
@@ -14,7 +14,7 @@ export default class Auth extends Component {
 
   componentDidMount = async () => {
     if (this.props.token) {
-      await store.set("authToken", this.props.token);
+      await store.set('authToken', this.props.token);
       const data = await getCurrentUser();
     }
     Router.replace('//index');

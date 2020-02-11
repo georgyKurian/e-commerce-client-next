@@ -1,4 +1,4 @@
-import Product from "./Product";
+import Product from './Product';
 
 export default class Order {
   /**
@@ -15,12 +15,12 @@ export default class Order {
     timestamp,
     products,
     contact,
-    shippingAddress
+    shippingAddress,
   }) {
     this._id = _id;
     this._customer = customer;
     this._timestamp = timestamp;
-    this._products = products.map(product => new Product(product));
+    this._products = products.map((product) => new Product(product));
   }
 
   /**
@@ -43,8 +43,7 @@ export default class Order {
    */
   getProducts = () => this._products;
 
-  getTotalPrice = () =>
-    this._products.reduce((sum, product) => sum + product.getPrice(), 0);
+  getTotalPrice = () => this._products.reduce((sum, product) => sum + product.getPrice(), 0);
 
   getFormattedTotalPrice = () => `$${this.getTotalPrice() / 100}`;
 
@@ -55,6 +54,6 @@ export default class Order {
     _id: this._id,
     customer: this._customer,
     timestamp: this._timestamp,
-    products: this._products.map(product => product.getData())
+    products: this._products.map((product) => product.getData()),
   });
 }

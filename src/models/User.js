@@ -11,7 +11,9 @@ export default class User {
    * @param  {string} email
    * @param  {string} role
    */
-  constructor({ _id, username, email, role }) {
+  constructor({
+    _id, username, email, role,
+  }) {
     this._id = _id;
     this._username = username;
     this._email = email;
@@ -45,6 +47,6 @@ export default class User {
     _id: this._id,
     username: this._username,
     email: this._email,
-    role: this._role
+    role: this._role,
   });
 }

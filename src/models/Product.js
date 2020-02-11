@@ -17,7 +17,7 @@ export default class Product {
     images,
     categories,
     avgRating,
-    reviewCount
+    reviewCount,
   }) {
     this._id = _id;
     this._name = name;
@@ -86,6 +86,6 @@ export default class Product {
     images: this._images,
     categories: this._categories,
     avgRating: this._avgRating,
-    reviewCount: this._reviewCount
+    reviewCount: this._reviewCount,
   });
 }
