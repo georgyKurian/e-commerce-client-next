@@ -1,6 +1,6 @@
 export default class Review {
   /**
-   * @param  {string} id
+   * @param  {string} _id
    * @param  {string} name
    * @param  {string} comment
    * @param  {string} customerName
@@ -10,53 +10,53 @@ export default class Review {
   constructor({
     _id, title, comment, customerName, rating, updatedAt,
   }) {
-    this._id = _id;
-    this._title = title;
-    this._comment = comment;
-    this._customerName = customerName;
-    this._rating = rating;
-    this._updatedAt = updatedAt;
+    this.id = _id;
+    this.title = title;
+    this.comment = comment;
+    this.customerName = customerName;
+    this.rating = rating;
+    this.updatedAt = updatedAt;
   }
 
   /**
    * @return {string}
    */
-  getId = () => this._id;
+  getId = () => this.id;
 
   /**
    * @return {string}
    */
-  getTitle = () => this._title;
+  getTitle = () => this.title;
 
   /**
    * @return {string}
    */
-  getComment = () => this._comment;
+  getComment = () => this.comment;
 
   /**
    * @return {string}
    */
-  getcustomerName = () => this._customerName;
+  getcustomerName = () => this.customerName;
 
   /**
    * @return {number}
    */
-  getRating = () => this._rating;
+  getRating = () => this.rating;
 
   /**
    * @return {string}
    */
-  getUpdatedAt = () => this._updatedAt;
+  getUpdatedAt = () => this.updatedAt;
 
   /**
    * @return  {{_id: string, name: string, prie: number, images: Array<string>}}
    */
   getData = () => ({
-    _id: this._id,
-    name: this._title,
-    price: this._comment,
-    isFeatured: this._customerName,
-    formattedPrice: this._rating,
-    updatedAt: this._updatedAt,
+    _id: this.id,
+    name: this.title,
+    price: this.comment,
+    isFeatured: this.customerName,
+    formattedPrice: this.rating,
+    updatedAt: this.updatedAt,
   });
 }

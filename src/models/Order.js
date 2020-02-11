@@ -17,43 +17,61 @@ export default class Order {
     contact,
     shippingAddress,
   }) {
-    this._id = _id;
-    this._customer = customer;
-    this._timestamp = timestamp;
-    this._products = products.map((product) => new Product(product));
+    this.id = _id;
+    this.customer = customer;
+    this.timestamp = timestamp;
+    this.products = products.map((product) => new Product(product));
+    this.contact = contact;
+    this.shippingAddress = shippingAddress;
   }
 
   /**
    * @return {string}
    */
-  getId = () => this._id;
+  getId = () => this.id;
 
   /**
    * @return {string}
    */
-  getCustomer = () => this._customer;
+  getCustomer = () => this.customer;
 
   /**
-   * @return {nustringmber}
+   * @return {number}
    */
-  getTimestamp = () => this._timestamp;
+  getTimestamp = () => this.timestamp;
 
   /**
    * @return {Array.<Products>}
    */
-  getProducts = () => this._products;
+  getProducts = () => this.products;
 
-  getTotalPrice = () => this._products.reduce((sum, product) => sum + product.getPrice(), 0);
+  /**
+   * @return {string}
+   */
+  getContact = () => this.contact;
 
+  /**
+   * @return {string}
+   */
+  getShippingAddress = () => this.shippingAddress;
+
+  /**
+   * @return {number}
+   */
+  getTotalPrice = () => this.products.reduce((sum, product) => sum + product.getPrice(), 0);
+
+  /**
+   * @return {string}
+   */
   getFormattedTotalPrice = () => `$${this.getTotalPrice() / 100}`;
 
   /**
    * @return  {{_id: string, customer: string, timestamp: string, products: Array<Products>}}
    */
   getData = () => ({
-    _id: this._id,
-    customer: this._customer,
-    timestamp: this._timestamp,
-    products: this._products.map((product) => product.getData()),
+    _id: this.id,
+    customer: this.customer,
+    timestamp: this.timestamp,
+    products: this.products.map((product) => product.getData()),
   });
 }

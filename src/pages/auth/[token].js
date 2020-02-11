@@ -13,8 +13,9 @@ export default class Auth extends Component {
   }
 
   componentDidMount = async () => {
-    if (this.props.token) {
-      await store.set('authToken', this.props.token);
+    const { token } = this.props;
+    if (token) {
+      await store.set('authToken', token);
       const data = await getCurrentUser();
     }
     Router.replace('//index');
@@ -24,3 +25,5 @@ export default class Auth extends Component {
     return null;
   }
 }
+
+Auth.propTypes =

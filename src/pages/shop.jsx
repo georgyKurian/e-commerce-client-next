@@ -7,7 +7,7 @@ import { fetchProductsIfNeeded } from '../redux/actions/products';
 
 class Shop extends React.Component {
   static async getInitialProps({ store }) {
-    const products = await store.dispatch(fetchProductsIfNeeded());
+    await store.dispatch(fetchProductsIfNeeded());
   }
 
   render() {

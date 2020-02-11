@@ -1,16 +1,21 @@
-import React, { Component } from "react";
-import Form from "../components/Form";
-import TextInput from "../components/inputs/TextInput";
-import { PrimaryButton } from "../components/Button";
-import login from "../api/Login";
-import MyLayout from "../components/Layouts/MyLayout";
+import React, { Component } from 'react';
+import Form from '../components/Form';
+import TextInput from '../components/inputs/TextInput';
+import { PrimaryButton } from '../components/Button';
+import login from '../api/Login';
+import MyLayout from '../components/Layouts/MyLayout';
 
 export default class Account extends Component {
-  state = { email: "", loading: false, done: false, error: undefined };
+  constructor() {
+    super();
+    this.state = {
+      email: '', loading: false, done: false, error: undefined,
+    };
+  }
 
-  handleEmailChange = e => this.setState({ email: e.target.value });
+  handleEmailChange = (e) => this.setState({ email: e.target.value });
 
-  handleSubmit = async e => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     this.setState({ loading: true });
     const { success, error } = await login(this.state.email);
@@ -23,13 +28,16 @@ export default class Account extends Component {
   };
 
   render() {
+    const {
+      email, loading, done, error,
+    } = this.state;
     return (
       <MyLayout>
         <h1>Login or Register</h1>
-        {this.state.done ? (
+        {done ? (
           <p>We sent a magic link to your email. Click on it to login!</p>
         ) : (
-          <React.Fragment>
+          <>
             <p>
               If you do not have an account, a new one will be setup for you
               automatically.
@@ -39,15 +47,15 @@ export default class Account extends Component {
                 name="email"
                 label="Email Address"
                 placeholder="e.g. anna.ryan@gmail.com"
-                value={this.state.email}
+                value={email}
                 onChange={this.handleEmailChange}
               />
-              <PrimaryButton disabled={this.state.loading}>Login</PrimaryButton>
-              {this.state.error && (
-                <p style={{ color: "crimson" }}>{this.state.error}</p>
+              <PrimaryButton disabled={loading}>Login</PrimaryButton>
+              {error && (
+                <p style={{ color: 'crimson' }}>{error}</p>
               )}
             </Form>
-          </React.Fragment>
+          </>
         )}
       </MyLayout>
     );

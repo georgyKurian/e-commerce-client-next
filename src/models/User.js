@@ -14,39 +14,39 @@ export default class User {
   constructor({
     _id, username, email, role,
   }) {
-    this._id = _id;
-    this._username = username;
-    this._email = email;
-    this._role = role;
+    this.id = _id;
+    this.username = username;
+    this.email = email;
+    this.role = role;
   }
 
   /**
    * @return {string}
    */
-  getId = () => this._id;
+  getId = () => this.id;
 
   /**
    * @return {string}
    */
-  getUsername = () => this._username;
+  getUsername = () => this.username;
 
   /**
    * @return {string}
    */
-  getEmail = () => this._email;
+  getEmail = () => this.email;
 
   /**
    * @return {string}
    */
-  getRole = () => this._role;
+  getRole = () => this.role;
 
   /**
    * @return {string}
    */
   getData = () => ({
-    _id: this._id,
-    username: this._username,
-    email: this._email,
-    role: this._role,
+    _id: this.id,
+    username: this.username,
+    email: this.email,
+    role: this.role,
   });
 }
