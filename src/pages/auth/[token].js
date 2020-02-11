@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 import Router from 'next/router';
 import store from 'store2';
 import { getCurrentUser } from '../../api/Auth';
@@ -26,4 +27,7 @@ export default class Auth extends Component {
   }
 }
 
-Auth.propTypes =
+Auth.propTypes = {
+  token: PropTypes.string.isRequired,
+  userData: PropTypes.object.isRequired,
+};
