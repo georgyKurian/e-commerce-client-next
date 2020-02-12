@@ -1,9 +1,10 @@
-import React from 'react';
 import { connect } from 'react-redux';
+import React from 'react';
+import { fetchProductsIfNeeded } from '../redux/actions/products';
 import MyLayout from '../components/Layouts/MyLayout';
 import ProductList from '../components/product/ProductList';
 import Product from '../models/Product';
-import { fetchProductsIfNeeded } from '../redux/actions/products';
+
 
 class Shop extends React.Component {
   static async getInitialProps({ store }) {

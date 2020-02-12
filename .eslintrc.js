@@ -27,5 +27,6 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "react/destructuring-assignment": [1, "always", { "ignoreClassFields": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-props-no-spreading": "off",
   },
 };

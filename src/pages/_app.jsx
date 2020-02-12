@@ -6,7 +6,7 @@ import Router from 'next/router';
 import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
-import { initStore } from '../redux/stores';
+import initStore from '../redux/stores';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();

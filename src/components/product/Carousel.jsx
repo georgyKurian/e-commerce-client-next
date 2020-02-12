@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
@@ -16,7 +16,7 @@ export default function ImageCarousel({ className, images }) {
     slidesToScroll: 1,
   };
   return (
-    <Carousel settings>
+    <Carousel {...settings}>
       {images.map((image) => (
         <div key={image}>
           <img src={image} alt="Product" />

@@ -1,15 +1,16 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
 const star = {
-  fill: '#FFB600',
   stroke: '#a0a0a0',
   strokeWidth: 1,
 };
 
+const fullStar = { ...star, fill: '#FFB600' };
 const halfStar = { ...star, fill: "url('#halfGradient')" };
 const emptyStar = { ...star, fill: 'none' };
 
-export default ({ rating, reviewCount }) => {
+const Rating = ({ rating, reviewCount }) => {
   const xCords = [0, 36, 72, 108, 144];
   const stars = [];
   let i = 10;
@@ -18,7 +19,7 @@ export default ({ rating, reviewCount }) => {
     if (i - 5 === rating) {
       style = halfStar;
     } else if (i <= rating) {
-      style = star;
+      style = fullStar;
     }
     stars.push(
       <use
@@ -66,3 +67,10 @@ export default ({ rating, reviewCount }) => {
     </>
   );
 };
+
+Rating.propTypes = {
+  rating: PropTypes.number.isRequired,
+  reviewCount: PropTypes.number.isRequired,
+};
+
+export default Rating;
