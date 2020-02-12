@@ -9,7 +9,6 @@ const reviews = (state = {}, action) => {
         didInvalidate: false,
       };
     case RECEIVE_REVIEWS:
-      debugger;
       return {
         ...state,
         isFetching: false,

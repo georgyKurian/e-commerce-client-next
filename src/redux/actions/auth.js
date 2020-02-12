@@ -28,7 +28,7 @@ function receiveUserDetails(userData) {
 /**
  * Thunk action creator
  */
-export function verifyToken(token) {
+export function auth(token) {
   return (dispatch) => {
     dispatch(addToken(token));
     dispatch(requestUserDetails());

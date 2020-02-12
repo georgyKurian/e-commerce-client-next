@@ -6,7 +6,7 @@ import reducers from './reducers/index';
 
 const loggerMiddleware = createLogger();
 
-export const initStore = (initialState = {}) => createStore(
+export default (initialState = {}) => createStore(
   reducers,
   initialState,
   composeWithDevTools(

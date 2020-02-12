@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import App from 'next/app';
 import NProgress from 'nprogress';
@@ -7,7 +8,7 @@ import withRedux from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
 import { initStore } from '../redux/stores';
 
-Router.events.on('routeChangeStart', (url) => {
+Router.events.on('routeChangeStart', () => {
   NProgress.start();
 });
 Router.events.on('routeChangeComplete', () => NProgress.done());

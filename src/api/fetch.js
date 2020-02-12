@@ -14,6 +14,7 @@ export default (url, options) => fetch(baseURL + url, { ...defaultOption, ...opt
     console.log(err);
   });
 
-export const getResponse = (url, options) => fetch(baseURL + url, { ...defaultOption, ...options }).catch((err) => {
-  console.log(err);
-});
+export const getResponse = (url, options) => fetch(baseURL + url, { ...defaultOption, ...options })
+  .catch((err) => {
+    console.log(err);
+  });

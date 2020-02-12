@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MyLayout from '../../components/Layouts/MyLayout';
 import ProductView from '../../components/product/ProductView';
@@ -30,6 +31,15 @@ class ProductPage extends React.Component {
     );
   }
 }
+
+ProductPage.propTypes = {
+  productDetails: PropTypes.arrayOf(PropTypes.object).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.object),
+};
+
+ProductPage.defaultProps = {
+  reviews: [],
+};
 
 export default connect(({ productDetails, reviews }) => ({
   productDetails,

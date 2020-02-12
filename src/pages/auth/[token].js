@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import store from 'store2';
+import { auth } from '../../redux/actions/auth';
 import { getCurrentUser } from '../../api/Auth';
 
 export default class Auth extends Component {
@@ -17,7 +18,7 @@ export default class Auth extends Component {
     const { token } = this.props;
     if (token) {
       await store.set('authToken', token);
-      const data = await getCurrentUser();
+      await getCurrentUser();
     }
     Router.replace('//index');
   };
@@ -29,5 +30,4 @@ export default class Auth extends Component {
 
 Auth.propTypes = {
   token: PropTypes.string.isRequired,
-  userData: PropTypes.object.isRequired,
 };

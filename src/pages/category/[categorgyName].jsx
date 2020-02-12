@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MyLayout from '../../components/Layouts/MyLayout';
 import ProductList from '../../components/product/ProductList';
@@ -8,13 +9,12 @@ import '../../../styles/main.css';
 
 class CategoryPage extends React.Component {
   static async getInitialProps({ store, query }) {
-    console.log(query);
     await store.dispatch(fetchProducts(query.categorgyName));
   }
 
   render() {
-    debugger;
-    const productList = this.props.items.map(
+    const { items } = this.props;
+    const productList = items.map(
       (productData) => new Product(productData),
     );
     return (
@@ -24,5 +24,10 @@ class CategoryPage extends React.Component {
     );
   }
 }
+
+CategoryPage.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
 
 export default connect((state) => state.products)(CategoryPage);
