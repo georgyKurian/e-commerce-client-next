@@ -4,10 +4,10 @@ export const AUTH_ADD_TOKEN = 'AUTH_ADD_TOKEN';
 export const AUTH_REQUEST_USER = 'AUTH_REQUEST_USER';
 export const AUTH_RECEIVED_USER = 'AUTH_RECEIVED_USER';
 
-function addToken(token) {
+function addToken(authToken) {
   return {
     type: AUTH_ADD_TOKEN,
-    token,
+    authToken,
   };
 }
 

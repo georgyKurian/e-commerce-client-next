@@ -1,9 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import store from 'store2';
 import { auth } from '../../redux/actions/auth';
-import { getCurrentUser } from '../../api/Auth';
+import getCurrentUser from '../../api/Auth';
 
 export default class Auth extends Component {
   static async getInitialProps({ query, store }) {
@@ -17,10 +16,9 @@ export default class Auth extends Component {
   componentDidMount = async () => {
     const { token } = this.props;
     if (token) {
-      await store.set('authToken', token);
       await getCurrentUser();
     }
-    Router.replace('//index');
+    // Router.replace('//index');
   };
 
   render() {
