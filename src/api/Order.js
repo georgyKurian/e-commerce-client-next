@@ -1,5 +1,3 @@
-import axios from './axios';
-import Order from '../models/Order';
 import getAuthHeader from './getAuthHeader';
 
 const placeOrder = async (body) => {
