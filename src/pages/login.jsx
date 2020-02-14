@@ -18,12 +18,11 @@ export default class Account extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     this.setState({ loading: true });
-    const { success, error } = await login(this.state.email);
-    if (success) {
-      this.setState({ done: true });
-    } else {
-      this.setState({ error });
-    }
+    console.log('Requesting');
+
+    await login(this.state.email);
+
+    this.setState({ done: true });
     this.setState({ loading: false });
   };
 

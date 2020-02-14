@@ -4,7 +4,7 @@ import { AUTH_ADD_TOKEN, AUTH_REQUEST_USER, AUTH_RECEIVED_USER } from '../action
 const token = (state = null, { type, authToken }) => {
   switch (type) {
     case AUTH_ADD_TOKEN:
-      return { token: authToken };
+      return authToken;
     default:
       return state;
   }

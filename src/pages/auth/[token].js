@@ -18,7 +18,9 @@ export default class Auth extends Component {
     if (token) {
       await getCurrentUser();
     }
-    // Router.replace('//index');
+
+    Router.push('/');
+    console.log(Router.pathname);
   };
 
   render() {

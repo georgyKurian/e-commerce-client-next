@@ -1,4 +1,4 @@
-import { getProducts } from '../../api/Product';
+import getCurrentUser from '../../api/Auth';
 
 export const AUTH_ADD_TOKEN = 'AUTH_ADD_TOKEN';
 export const AUTH_REQUEST_USER = 'AUTH_REQUEST_USER';
@@ -32,6 +32,6 @@ export function auth(token) {
   return (dispatch) => {
     dispatch(addToken(token));
     dispatch(requestUserDetails());
-    return getProducts(token).then((userData) => dispatch(receiveUserDetails(userData)));
+    return getCurrentUser(token).then((userData) => dispatch(receiveUserDetails(userData)));
   };
 }
