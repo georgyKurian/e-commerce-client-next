@@ -1,16 +1,14 @@
-import Header from "./Header";
-import Footer from "./Footer";
+import PropTypes from 'prop-types';
+import Header from './Header';
+import Footer from './Footer';
 
-const linkStyle = {
-  marginRight: 15
-};
-
-const MyLayout = (props) => (
+const MyLayout = ({ children }) => (
   <div>
     <Header />
-    <div className="content inner-wrap mt-32">{props.children}</div>
+    <main className="content inner-wrap pt-32 pb-40" style={{ 'min-height': '100vh' }}>{children}</main>
     <Footer />
   </div>
 );
 
+MyLayout.propTypes = PropTypes.element;
 export default MyLayout;

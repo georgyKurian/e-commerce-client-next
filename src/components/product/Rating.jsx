@@ -1,15 +1,16 @@
-import React from "react";
+import React from 'react';
+import { PropTypes } from 'prop-types';
 
 const star = {
-  fill: "#FFB600",
-  stroke: "#a0a0a0",
-  strokeWidth: 1
+  stroke: '#a0a0a0',
+  strokeWidth: 1,
 };
 
+const fullStar = { ...star, fill: '#FFB600' };
 const halfStar = { ...star, fill: "url('#halfGradient')" };
-const emptyStar = { ...star, fill: "none" };
+const emptyStar = { ...star, fill: 'none' };
 
-export default ({ rating, reviewCount }) => {
+const Rating = ({ rating, reviewCount }) => {
   const xCords = [0, 36, 72, 108, 144];
   const stars = [];
   let i = 10;
@@ -18,21 +19,21 @@ export default ({ rating, reviewCount }) => {
     if (i - 5 === rating) {
       style = halfStar;
     } else if (i <= rating) {
-      style = star;
+      style = fullStar;
     }
     stars.push(
       <use
         key={i / 10}
         xlinkHref="#icon-star"
-        x={xCords[(i-10) / 10]}
+        x={xCords[(i - 10) / 10]}
         y="0"
         style={style}
-      />
+      />,
     );
   }
 
   return (
-    <React.Fragment>
+    <>
       <div className="text-sm flex">
         <svg
           className="star-source"
@@ -50,14 +51,26 @@ export default ({ rating, reviewCount }) => {
               />
             </g>
             <linearGradient id="halfGradient">
-              <stop stopOpacity="1" offset="50%" stopColor="#FFB600"></stop>
-              <stop stopOpacity="0" offset="50%"></stop>
+              <stop stopOpacity="1" offset="50%" stopColor="#FFB600" />
+              <stop stopOpacity="0" offset="50%" />
             </linearGradient>
           </defs>
           {stars}
         </svg>
-        <span>({reviewCount} Reviews)</span>
+        <span>
+          (
+          {reviewCount}
+          {' '}
+          Reviews)
+        </span>
       </div>
-    </React.Fragment>
+    </>
   );
 };
+
+Rating.propTypes = {
+  rating: PropTypes.number.isRequired,
+  reviewCount: PropTypes.number.isRequired,
+};
+
+export default Rating;

@@ -1,10 +1,12 @@
-import { combineReducers } from "redux";
-import token from "./token";
-import user from "./user";
-import products from "./products";
+import { combineReducers } from 'redux';
+import auth from './auth';
+import productDetails from './productDetails';
+import products from './products';
+import reviews from './reviews';
 
 export default combineReducers({
-  token,
-  user,
-  products
+  auth,
+  products,
+  productDetails,
+  reviews,
 });

@@ -1,32 +1,48 @@
-import React, { Component } from "react";
-import { _ } from "lodash";
-import "./Button.css";
+import React from 'react';
+import { PropTypes } from 'prop-types';
 
-class Button extends Component {
-  render() {
-    const { className, children, ...rest } = this.props;
-    return (
-      <button className={" rounded h-10 text-base " + className} {...rest}>
-        {children}
-      </button>
-    );
-  }
+function Button({ className, children, ...rest }) {
+  return (
+    // eslint-disable-next-line react/button-has-type
+    <button className={` rounded h-10 text-base w-32 ${className}`} {...rest}>
+      {children}
+    </button>
+  );
 }
 
-export class PrimaryButton extends Component {
-  render() {
-    const { className, ...rest } = this.props;
-    return (
-      <Button className={"bg-blue-400 text-white " + className} {...rest} />
-    );
-  }
+Button.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.element.isRequired,
+};
+
+Button.defaultProps = {
+  className: '',
+};
+
+export function PrimaryButton({ className, ...rest }) {
+  return (
+    <Button className={`bg-blue-400 text-white ${className}`} {...rest} />
+  );
 }
 
-export class SecondaryButton extends Component {
-  render() {
-    const {className, ...rest } = this.props;
-    return (
-      <Button className={"border-blue-400 text-blue-400 border " + className} {...rest} />
-    );
-  }
+PrimaryButton.propTypes = {
+  className: PropTypes.string,
+};
+
+PrimaryButton.defaultProps = {
+  className: '',
+};
+
+export function SecondaryButton({ className, ...rest }) {
+  return (
+    <Button className={`border-blue-400 text-blue-400 border ${className}`} {...rest} />
+  );
 }
+
+SecondaryButton.propTypes = {
+  className: PropTypes.string,
+};
+
+SecondaryButton.defaultProps = {
+  className: '',
+};

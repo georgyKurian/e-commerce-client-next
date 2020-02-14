@@ -17,75 +17,83 @@ export default class Product {
     images,
     categories,
     avgRating,
-    reviewCount
+    reviewCount,
   }) {
-    this._id = _id;
-    this._name = name;
-    this._price = price;
-    this._isFeatured = isFeatured;
-    this._images = images;
-    this._categories = categories;
-    this._avgRating = avgRating;
-    this._reviewCount = reviewCount;
+    this.id = _id;
+    this.name = name;
+    this.price = price;
+    this.isFeatured = isFeatured;
+    this.images = images;
+    this.categories = categories;
+    this.avgRating = avgRating;
+    this.reviewCount = reviewCount;
   }
 
   /**
    * @return {string}
    */
-  getId = () => this._id;
+  getId = () => this.id;
 
   /**
    * @return {string}
    */
-  getName = () => this._name;
+  getName = () => this.name;
 
   /**
    * @return {string}
    */
-  getFormattedPrice = () => `$${this._price / 100}`;
+  getFormattedPrice = () => `$${this.price / 100}`;
 
   /**
    * @return {number}
    */
-  getPrice = () => this._price;
+  getPrice = () => this.price;
 
   /**
    * @return {boolean}
    */
-  getIsFeatured = () => this._isFeatured;
+  getIsFeatured = () => this.isFeatured;
 
   /**
    * @return {string[]}
    */
-  getImages = () => this._images;
+  getImages = () => this.images;
 
   /**
    * @return {string[]}
    */
-  getCategories = () => this._categories;
+  getCategories = () => this.categories;
 
   /**
    * @return {string}
    */
-  getAvgRating = () => this._avgRating;
+  getAvgRating = () => this.avgRating;
 
   /**
    * @return {string}
    */
-  getReviewCount = () => this._reviewCount;
+  getReviewCount = () => this.reviewCount;
 
   /**
-   * @return  {{_id: string, name: string, prie: number, images: Array<string>, categories: Array<string>, avgRating: string,  reviewCount: string}}
+   * @return  {{
+   *  _id: string,
+   *  name: string,
+   *  price: number,
+   *  images: Array<string>,
+   *  categories: Array<string>,
+   *  avgRating: string,
+   *  reviewCount: string
+   * }}
    */
   getData = () => ({
-    _id: this._id,
-    name: this._name,
-    price: this._price,
-    isFeatured: this._isFeatured,
+    _id: this.id,
+    name: this.name,
+    price: this.price,
+    isFeatured: this.isFeatured,
     formattedPrice: this.getFormattedPrice(),
-    images: this._images,
-    categories: this._categories,
-    avgRating: this._avgRating,
-    reviewCount: this._reviewCount
+    images: this.images,
+    categories: this.categories,
+    avgRating: this.avgRating,
+    reviewCount: this.reviewCount,
   });
 }

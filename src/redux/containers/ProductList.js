@@ -1,11 +1,9 @@
-import { connect } from "react-redux";
-import ProductList from "../../components/product/ProductList";
+import ProductList from '../../components/product/ProductList';
+import { connect } from 'react-redux';
 
-const mapStateToProps = (state) => {
-  return {
-    products: state.products
-  }
-}
+const mapStateToProps = (state) => ({
+  products: state.products,
+});
 
 const ProductListContainer = connect(mapStateToProps)(ProductList);
 export default ProductListContainer;
