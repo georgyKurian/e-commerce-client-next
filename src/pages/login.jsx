@@ -9,7 +9,7 @@ export default class Account extends Component {
   constructor() {
     super();
     this.state = {
-      email: '', loading: false, done: false, error: undefined,
+      email: '', loading: false, success: false, error: undefined,
     };
   }
 
@@ -18,23 +18,25 @@ export default class Account extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     this.setState({ loading: true });
-    console.log('Requesting');
 
-    await login(this.state.email);
-
-    this.setState({ done: true });
-    this.setState({ loading: false });
+    login(this.state.email).then(({ error }) => {
+      if (error) {
+        this.setState({ loading: false, success: false, error });
+      } else {
+        this.setState({ loading: false, success: true });
+      }
+    });
   };
 
   render() {
     const {
-      email, loading, done, error,
+      email, loading, success, error,
     } = this.state;
     return (
       <MyLayout>
         <h1>Login or Register</h1>
-        {done ? (
-          <p>We sent a magic link to your email. Click on it to login!</p>
+        {success ? (
+          <p className="border border-gray-300 bg-gray-200 py-6 px-6 rounded-lg">We sent a magic link to your email. Click on it to login!</p>
         ) : (
           <>
             <p className="border border-gray-300 bg-gray-200 py-6 px-6 rounded-lg">

@@ -5,7 +5,9 @@ export default async (email) => getResponse('/v1/login', {
   body: JSON.stringify({ email }),
 }).then((response) => {
   if (response.ok) {
-    return { sussess: true };
+    return {
+      success: true,
+    };
   }
   if (response.status === 400) {
     return {
