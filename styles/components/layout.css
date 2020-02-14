@@ -1,10 +1,7 @@
 html,
 body,
-body > div:first-child,
-div#__next,
-div#__next > div,
-div#__next > div > div {
-  min-height: 100%;
+body > div:first-child{
+  min-height: 100vh;
 }
 
 .inner-wrap {

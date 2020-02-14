@@ -5,7 +5,7 @@ import Footer from './Footer';
 const MyLayout = ({ children }) => (
   <div>
     <Header />
-    <div className="content inner-wrap mt-32">{children}</div>
+    <main className="content inner-wrap pt-32 pb-40" style={{ 'min-height': '100vh' }}>{children}</main>
     <Footer />
   </div>
 );
