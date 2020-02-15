@@ -1,13 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const isAdmin = false;
-const isLoggedIn = false;
 
 const cssClasses = 'flex-1 text-center py-4 text-sm text-themeGray-300 hover:text-white';
 
-const Header = ({ itemsInCart }) => (
+const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => (
   <header className="fixed top-0 w-full bg-themeGray-700 z-10">
     <nav className="NavigationBar inner-wrap flex justify-around text-white">
       <Link href="/">
@@ -55,7 +54,28 @@ const Header = ({ itemsInCart }) => (
 );
 
 Header.propTypes = {
-  itemsInCart: PropTypes.number.isRequired,
+  itemsInCart: PropTypes.number,
+  isLoggedIn: PropTypes.bool,
+  isAdmin: PropTypes.bool,
 };
 
-export default Header;
+Header.defaultProps = {
+  itemsInCart: 0,
+  isLoggedIn: 0,
+  isAdmin: 0,
+};
+
+export default connect(({ auth: { user: { data } } }) => {
+  const authData = {
+    itemsInCart: 0,
+    isLoggedIn: false,
+    isAdmin: false,
+  };
+  if (data && data._id) {
+    authData.isLoggedIn = true;
+    if (data.role && data.role === 'admin') {
+      authData.isAdmin = true;
+    }
+  }
+  return authData;
+})(Header);
