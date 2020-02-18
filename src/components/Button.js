@@ -12,7 +12,7 @@ function Button({ className, children, ...rest }) {
 
 Button.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 Button.defaultProps = {
