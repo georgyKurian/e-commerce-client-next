@@ -71,6 +71,7 @@ export default connect(({ auth: { user: { data } } }) => {
     isLoggedIn: false,
     isAdmin: false,
   };
+  // eslint-disable-next-line no-underscore-dangle
   if (data && data._id) {
     authData.isLoggedIn = true;
     if (data.role && data.role === 'admin') {
