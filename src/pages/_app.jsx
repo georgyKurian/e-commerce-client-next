@@ -6,6 +6,7 @@ import Router from 'next/router';
 import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import initStore from '../redux/stores';
 import '../../styles/main.css';
 
@@ -35,7 +36,9 @@ class MyApp extends App {
           <link rel="stylesheet" type="text/css" href="/nprogress.css" />
         </Head>
         <Provider store={store} cssStyle="min-width:10px;">
-          <Component {...pageProps} cssStyle="min-width:10px;" />
+          <PersistGate persistor={store.__persistor} loading={<div>Loading</div>}>
+            <Component {...pageProps} cssStyle="min-width:10px;" />
+          </PersistGate>
         </Provider>
       </>
     );

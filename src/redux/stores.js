@@ -3,39 +3,35 @@ import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './reducers/index';
-import { loadState, saveState } from './localStorage';
 
 const loggerMiddleware = createLogger();
 
-const persistedState = loadState();
+const makeConfiguredStore = (reducer, initialState) => createStore(
+  reducer,
+  initialState,
+  composeWithDevTools(
+    applyMiddleware(thunkMiddleware /* loggerMiddleware */),
+  ),
+);
 
-export default (initialState = persistedState) => {
-  const store = createStore(
-    reducers,
-    initialState,
-    composeWithDevTools(
-      applyMiddleware(thunkMiddleware /* loggerMiddleware */),
-    ),
-  );
 
-  store.subscribe(() => {
-    console.log('State changed!');
-    debugger;
-    saveState({ ...store.getState() });
-  });
+export default (initialState = {}, { isServer }) => {
+  if (isServer) {
+    return makeConfiguredStore(reducers, initialState);
+  }
+  const { persistStore, persistReducer } = require('redux-persist');
+  const storage = require('redux-persist/lib/storage').default;
+
+  const persistConfig = {
+    key: 'nextjs',
+    whitelist: ['fromClient'], // make sure it does not clash with server keys
+    storage,
+  };
+
+  const persistedReducer = persistReducer(persistConfig, reducers);
+  const store = makeConfiguredStore(persistedReducer, initialState);
+
+  store.__persistor = persistStore(store); // Nasty hack
+
   return store;
 };
-
-/**
- * state {
- *  products: {
- *    isFetching: false,
- *    didInvalidate: false,
- *    lastUpdated: 1439478405547,
- *     items: [
- *        {product1},
- *        {product2}
- *     ]
- *  }
- * }
- */
