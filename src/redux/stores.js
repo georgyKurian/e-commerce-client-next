@@ -19,7 +19,8 @@ export default (initialState = {}, { isServer }) => {
   if (isServer) {
     return makeConfiguredStore(reducers, initialState);
   }
-  const { persistStore, persistReducer } = require('redux-persist');
+  return makeConfiguredStore(reducers, initialState);
+  /* const { persistStore, persistReducer } = require('redux-persist');
   const storage = require('redux-persist/lib/storage').default;
 
   const persistConfig = {
@@ -32,6 +33,6 @@ export default (initialState = {}, { isServer }) => {
   const store = makeConfiguredStore(persistedReducer, initialState);
 
   store.__persistor = persistStore(store); // Nasty hack
-
   return store;
+  */
 };
