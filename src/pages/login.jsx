@@ -39,8 +39,9 @@ export default class Account extends Component {
           <p className="border border-gray-300 bg-gray-200 py-6 px-6 rounded-lg">
             Click on
             {' '}
-            <a href={`auth/${token}`}>Auth Link</a>
-            it to login!
+            <a className="text-blue-500" href={`auth/${token}`}>Auth Link</a>
+            {' '}
+            to login!
           </p>
         ) : (
           <>

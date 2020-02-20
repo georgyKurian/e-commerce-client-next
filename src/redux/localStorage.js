@@ -1,4 +1,3 @@
-
 const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state');
@@ -13,7 +12,6 @@ const loadState = () => {
 
 const saveState = (state) => {
   try {
-    debugger;
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
   } catch {

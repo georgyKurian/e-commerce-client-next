@@ -24,7 +24,7 @@ export default (initialState = {}, { isServer }) => {
 
   const persistConfig = {
     key: 'nextjs',
-    whitelist: ['fromClient'], // make sure it does not clash with server keys
+    whiteList: ['auth'],
     storage,
   };
 
