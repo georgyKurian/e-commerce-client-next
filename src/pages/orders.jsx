@@ -2,22 +2,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import MyLayout from '../components/Layouts/MyLayout';
 import OrderList from '../components/order/OrderList';
-import Product from '../models/Product';
+import Order from '../models/Order';
 import { getUserOrders } from '../api/Order';
 
 
 class Orders extends React.Component {
   static async getInitialProps() {
     const orderDataList = await getUserOrders();
-    debugger;
     return { orderDataList };
   }
 
   render() {
-    // const { orderDataList } = this.props;
-    const orderDataList = this.props.orderDataList || [];
+    const { orderDataList } = this.props;
     const orderList = orderDataList.map(
-      (orderData) => new Product(orderData),
+      (orderData) => new Order(orderData),
     );
     return (
       <MyLayout>
@@ -28,7 +26,7 @@ class Orders extends React.Component {
 }
 
 Orders.propTypes = {
-  // items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  orderDataList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Orders;

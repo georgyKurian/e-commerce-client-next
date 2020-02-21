@@ -8,6 +8,7 @@ import withRedux from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
 import initStore from '../redux/stores';
 import '../../styles/main.css';
+import { authRehydrate } from '../redux/actions/auth';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -16,7 +17,10 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx, isServer }) {
+    if (!ctx.isServer) {
+      MyApp.rehydrate(ctx.store);
+    }
     return {
       pageProps: {
         ...(Component.getInitialProps
@@ -24,6 +28,17 @@ class MyApp extends App {
           : {}),
       },
     };
+  }
+
+  async componentDidMount() {
+    MyApp.rehydrate(this.props.store);
+  }
+
+  static async rehydrate(store) {
+    const { token } = store.getState().auth;
+    if (!token) {
+      await store.dispatch(authRehydrate());
+    }
   }
 
   render() {

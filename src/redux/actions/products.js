@@ -30,9 +30,11 @@ function shouldFetchProducts(state, categories) {
  * Thunk action creator
  */
 export function fetchProducts(categories) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(requestProducts());
-    return getProducts(categories).then((productDataList) => dispatch(receiveProducts(productDataList)));
+    return getProducts(categories).then(
+      (productDataList) => dispatch(receiveProducts(productDataList)),
+    );
   };
 }
 
