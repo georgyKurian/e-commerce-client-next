@@ -1,21 +1,19 @@
+import { connect } from 'react-redux';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import localStore from 'store2';
-import { auth } from '../../redux/actions/auth';
-import getCurrentUser from '../../api/Auth';
+import { auth as authAction } from '../../redux/actions/auth';
 
-export default class Auth extends Component {
+class Auth extends Component {
   static async getInitialProps({ query, store }) {
     const { token } = query;
-    store.dispatch(auth(token));
-    const userData = await getCurrentUser(token);
-    return { token, userData };
+    await store.dispatch(authAction(token));
   }
 
   componentDidMount = async () => {
-    const { token } = this.props;
-    localStore.set('token', token, true);
+    const { token, user } = this.props;
+    localStore.set('auth', { token, user }, true);
     Router.push('/');
   };
 
@@ -27,3 +25,5 @@ export default class Auth extends Component {
 Auth.propTypes = {
   token: PropTypes.string.isRequired,
 };
+
+export default connect(({ auth }) => auth)(Auth);

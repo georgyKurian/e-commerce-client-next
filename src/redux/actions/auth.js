@@ -1,3 +1,4 @@
+import localStorage from 'store2';
 import getCurrentUser from '../../api/Auth';
 
 export const AUTH_ADD_TOKEN = 'AUTH_ADD_TOKEN';
