@@ -17,7 +17,7 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx, isServer }) {
+  static async getInitialProps({ Component, ctx }) {
     if (!ctx.isServer) {
       MyApp.rehydrate(ctx.store);
     }

@@ -65,16 +65,16 @@ Header.defaultProps = {
   isAdmin: 0,
 };
 
-export default connect(({ auth: { user: { data } } }) => {
+export default connect(({ auth: { user } }) => {
   const authData = {
     itemsInCart: 0,
     isLoggedIn: false,
     isAdmin: false,
   };
   // eslint-disable-next-line no-underscore-dangle
-  if (data && data._id) {
+  if (user && user.data && user.data._id) {
     authData.isLoggedIn = true;
-    if (data.role && data.role === 'admin') {
+    if (user.data.role && user.data.role === 'admin') {
       authData.isAdmin = true;
     }
   }
