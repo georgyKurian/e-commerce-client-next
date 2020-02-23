@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Product from '../models/Product';
 import ProductCard from './product/ProductCard';
 import { PrimaryButton } from './Button';
+import { removeFromCart } from '../redux/actions/cart';
 
-export default class ShoppingCartList extends Component {
+class ShoppingCartList extends Component {
+  handleRemoveItem() {
+    const { dispatch } = this.props;
+    dispatch(removeFromCart(this.id));
+  }
+
   render() {
+    const { cart: items } = this.props;
     return (
       <div>
-        {this.props.items.length > 0 ? (
+        {items.length > 0 ? (
           <>
             <div>
-              {this.props.items
+              {items
                 .map((item) => new Product(item))
                 .map((product, index) => (
                   <ProductCard
-                    key={`${product.getId()}_${index}`}
+                    key={`${product.getId()}`}
                     name={product.getName()}
                     price={product.getFormattedPrice()}
                     images={product.getImages()}
                     withRemoveButton
-                    onRemove={() => {
-                      this.props.removeFromCart(index);
-                    }}
+                    onRemove={() => { this.handleRemoveItem(); }}
                   />
                 ))}
             </div>
@@ -34,3 +41,13 @@ export default class ShoppingCartList extends Component {
     );
   }
 }
+
+ShoppingCartList.propTypes = {
+  cart: PropTypes.arrayOf(PropTypes.shape({
+    productId: PropTypes.string,
+    quantity: PropTypes.string,
+  })).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect(({ cart }) => ({ cart }))(ShoppingCartList);

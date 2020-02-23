@@ -2,15 +2,17 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { PrimaryButton, SecondaryButton } from '../Button';
 import FeaturedTag from './FeaturedTag';
 import Rating from './Rating';
+import { addToCart } from '../../redux/actions/cart';
 
-export default class ProducrCard extends Component {
+class ProducrCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: this.props.images[0],
+      image: props.images[0],
     };
   }
 
@@ -28,6 +30,11 @@ export default class ProducrCard extends Component {
       image: this.props.images[0],
     });
   };
+
+  handleAddToBag = async () => {
+    const { id, dispatch } = this.props;
+    dispatch(addToCart(id));
+  }
 
   render() {
     const {
@@ -65,7 +72,7 @@ export default class ProducrCard extends Component {
           <SecondaryButton className="w-3/4 mx-auto self-end">
             View Details
           </SecondaryButton>
-          <PrimaryButton className="w-3/4 mx-auto self-end m-1">
+          <PrimaryButton className="w-3/4 mx-auto self-end m-1" onClick={this.handleAddToBag}>
             Add to Bag
           </PrimaryButton>
         </div>
@@ -97,3 +104,5 @@ ProducrCard.defaultProps = {
   withRemoveButton: null,
   onRemove: null,
 };
+
+export default connect()(ProducrCard);

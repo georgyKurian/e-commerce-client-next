@@ -33,13 +33,6 @@ const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => (
           <Link href="/orders">
             <a className={cssClasses}>Orders</a>
           </Link>
-          <Link href="/cart">
-            <a className={cssClasses}>
-              My Cart
-              {' '}
-              {itemsInCart > 0 ? `(${itemsInCart})` : ''}
-            </a>
-          </Link>
           <Link href="/logout">
             <a className={cssClasses}>Logout</a>
           </Link>
@@ -49,6 +42,15 @@ const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => (
           <a className={cssClasses}>Login</a>
         </Link>
       )}
+      {itemsInCart >= 0 ? (
+        <Link href="/cart">
+          <a className={cssClasses}>
+            My Cart
+            {' '}
+            {itemsInCart > 0 ? `(${itemsInCart})` : ''}
+          </a>
+        </Link>
+      ) : null}
     </nav>
   </header>
 );
@@ -65,12 +67,14 @@ Header.defaultProps = {
   isAdmin: 0,
 };
 
-export default connect(({ auth: { user } }) => {
+export default connect(({ auth: { user }, cart }) => {
+  const totalQuantity = cart.reduce((total, currentValue) => total + currentValue.quantity, 0);
   const authData = {
-    itemsInCart: 0,
+    itemsInCart: totalQuantity,
     isLoggedIn: false,
     isAdmin: false,
   };
+
   // eslint-disable-next-line no-underscore-dangle
   if (user && user.data && user.data._id) {
     authData.isLoggedIn = true;
