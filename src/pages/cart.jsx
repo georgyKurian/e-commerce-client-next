@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 import MyLayout from '../components/Layouts/MyLayout';
 import ShoppingCartList from '../components/ShoppingCartList';
 
@@ -18,4 +19,4 @@ class Cart extends React.Component {
   }
 }
 
-export default Cart;
+export default connect(({ cart }) => ({ cart }))(Cart);

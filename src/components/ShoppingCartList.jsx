@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Product from '../models/Product';
-import ProductCard from './product/ProductCard';
 import { PrimaryButton } from './Button';
 import { removeFromCart } from '../redux/actions/cart';
+import CartItem from './cart/CartItem';
 
 class ShoppingCartList extends Component {
   handleRemoveItem() {
@@ -21,14 +21,12 @@ class ShoppingCartList extends Component {
             <div>
               {items
                 .map((item) => new Product(item))
-                .map((product, index) => (
-                  <ProductCard
+                .map((product) => (
+                  <CartItem
                     key={`${product.getId()}`}
                     name={product.getName()}
                     price={product.getFormattedPrice()}
                     images={product.getImages()}
-                    withRemoveButton
-                    onRemove={() => { this.handleRemoveItem(); }}
                   />
                 ))}
             </div>
@@ -50,4 +48,4 @@ ShoppingCartList.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect(({ cart }) => ({ cart }))(ShoppingCartList);
+export default ShoppingCartList;
