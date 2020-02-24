@@ -54,7 +54,7 @@ const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => (
         ) : null}
       </nav>
       <div className="relative flex items-center">
-        <input className="rounded-full px-3" type="search" placeholder="Not yet implemented!" />
+        <input className="rounded-full px-3" type="search" placeholder="To be implemented!" />
         <button className="text-white px-2 py-2 mx-1 absolute right-0" type="submit"><img src="/search-icon.svg" alt="Search Icon" /></button>
       </div>
     </div>
