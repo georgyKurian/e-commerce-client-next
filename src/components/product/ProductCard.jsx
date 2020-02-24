@@ -45,7 +45,7 @@ class ProducrCard extends Component {
         className="flex flex-col relative flex-wrap justify-between rounded bg-themeGray-200 p-2"
         style={{ height: '22rem' }}
       >
-        <div className="rounded overflow-hidden h-36">
+        <div className="relative rounded overflow-hidden h-36">
           <Link href="/products/[id]" as={`/products/${id}`}>
             <a>
               <img
@@ -56,18 +56,20 @@ class ProducrCard extends Component {
               />
             </a>
           </Link>
+          {isFeatured && <FeaturedTag className="absolute top-0 right-0 mx-1" />}
         </div>
-        {isFeatured && <FeaturedTag />}
-        <Rating
-          rating={avgRating}
-          reviewCount={reviewCount}
-        />
-        <span className="text-orange-600 font-medium text-xl">
-          {price}
-        </span>
-        <Link href="/products/[id]" as={`/products/${id}`}>
-          <a className="text-blue-700">{name}</a>
-        </Link>
+        <div className="flex flex-col justify-center items-center">
+          <Link href="/products/[id]" as={`/products/${id}`}>
+            <a className="text-blue-700">{name}</a>
+          </Link>
+          <Rating
+            rating={avgRating}
+            reviewCount={reviewCount}
+          />
+          <span className="text-orange-600 font-medium text-xl">
+            {price}
+          </span>
+        </div>
         <div className="w-full text-center self-end">
           <SecondaryButton className="w-3/4 mx-auto self-end">
             View Details
