@@ -1,4 +1,6 @@
-import { ADD_ITEM, DELETE_ITEM, UPDATE_ITEM } from '../actions/cart';
+import {
+  ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, REHYDRATE_CART,
+} from '../actions/cart';
 
 const cart = (state = [], action) => {
   switch (action.type) {
@@ -12,13 +14,9 @@ const cart = (state = [], action) => {
       state[action.itemIndex].quantity += action.quantity;
       return [...state];
     case DELETE_ITEM:
-      return {
-        ...state,
-        isFetching: false,
-        didInvalidate: false,
-        lastFetched: Date.now(),
-        items: action.productDataList,
-      };
+      return [...state];
+    case REHYDRATE_CART:
+      return [...action.cart];
     default:
       return state;
   }

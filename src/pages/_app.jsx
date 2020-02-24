@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import initStore from '../redux/stores';
 import '../../styles/main.css';
 import { authRehydrate } from '../redux/actions/auth';
+import { rehydrateCart } from '../redux/actions/cart';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -35,9 +36,12 @@ class MyApp extends App {
   }
 
   static async rehydrate(store) {
-    const { token } = store.getState().auth;
+    const { auth: { token }, cart } = store.getState();
     if (!token) {
       await store.dispatch(authRehydrate());
+    }
+    if (!cart || cart.length === 0) {
+      await store.dispatch(rehydrateCart());
     }
   }
 
