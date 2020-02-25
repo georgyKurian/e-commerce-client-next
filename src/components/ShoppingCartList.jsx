@@ -20,13 +20,14 @@ class ShoppingCartList extends Component {
           <>
             <div>
               {items
-                .map((item) => new Product(item))
-                .map((product) => (
+                .map((item) => ({ product: (new Product(item)), quantity: item.quantity }))
+                .map(({ product, quantity }) => (
                   <CartItem
                     key={`${product.getId()}`}
                     name={product.getName()}
                     price={product.getFormattedPrice()}
                     images={product.getImages()}
+                    quantity={quantity}
                   />
                 ))}
             </div>
@@ -48,4 +49,4 @@ ShoppingCartList.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default ShoppingCartList;
+export default connect(({ cart }) => ({ cart }))(ShoppingCartList);

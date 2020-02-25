@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { PrimaryButton, SecondaryButton } from '../Button';
 import Rating from '../product/Rating';
 import { addToCart } from '../../redux/actions/cart';
@@ -37,7 +36,7 @@ class CartItem extends Component {
 
   render() {
     const {
-      id, name, isFeatured, avgRating, price, reviewCount, withRemoveButton, onRemove,
+      id, name, avgRating, price, reviewCount,
     } = this.props;
     return (
       <div
@@ -75,13 +74,11 @@ class CartItem extends Component {
           <PrimaryButton className="w-3/4 mx-auto self-end m-1" onClick={this.handleAddToBag}>
             Add to Bag
           </PrimaryButton>
-        </div>
-
-        {withRemoveButton && (
-          <SecondaryButton onClick={onRemove}>
+          <SecondaryButton>
             Remove
           </SecondaryButton>
-        )}
+        </div>
+
       </div>
     );
   }
@@ -91,7 +88,6 @@ CartItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  isFeatured: PropTypes.bool.isRequired,
   images: PropTypes.arrayOf(PropTypes.string),
   avgRating: PropTypes.number.isRequired,
   reviewCount: PropTypes.number.isRequired,
@@ -101,4 +97,4 @@ CartItem.defaultProps = {
   images: [],
 };
 
-export default connect()(CartItem);
+export default CartItem;
