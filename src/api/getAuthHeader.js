@@ -3,8 +3,8 @@ import localStore from 'store2';
 const getHeader = async (token = null) => {
   let currentToken = token;
   if (!currentToken) {
-    const { token: localToken } = await localStore.get('auth');
-    currentToken = localToken;
+    const auth = await localStore.get('auth');
+    if (auth && auth.token) currentToken = auth.token;
   }
   return {
     authorization: `Bearer ${currentToken}`,
