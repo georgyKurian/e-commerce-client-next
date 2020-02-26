@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ProductCard from '../product/ProductCard';
 import Order from '../../models/Order';
+import OrderItem from './OrderItem';
 
 const OrderCard = ({ order }) => (
   <div className="OrderSummary">
@@ -11,12 +11,13 @@ const OrderCard = ({ order }) => (
     </p>
     <div className="OrderSummaryProducts">
       {order.getProducts().map((product, index) => (
-        <ProductCard
+        <OrderItem
           // eslint-disable-next-line react/no-array-index-key
           key={`${order.getId()}_${product.getId()}_${index}`}
           name={product.getName()}
           images={product.getImages()}
           price={product.getFormattedPrice()}
+          quantity={1}
         />
       ))}
     </div>
