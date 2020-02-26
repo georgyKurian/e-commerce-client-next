@@ -41,9 +41,8 @@ class CartItem extends Component {
     return (
       <div
         className="flex flex-wrap relative flex-wrap justify-between rounded bg-themeGray-200 p-2"
-        style={{ height: '22rem' }}
       >
-        <div className="relative rounded overflow-hidden h-36">
+        <div className="relative rounded overflow-hidden h-32 w-32">
           <Link href="/products/[id]" as={`/products/${id}`}>
             <a>
               <img
@@ -67,14 +66,8 @@ class CartItem extends Component {
             {price}
           </span>
         </div>
-        <div className="text-center self-end">
-          <SecondaryButton className="w-3/4 mx-auto self-end">
-            View Details
-          </SecondaryButton>
-          <PrimaryButton className="w-3/4 mx-auto self-end m-1" onClick={this.handleAddToBag}>
-            Add to Bag
-          </PrimaryButton>
-          <SecondaryButton>
+        <div className="text-center flex items-center">
+          <SecondaryButton className="mx-auto">
             Remove
           </SecondaryButton>
         </div>

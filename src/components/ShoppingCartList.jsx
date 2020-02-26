@@ -20,7 +20,7 @@ class ShoppingCartList extends Component {
           <>
             <div>
               {items
-                .map((item) => ({ product: (new Product(item)), quantity: item.quantity }))
+                .map((item) => ({ product: (new Product(item.product)), quantity: item.quantity }))
                 .map(({ product, quantity }) => (
                   <CartItem
                     key={`${product.getId()}`}
@@ -49,4 +49,10 @@ ShoppingCartList.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect(({ cart }) => ({ cart }))(ShoppingCartList);
+export default connect(({ products: { items: productList }, cart }) => {
+  const newCart = cart.map((cartItem) => {
+    const foundProduct = productList.find((product) => product._id === cartItem.productId);
+    return { product: foundProduct, ...cartItem };
+  });
+  return { cart: newCart };
+})(ShoppingCartList);
