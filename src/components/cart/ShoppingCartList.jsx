@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Product from '../models/Product';
-import { PrimaryButton } from './Button';
 import { removeFromCart } from '../redux/actions/cart';
 import CartItem from './cart/CartItem';
 
@@ -25,13 +24,14 @@ class ShoppingCartList extends Component {
                   <CartItem
                     key={`${product.getId()}`}
                     name={product.getName()}
+                    avgRating={product.getAvgRating()}
+                    reviewCount={product.getReviewCount()}
                     price={product.getFormattedPrice()}
                     images={product.getImages()}
                     quantity={quantity}
                   />
                 ))}
             </div>
-            <PrimaryButton onClick={this.props.onCheckout}>Checkout</PrimaryButton>
           </>
         ) : (
           <p>Your cart is empty. Add some awesome products!</p>

@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MyLayout from '../components/Layouts/MyLayout';
 import ShoppingCartList from '../components/ShoppingCartList';
+import { PrimaryButton } from '../components/Button';
 
 
 class Cart extends React.Component {
@@ -14,6 +15,7 @@ class Cart extends React.Component {
     return (
       <MyLayout>
         <ShoppingCartList />
+        <PrimaryButton className="float-right">Checkout</PrimaryButton>
       </MyLayout>
     );
   }

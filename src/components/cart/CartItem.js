@@ -36,13 +36,13 @@ class CartItem extends Component {
 
   render() {
     const {
-      id, name, avgRating, price, reviewCount,
+      id, name, avgRating, price, reviewCount, quantity,
     } = this.props;
     return (
       <div
-        className="flex flex-wrap relative flex-wrap justify-between rounded bg-themeGray-200 p-2"
+        className="flex flex-wrap relative flex-wrap justify-between rounded bg-themeGray-200 p-2 mb-2"
       >
-        <div className="relative rounded overflow-hidden h-32 w-32">
+        <div className="relative rounded overflow-hidden h-24 w-24">
           <Link href="/products/[id]" as={`/products/${id}`}>
             <a>
               <img
@@ -50,6 +50,7 @@ class CartItem extends Component {
                 alt="Product"
                 onMouseEnter={this.handleMouseOver}
                 onMouseLeave={this.handleMouseLeave}
+                className="h-full object-cover"
               />
             </a>
           </Link>
@@ -65,6 +66,10 @@ class CartItem extends Component {
           <span className="text-orange-600 font-medium text-xl">
             {price}
           </span>
+        </div>
+        <div className="flex flex-col justify-center items-center">
+          <label htmlFor="quantity" className="text-gray-600 text-sm">Qty</label>
+          <input className="w-10 h-10 text-right rounded" type="number" name="quantity" value={quantity} />
         </div>
         <div className="text-center flex items-center">
           <SecondaryButton className="mx-auto">
