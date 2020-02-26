@@ -3,18 +3,19 @@ import {
 } from '../actions/cart';
 
 const cart = (state = [], action) => {
+  const newState = [...state];
   switch (action.type) {
     case ADD_ITEM:
-      state.push({
+      newState.push({
         productId: action.productId,
         quantity: action.quantity,
       });
-      return [...state];
+      return newState;
     case UPDATE_ITEM:
-      state[action.itemIndex].quantity += action.quantity;
-      return [...state];
+      newState[action.itemIndex].quantity += action.quantity;
+      return [...newState];
     case DELETE_ITEM:
-      return [...state];
+      return state;
     case REHYDRATE_CART:
       return [...action.cart];
     default:
