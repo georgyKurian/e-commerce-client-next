@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Product from '../models/Product';
-import { removeFromCart } from '../redux/actions/cart';
-import CartItem from './cart/CartItem';
+import Product from '../../models/Product';
+import { removeFromCart } from '../../redux/actions/cart';
+import CartItem from './CartItem';
 
 class ShoppingCartList extends Component {
   handleRemoveItem() {

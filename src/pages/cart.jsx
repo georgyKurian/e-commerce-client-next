@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import MyLayout from '../components/Layouts/MyLayout';
-import ShoppingCartList from '../components/ShoppingCartList';
+import ShoppingCartList from '../components/cart/ShoppingCartList';
 import { PrimaryButton } from '../components/Button';
 
 
