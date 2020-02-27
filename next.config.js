@@ -12,7 +12,7 @@ module.exports = withCSS(
     ],
     purgeCss: {
       defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
-      whitelistPatternsChildren: [/carousel/],
+      whitelistPatternsChildren: [/carousel/, /html/],
     },
     poweredByHeader: false,
     distDir: 'dist',
