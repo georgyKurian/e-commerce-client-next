@@ -5,9 +5,12 @@ export default async (email) => getResponse('/v1/login', {
   body: JSON.stringify({ email }),
 }).then((response) => {
   if (response.ok) {
-    return {
-      success: true,
-    };
+    return response.json().then(
+      (data) => ({
+        success: true,
+        ...data,
+      }),
+    );
   }
   if (response.status === 400) {
     return {

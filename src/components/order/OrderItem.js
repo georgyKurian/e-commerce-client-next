@@ -2,13 +2,10 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { PrimaryButton, SecondaryButton } from '../Button';
-import FeaturedTag from './FeaturedTag';
-import Rating from './Rating';
+import Rating from '../product/Rating';
 import { addToCart } from '../../redux/actions/cart';
 
-class ProducrCard extends Component {
+class OrderItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,14 +35,13 @@ class ProducrCard extends Component {
 
   render() {
     const {
-      id, name, isFeatured, avgRating, price, reviewCount, withRemoveButton, onRemove,
+      id, name, avgRating, price, reviewCount, quantity,
     } = this.props;
     return (
       <div
-        className="flex flex-col relative flex-wrap justify-between rounded bg-themeGray-200 p-2"
-        style={{ height: '22rem' }}
+        className="flex flex-wrap relative flex-wrap justify-between rounded bg-themeGray-200 p-2 mb-2"
       >
-        <div className="relative rounded overflow-hidden h-36">
+        <div className="relative rounded overflow-hidden h-24 w-24">
           <Link href="/products/[id]" as={`/products/${id}`}>
             <a>
               <img
@@ -53,10 +49,10 @@ class ProducrCard extends Component {
                 alt="Product"
                 onMouseEnter={this.handleMouseOver}
                 onMouseLeave={this.handleMouseLeave}
+                className="h-full object-cover"
               />
             </a>
           </Link>
-          {isFeatured && <FeaturedTag className="absolute top-0 right-0 mx-1" />}
         </div>
         <div className="flex flex-col justify-center items-center">
           <Link href="/products/[id]" as={`/products/${id}`}>
@@ -70,41 +66,31 @@ class ProducrCard extends Component {
             {price}
           </span>
         </div>
-        <div className="w-full text-center self-end">
-          <SecondaryButton className="w-3/4 mx-auto self-end">
-            View Details
-          </SecondaryButton>
-          <PrimaryButton className="w-3/4 mx-auto self-end m-1" onClick={this.handleAddToBag}>
-            Add to Bag
-          </PrimaryButton>
+        <div className="flex flex-col justify-center items-center">
+          <span htmlFor="quantity" className="text-gray-600 text-sm">
+            Qty :
+            {' '}
+            {quantity}
+          </span>
         </div>
+        <div className="text-center flex items-center" />
 
-        {withRemoveButton && (
-          <SecondaryButton onClick={onRemove}>
-            Remove
-          </SecondaryButton>
-        )}
       </div>
     );
   }
 }
 
-ProducrCard.propTypes = {
+OrderItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  isFeatured: PropTypes.bool.isRequired,
   images: PropTypes.arrayOf(PropTypes.string),
   avgRating: PropTypes.number.isRequired,
   reviewCount: PropTypes.number.isRequired,
-  withRemoveButton: PropTypes.bool,
-  onRemove: PropTypes.func,
 };
 
-ProducrCard.defaultProps = {
+OrderItem.defaultProps = {
   images: [],
-  withRemoveButton: null,
-  onRemove: null,
 };
 
-export default connect()(ProducrCard);
+export default OrderItem;

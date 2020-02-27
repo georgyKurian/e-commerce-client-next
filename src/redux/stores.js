@@ -6,24 +6,33 @@ import reducers from './reducers/index';
 
 const loggerMiddleware = createLogger();
 
-export default (initialState = {}) => createStore(
-  reducers,
+const makeConfiguredStore = (reducer, initialState) => createStore(
+  reducer,
   initialState,
   composeWithDevTools(
     applyMiddleware(thunkMiddleware /* loggerMiddleware */),
   ),
 );
 
-/**
- * state {
- *  products: {
- *    isFetching: false,
- *    didInvalidate: false,
- *    lastUpdated: 1439478405547,
- *     items: [
- *        {product1},
- *        {product2}
- *     ]
- *  }
- * }
- */
+
+export default (initialState = {}, { isServer }) => {
+  if (isServer) {
+    return makeConfiguredStore(reducers, initialState);
+  }
+  return makeConfiguredStore(reducers, initialState);
+  /* const { persistStore, persistReducer } = require('redux-persist');
+  const storage = require('redux-persist/lib/storage').default;
+
+  const persistConfig = {
+    key: 'nextjs',
+    whiteList: ['auth'],
+    storage,
+  };
+
+  const persistedReducer = persistReducer(persistConfig, reducers);
+  const store = makeConfiguredStore(persistedReducer, initialState);
+
+  store.__persistor = persistStore(store); // Nasty hack
+  return store;
+  */
+};

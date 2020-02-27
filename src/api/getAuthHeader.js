@@ -1,10 +1,14 @@
-import store from 'store2';
+import localStore from 'store2';
 
-export default async (token = null) => {
-  if (!token) {
-    token = await store.get('authToken');
+const getHeader = async (token = null) => {
+  let currentToken = token;
+  if (!currentToken) {
+    const auth = await localStore.get('auth');
+    if (auth && auth.token) currentToken = auth.token;
   }
   return {
-    authorization: `Bearer ${token}`,
+    authorization: `Bearer ${currentToken}`,
   };
 };
+
+export default getHeader;

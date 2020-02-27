@@ -34,11 +34,11 @@ const Rating = ({ rating, reviewCount }) => {
 
   return (
     <>
-      <div className="text-sm flex">
+      <div className="text-sm flex items-center">
         <svg
           className="star-source"
-          height="20"
-          width="100"
+          height="15"
+          width="80"
           viewBox="40 0 95 36"
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -60,8 +60,7 @@ const Rating = ({ rating, reviewCount }) => {
         <span>
           (
           {reviewCount}
-          {' '}
-          Reviews)
+          )
         </span>
       </div>
     </>

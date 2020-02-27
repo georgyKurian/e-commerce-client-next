@@ -1,4 +1,5 @@
 import getAuthHeader from './getAuthHeader';
+import fetch from './fetch';
 
 const placeOrder = async (body) => {
   const authHeadder = await getAuthHeader();
@@ -39,14 +40,6 @@ const getUserOrders = async () => {
   return fetch('/v1/orders', {
     method: 'GET',
     headers: authHeadder,
-  }).then((response) => {
-    if (response.ok) {
-      return {
-        success: true,
-        data: response.json(),
-      };
-    }
-    return null;
   });
 };
 

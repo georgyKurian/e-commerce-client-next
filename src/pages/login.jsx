@@ -19,24 +19,30 @@ export default class Account extends Component {
     e.preventDefault();
     this.setState({ loading: true });
 
-    login(this.state.email).then(({ error }) => {
+    login(this.state.email).then(({ error, token }) => {
       if (error) {
         this.setState({ loading: false, success: false, error });
       } else {
-        this.setState({ loading: false, success: true });
+        this.setState({ loading: false, success: true, token });
       }
     });
   };
 
   render() {
     const {
-      email, loading, success, error,
+      email, loading, success, error, token,
     } = this.state;
     return (
       <MyLayout>
         <h1>Login or Register</h1>
         {success ? (
-          <p className="border border-gray-300 bg-gray-200 py-6 px-6 rounded-lg">We sent a magic link to your email. Click on it to login!</p>
+          <p className="border border-gray-300 bg-gray-200 py-6 px-6 rounded-lg">
+            Click on
+            {' '}
+            <a className="text-blue-500" href={`auth/${token}`}>Auth Link</a>
+            {' '}
+            to login!
+          </p>
         ) : (
           <>
             <p className="border border-gray-300 bg-gray-200 py-6 px-6 rounded-lg">

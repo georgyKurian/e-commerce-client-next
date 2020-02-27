@@ -16,12 +16,12 @@ function receiveProducts(productDataList) {
   };
 }
 
-function shouldFetchProducts(state, categories) {
+function shouldFetchProducts(state) {
   const { products } = state;
-  if (!(products && products.items)) {
+  if (!(products)) {
     return true;
-  } if (products.isFetching) {
-    return false;
+  } if (!products.items && !products.isFetching) {
+    return true;
   }
   return products.didInvalidate;
 }
@@ -30,15 +30,17 @@ function shouldFetchProducts(state, categories) {
  * Thunk action creator
  */
 export function fetchProducts(categories) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(requestProducts());
-    return getProducts(categories).then((productDataList) => dispatch(receiveProducts(productDataList)));
+    return getProducts(categories).then(
+      (productDataList) => dispatch(receiveProducts(productDataList)),
+    );
   };
 }
 
 export function fetchProductsIfNeeded(categories) {
   return (dispatch, getState) => {
-    if (shouldFetchProducts(getState(), categories)) {
+    if (shouldFetchProducts(getState())) {
       return dispatch(fetchProducts(categories));
     }
   };

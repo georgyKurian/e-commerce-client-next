@@ -8,6 +8,8 @@ import withRedux from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
 import initStore from '../redux/stores';
 import '../../styles/main.css';
+import { authRehydrate } from '../redux/actions/auth';
+import { rehydrateCart } from '../redux/actions/cart';
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -17,6 +19,9 @@ Router.events.on('routeChangeError', () => NProgress.done());
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
+    if (!ctx.isServer) {
+      MyApp.rehydrate(ctx.store);
+    }
     return {
       pageProps: {
         ...(Component.getInitialProps
@@ -24,6 +29,20 @@ class MyApp extends App {
           : {}),
       },
     };
+  }
+
+  async componentDidMount() {
+    MyApp.rehydrate(this.props.store);
+  }
+
+  static async rehydrate(store) {
+    const { auth: { token }, cart } = store.getState();
+    if (!token) {
+      await store.dispatch(authRehydrate());
+    }
+    if (!cart || cart.length === 0) {
+      await store.dispatch(rehydrateCart());
+    }
   }
 
   render() {
