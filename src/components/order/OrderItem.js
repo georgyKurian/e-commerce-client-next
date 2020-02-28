@@ -35,47 +35,20 @@ class OrderItem extends Component {
 
   render() {
     const {
-      id, name, avgRating, price, reviewCount, quantity,
+      id, name, price, quantity,
     } = this.props;
     return (
-      <div
-        className="flex flex-wrap relative flex-wrap justify-between rounded bg-themeGray-200 p-2 mb-2"
+      <tr
+        className="bg-themeGray-200 p-2 border-t border-b border-gray-400"
       >
-        <div className="relative rounded overflow-hidden h-24 w-24">
-          <Link href="/products/[id]" as={`/products/${id}`}>
-            <a>
-              <img
-                src={this.state.image}
-                alt="Product"
-                onMouseEnter={this.handleMouseOver}
-                onMouseLeave={this.handleMouseLeave}
-                className="h-full object-cover"
-              />
-            </a>
-          </Link>
-        </div>
-        <div className="flex flex-col justify-center items-center">
+        <td className="px-5">
           <Link href="/products/[id]" as={`/products/${id}`}>
             <a className="text-blue-700">{name}</a>
           </Link>
-          <Rating
-            rating={avgRating}
-            reviewCount={reviewCount}
-          />
-          <span className="text-orange-600 font-medium text-xl">
-            {price}
-          </span>
-        </div>
-        <div className="flex flex-col justify-center items-center">
-          <span htmlFor="quantity" className="text-gray-600 text-sm">
-            Qty :
-            {' '}
-            {quantity}
-          </span>
-        </div>
-        <div className="text-center flex items-center" />
-
-      </div>
+        </td>
+        <td className="text-orange-600 font-medium text-xl px-5">{price}</td>
+        <td className="px-5">{`Qty : ${quantity}`}</td>
+      </tr>
     );
   }
 }
@@ -85,8 +58,6 @@ OrderItem.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(PropTypes.string),
-  avgRating: PropTypes.number.isRequired,
-  reviewCount: PropTypes.number.isRequired,
 };
 
 OrderItem.defaultProps = {

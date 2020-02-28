@@ -17,6 +17,7 @@ module.exports = withCSS(
     poweredByHeader: false,
     distDir: 'dist',
     env: {
+      isProd,
       REACT_APP_API_URL: isProd ? 'https://e-commerce-serve.herokuapp.com' : 'http://localhost:8085',
     },
   }),

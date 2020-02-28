@@ -4,22 +4,22 @@ export default class Order {
   /**
    * @param  {string} id
    * @param  {string} customer
-   * @param  {number} timestamp
    * @param  {Array} products
    * @param  {Array} contact
    * @param  {Array} shippingAddress
+   * @param  {number} createdAt
    */
   constructor({
     _id,
     customer,
-    timestamp,
     products,
     contact,
     shippingAddress,
+    created_at: createdAt,
   }) {
     this.id = _id;
     this.customer = customer;
-    this.timestamp = timestamp;
+    this.createdAt = createdAt;
     this.products = products.map((product) => new Product(product));
     this.contact = contact;
     this.shippingAddress = shippingAddress;
@@ -38,7 +38,12 @@ export default class Order {
   /**
    * @return {number}
    */
-  getTimestamp = () => this.timestamp;
+  getTimestamp = () => this.createdAt;
+
+  getDate = () => {
+    const date = new Date(parseInt(this.createdAt, 10));
+    return date.toDateString();
+  };
 
   /**
    * @return {Array.<Products>}
@@ -71,7 +76,7 @@ export default class Order {
   getData = () => ({
     _id: this.id,
     customer: this.customer,
-    timestamp: this.timestamp,
+    created_at: this.createdAt,
     products: this.products.map((product) => product.getData()),
   });
 }
