@@ -45,9 +45,20 @@ export default class Product {
   getFormattedPrice = () => `$${this.price / 100}`;
 
   /**
+   * @return {string}
+   */
+  getFormattedSubtotal = (quantity) => `$${this.getSubtotal(quantity) / 100}`;
+
+  /**
    * @return {number}
    */
   getPrice = () => this.price;
+
+  /**
+   * @return {number}
+   */
+  getSubtotal = (quantity) => this.price * quantity;
+
 
   /**
    * @return {boolean}

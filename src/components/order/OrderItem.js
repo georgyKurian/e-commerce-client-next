@@ -35,7 +35,7 @@ class OrderItem extends Component {
 
   render() {
     const {
-      id, name, price, quantity,
+      id, name, price, quantity, subtotal,
     } = this.props;
     return (
       <tr
@@ -48,6 +48,7 @@ class OrderItem extends Component {
         </td>
         <td className="text-orange-600 font-medium text-xl px-5">{price}</td>
         <td className="px-5">{`Qty : ${quantity}`}</td>
+        <td className="px-5">{`${subtotal}`}</td>
       </tr>
     );
   }

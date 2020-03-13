@@ -33,6 +33,12 @@ const OrderCard = ({ order }) => (
             />
           ))}
         </tbody>
+        <tfoot>
+          <tr className="font-bold text-xl text-gray-800">
+            <td colSpan="3" className="px-5 text-right">Total</td>
+            <td className="px-5 text-right">{order.getFormattedTotalPrice()}</td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>

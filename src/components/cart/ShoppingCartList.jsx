@@ -20,42 +20,37 @@ class ShoppingCartList extends Component {
         let product = null;
         if (item.product) {
           product = new Product(item.product);
-        } else if (flag) {
+          return (
+            <CartItem
+              key={product.getId()}
+              name={product.getName()}
+              avgRating={product.getAvgRating()}
+              reviewCount={product.getReviewCount()}
+              price={product.getFormattedPrice()}
+              images={product.getImages()}
+              quantity={item.quantity}
+            />
+          );
+        } if (flag) {
           flag = false;
           dispatch(fetchProductsIfNeeded());
         }
-        return ({ productId: item.productId, product, quantity: item.quantity });
-      })
-      .map(({ productId, product, quantity }) => {
-        if (product) {
-          return (
-            <CartItem
-              key={product ? product.getId() : ''}
-              name={product ? product.getName() : ''}
-              avgRating={product ? product.getAvgRating() : ''}
-              reviewCount={product ? product.getReviewCount() : ''}
-              price={product ? product.getFormattedPrice() : ''}
-              images={product ? product.getImages() : ''}
-              quantity={quantity}
-            />
-          );
-        }
-
         return (
           <CartItem
-            key={productId}
+            key={item.productId}
             name=""
             avgRating=""
             reviewCount=""
             price=""
             images=""
-            quantity={quantity}
+            quantity={item.quantity}
           />
         );
       });
+
     return (
       <div>
-        {items.length > 0 ? (
+        {cartItems.length > 0 ? (
           <>
             <div>
               {cartItems}
