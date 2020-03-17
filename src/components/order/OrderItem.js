@@ -2,32 +2,9 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import Rating from '../product/Rating';
 import { addToCart } from '../../redux/actions/cart';
 
 class OrderItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      image: props.images[0],
-    };
-  }
-
-  handleMouseOver = () => {
-    const { images } = this.props;
-    if (images.length > 1) {
-      this.setState({
-        image: images[1],
-      });
-    }
-  };
-
-  handleMouseLeave = () => {
-    this.setState({
-      image: this.props.images[0],
-    });
-  };
-
   handleAddToBag = async () => {
     const { id, dispatch } = this.props;
     dispatch(addToCart(id));
@@ -58,11 +35,12 @@ OrderItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  images: PropTypes.arrayOf(PropTypes.string),
+  quantity: PropTypes.number.isRequired,
+  subtotal: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 OrderItem.defaultProps = {
-  images: [],
 };
 
 export default OrderItem;

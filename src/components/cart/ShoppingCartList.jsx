@@ -15,11 +15,15 @@ class ShoppingCartList extends Component {
   render() {
     const { cart: items, dispatch } = this.props;
     let flag = true;
+    let subTotal = 0;
+    let totalQuantity = 0;
     const cartItems = items
       .map((item) => {
         let product = null;
         if (item.product) {
           product = new Product(item.product);
+          subTotal += item.quantity * product.getPrice();
+          totalQuantity += item.quantity;
           return (
             <CartItem
               key={product.getId()}
@@ -29,6 +33,7 @@ class ShoppingCartList extends Component {
               price={product.getFormattedPrice()}
               images={product.getImages()}
               quantity={item.quantity}
+              total={product.getFormattedSubtotal(item.quantity)}
             />
           );
         } if (flag) {
@@ -51,11 +56,27 @@ class ShoppingCartList extends Component {
     return (
       <div>
         {cartItems.length > 0 ? (
-          <>
-            <div>
+          <div className="flex">
+            <div className="xl:w-8/12">
               {cartItems}
             </div>
-          </>
+            <table className="xl:w-4/12">
+              <tbody>
+                <tr>
+                  <th>
+                    Subtotal (
+                    {totalQuantity}
+                    {' '}
+                    item)
+                  </th>
+                  <td>
+                    $
+                    {subTotal / 100}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         ) : (
           <p>Your cart is empty. Add some awesome products!</p>
         )}
@@ -76,6 +97,7 @@ export default connect(({ products: { items: productList }, cart }) => {
   const newCart = cart.map((cartItem) => {
     let foundProduct;
     if (productList) {
+      // eslint-disable-next-line no-underscore-dangle
       foundProduct = productList.find((product) => product._id === cartItem.productId);
     }
     return { product: foundProduct, ...cartItem };

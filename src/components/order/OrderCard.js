@@ -29,6 +29,7 @@ const OrderCard = ({ order }) => (
               name={product.getName()}
               images={product.getImages()}
               price={product.getFormattedPrice()}
+              subtotal={product.getFormattedSubtotal(1)}
               quantity={1}
             />
           ))}
