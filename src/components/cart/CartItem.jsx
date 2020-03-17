@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { SecondaryButton } from '../Button';
 import Rating from '../product/Rating';
 import { addToCart } from '../../redux/actions/cart';
+import Quantity from '../inputs/Quantity';
 
 class CartItem extends Component {
   constructor(props) {
@@ -72,9 +73,9 @@ class CartItem extends Component {
         </div>
         <div className="flex flex-col justify-center items-center">
           <form action="">
-            <label htmlFor="quantity" className="text-gray-600 text-sm">
+            <label className="text-gray-600 text-sm">
               Qty
-              <input className="w-10 h-10 text-right rounded" type="number" name="quantity" value={quantity} />
+              <Quantity className="w-10 h-10 text-right rounded" value={quantity} />
             </label>
           </form>
         </div>
