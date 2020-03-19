@@ -5,6 +5,7 @@ import Product from '../../models/Product';
 import { removeFromCart } from '../../redux/actions/cart';
 import CartItem from './CartItem';
 import { fetchProductsIfNeeded } from '../../redux/actions/products';
+import { PrimaryButton } from '../Button';
 
 class ShoppingCartList extends Component {
   handleRemoveItem() {
@@ -60,22 +61,13 @@ class ShoppingCartList extends Component {
             <div className="xl:w-8/12">
               {cartItems}
             </div>
-            <table className="xl:w-4/12">
-              <tbody>
-                <tr>
-                  <th>
-                    Subtotal (
-                    {totalQuantity}
-                    {' '}
-                    item)
-                  </th>
-                  <td>
-                    $
-                    {subTotal / 100}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="flex flex-col items-center justify-around xl:w-4/12 px-4 mx-4 bg-gray-200">
+              <span className="font-semibold">{`Cart Total (${totalQuantity} ${(totalQuantity === 1 ? 'item' : 'items')})`}</span>
+              <span className="font-bold text-orange-600 text-3xl">
+                {` $${subTotal / 100}`}
+              </span>
+              <PrimaryButton className="">Checkout</PrimaryButton>
+            </div>
           </div>
         ) : (
           <p>Your cart is empty. Add some awesome products!</p>

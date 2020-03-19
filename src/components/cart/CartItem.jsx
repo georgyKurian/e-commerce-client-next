@@ -83,9 +83,9 @@ class CartItem extends Component {
           <span className="w-10 h-10 text-right rounded">{total}</span>
         </div>
         <div className="text-center flex items-center">
-          <SecondaryButton className="mx-auto">
-            Remove
-          </SecondaryButton>
+          <a className="mx-auto text-red-600 cursor-pointer" aria-label="Removes this product from the cart">
+            <img src="/delete-24px.svg" alt="Remove" title="Remove from cart" className="opacity-50 hover:opacity-75" />
+          </a>
         </div>
 
       </div>
