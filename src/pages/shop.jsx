@@ -18,7 +18,7 @@ class Shop extends React.Component {
       (productData) => new Product(productData),
     );
     return (
-      <MyLayout>
+      <MyLayout title="Shop">
         <ProductList products={productList} />
       </MyLayout>
     );

@@ -29,10 +29,17 @@ const OrderCard = ({ order }) => (
               name={product.getName()}
               images={product.getImages()}
               price={product.getFormattedPrice()}
+              subtotal={product.getFormattedSubtotal(1)}
               quantity={1}
             />
           ))}
         </tbody>
+        <tfoot>
+          <tr className="font-bold text-xl text-gray-800">
+            <td colSpan="3" className="px-5 text-right">Total</td>
+            <td className="px-5 text-right">{order.getFormattedTotalPrice()}</td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>

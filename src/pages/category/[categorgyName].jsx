@@ -18,7 +18,7 @@ class CategoryPage extends React.Component {
       (productData) => new Product(productData),
     );
     return (
-      <MyLayout>
+      <MyLayout title="Cateory">
         <ProductList products={productList} />
       </MyLayout>
     );

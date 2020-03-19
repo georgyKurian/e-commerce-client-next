@@ -2,32 +2,9 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import Rating from '../product/Rating';
 import { addToCart } from '../../redux/actions/cart';
 
 class OrderItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      image: props.images[0],
-    };
-  }
-
-  handleMouseOver = () => {
-    const { images } = this.props;
-    if (images.length > 1) {
-      this.setState({
-        image: images[1],
-      });
-    }
-  };
-
-  handleMouseLeave = () => {
-    this.setState({
-      image: this.props.images[0],
-    });
-  };
-
   handleAddToBag = async () => {
     const { id, dispatch } = this.props;
     dispatch(addToCart(id));
@@ -35,7 +12,7 @@ class OrderItem extends Component {
 
   render() {
     const {
-      id, name, price, quantity,
+      id, name, price, quantity, subtotal,
     } = this.props;
     return (
       <tr
@@ -48,6 +25,7 @@ class OrderItem extends Component {
         </td>
         <td className="text-orange-600 font-medium text-xl px-5">{price}</td>
         <td className="px-5">{`Qty : ${quantity}`}</td>
+        <td className="px-5">{`${subtotal}`}</td>
       </tr>
     );
   }
@@ -57,11 +35,12 @@ OrderItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  images: PropTypes.arrayOf(PropTypes.string),
+  quantity: PropTypes.number.isRequired,
+  subtotal: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 OrderItem.defaultProps = {
-  images: [],
 };
 
 export default OrderItem;

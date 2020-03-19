@@ -33,7 +33,7 @@ export default class Account extends Component {
       email, loading, success, error, token,
     } = this.state;
     return (
-      <MyLayout>
+      <MyLayout title="Login">
         <h1>Login or Register</h1>
         {success ? (
           <p className="border border-gray-300 bg-gray-200 py-6 px-6 rounded-lg">

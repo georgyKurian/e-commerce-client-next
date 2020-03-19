@@ -24,7 +24,7 @@ class ProductPage extends React.Component {
       (reviewData) => new Review(reviewData),
     );
     return (
-      <MyLayout>
+      <MyLayout title={product.getName()}>
         <ProductView product={product} />
         <ReviewList reviews={reviewsList} />
       </MyLayout>
