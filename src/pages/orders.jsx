@@ -18,7 +18,7 @@ class Orders extends React.Component {
       (orderData) => new Order(orderData),
     );
     return (
-      <MyLayout>
+      <MyLayout title="My Orders">
         <OrderList orders={orderList} />
       </MyLayout>
     );

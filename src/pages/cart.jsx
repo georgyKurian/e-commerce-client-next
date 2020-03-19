@@ -11,7 +11,7 @@ class Cart extends React.Component {
 
   render() {
     return (
-      <MyLayout>
+      <MyLayout title="Cart">
         <ShoppingCartList />
       </MyLayout>
     );
