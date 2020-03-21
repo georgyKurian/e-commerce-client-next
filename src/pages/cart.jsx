@@ -5,10 +5,6 @@ import ShoppingCartList from '../components/cart/ShoppingCartList';
 
 
 class Cart extends React.Component {
-  static async getInitialProps() {
-    //
-  }
-
   render() {
     return (
       <MyLayout title="Cart">
