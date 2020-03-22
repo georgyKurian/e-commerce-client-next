@@ -42,10 +42,9 @@ class ProducrCard extends Component {
     } = this.props;
     return (
       <div
-        className="flex flex-col relative flex-wrap justify-between rounded bg-themeGray-200 p-2"
-        style={{ height: '22rem' }}
+        className="flex flex-col relative flex-wrap justify-between rounded bg-themeGray-200 p-2 overflow-hidden"
       >
-        <div className="relative rounded overflow-hidden h-36">
+        <div className="relative rounded overflow-hidden h-24 lg:h-36">
           <Link href="/products/[id]" as={`/products/${id}`}>
             <a>
               <img
@@ -70,7 +69,7 @@ class ProducrCard extends Component {
             {price}
           </span>
         </div>
-        <div className="w-full text-center self-end">
+        <div className="hidden md:block w-full text-center self-end">
           <SecondaryButton className="w-3/4 mx-auto self-end">
             View Details
           </SecondaryButton>
@@ -99,12 +98,14 @@ ProducrCard.propTypes = {
   reviewCount: PropTypes.number.isRequired,
   withRemoveButton: PropTypes.bool,
   onRemove: PropTypes.func,
+  dispatch: PropTypes.func.isRequired,
 };
 
 ProducrCard.defaultProps = {
   images: [],
   withRemoveButton: null,
   onRemove: null,
+
 };
 
 export default connect()(ProducrCard);

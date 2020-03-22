@@ -11,7 +11,7 @@ const MyLayout = ({ children, title }) => (
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <Header />
-    <main className="content inner-wrap pt-32 pb-40" style={{ minHeight: '100vh' }}>{children}</main>
+    <main className="content inner-wrap pt-12 lg:pt-32 pb-40" style={{ minHeight: '100vh' }}>{children}</main>
     <Footer />
   </div>
 );

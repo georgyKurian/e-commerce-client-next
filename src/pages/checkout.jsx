@@ -4,6 +4,7 @@ import MyLayout from '../components/Layouts/MyLayout';
 import OrderList from '../components/order/OrderList';
 import Order from '../models/Order';
 import { getUserOrders } from '../api/Order';
+import Form from '../components/Form';
 
 
 class Checkout extends React.Component {
@@ -15,7 +16,7 @@ class Checkout extends React.Component {
   render() {
     return (
       <MyLayout title="Checkout">
-        <OrderList orders={orderList} />
+        <Form />
       </MyLayout>
     );
   }
