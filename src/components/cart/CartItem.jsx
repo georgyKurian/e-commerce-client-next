@@ -44,34 +44,38 @@ class CartItem extends Component {
       <div
         className="flex flex-wrap relative flex-wrap justify-between items-center rounded bg-themeGray-200 p-2 mb-2"
       >
-        <div className="relative rounded overflow-hidden h-16 w-24">
-          <Link href="/products/[id]" as={`/products/${id}`}>
-            <a>
-              <img
-                src={image}
-                alt="Product"
-                onMouseEnter={this.handleMouseOver}
-                onMouseLeave={this.handleMouseLeave}
-                className="h-full object-cover"
+        <div className="w-full flex lg:w-3/5">
+          <div className="relative rounded overflow-hidden h-16 w-24">
+            <Link href="/products/[id]" as={`/products/${id}`}>
+              <a>
+                <img
+                  src={image}
+                  alt="Product"
+                  onMouseEnter={this.handleMouseOver}
+                  onMouseLeave={this.handleMouseLeave}
+                  className="h-full object-cover"
+                />
+              </a>
+            </Link>
+          </div>
+          <div className="flex-grow flex flex-col pl-2 items-start lg:flex-row lg:justify-between lg:items-center">
+            <div className="flex-grow flex flex-col justify-center">
+              <Link href="/products/[id]" as={`/products/${id}`}>
+                <a className="text-blue-700 leading-none">{name}</a>
+              </Link>
+              <Rating
+                rating={avgRating}
+                reviewCount={reviewCount}
               />
-            </a>
-          </Link>
+            </div>
+            <div>
+              <span className="text-orange-600 font-medium text-xl">
+                {price}
+              </span>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col justify-center items-center">
-          <Link href="/products/[id]" as={`/products/${id}`}>
-            <a className="text-blue-700">{name}</a>
-          </Link>
-          <Rating
-            rating={avgRating}
-            reviewCount={reviewCount}
-          />
-        </div>
-        <div>
-          <span className="text-orange-600 font-medium text-xl">
-            {price}
-          </span>
-        </div>
-        <div className="flex flex-col justify-center items-center">
+        <div className="my-3 flex flex-col justify-center items-center lg:my-0">
           <form action="">
             <label className="text-gray-600 text-sm">
               Qty
@@ -79,16 +83,15 @@ class CartItem extends Component {
             </label>
           </form>
         </div>
-        <div className="flex flex-col justify-center items-center">
+        <div className="hidden flex flex-col justify-center items-center lg:block">
           <span className="text-gray-600 text-sm">Total</span>
-          <span className="w-10 h-10 text-right rounded">{total}</span>
+          <span className="w-10 h-10 text-right">{total}</span>
         </div>
         <div className="text-center flex items-center">
           <a className="mx-auto text-red-600 cursor-pointer" aria-label="Removes this product from the cart">
             <img src="/delete-24px.svg" alt="Remove" title="Remove from cart" className="opacity-50 hover:opacity-75" />
           </a>
         </div>
-
       </div>
     );
   }

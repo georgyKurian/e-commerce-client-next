@@ -7,7 +7,7 @@ const ProductList = ({ products }) => (
   <div className="flex flex-row items-ceter flex-wrap my-3">
     {products.map((product) => (
       <div
-        className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 sm:p-2"
+        className="flex w-1/2 md:w-1/3 lg:w-1/4 p-2"
         key={product.getId()}
       >
         <ProductCard
