@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { SecondaryButton } from '../Button';
+import { connect } from 'react-redux';
+import { removeFromCart, updateCartQuantity } from '../../redux/actions/cart';
 import Rating from '../product/Rating';
-import { addToCart } from '../../redux/actions/cart';
 import Quantity from '../inputs/Quantity';
 
 class CartItem extends Component {
@@ -13,6 +13,11 @@ class CartItem extends Component {
     this.state = {
       image: props.images[0],
     };
+  }
+
+  handleQuantityChange = (quantity) => {
+    const { id, dispatch } = this.props;
+    dispatch(updateCartQuantity(id, quantity));
   }
 
   handleMouseOver = () => {
@@ -30,9 +35,9 @@ class CartItem extends Component {
     });
   };
 
-  handleAddToBag = async () => {
+  handleRemoveItem = () => {
     const { id, dispatch } = this.props;
-    dispatch(addToCart(id));
+    dispatch(removeFromCart(id));
   }
 
   render() {
@@ -79,7 +84,7 @@ class CartItem extends Component {
           <form action="">
             <label className="text-gray-600 text-sm">
               Qty
-              <Quantity className="w-10 h-10 text-right rounded" value={quantity} />
+              <Quantity className="w-10 h-10 text-right rounded" value={quantity} onQuantityChange={this.handleQuantityChange} />
             </label>
           </form>
         </div>
@@ -88,9 +93,9 @@ class CartItem extends Component {
           <span className="w-10 h-10 text-right">{total}</span>
         </div>
         <div className="text-center flex items-center">
-          <a className="mx-auto text-red-600 cursor-pointer" aria-label="Removes this product from the cart">
+          <button type="button" className="mx-auto text-red-600 cursor-pointer" aria-label="Removes this product from the cart" onClick={this.handleRemoveItem}>
             <img src="/delete-24px.svg" alt="Remove" title="Remove from cart" className="opacity-50 hover:opacity-75" />
-          </a>
+          </button>
         </div>
       </div>
     );
@@ -113,4 +118,4 @@ CartItem.defaultProps = {
   images: [],
 };
 
-export default CartItem;
+export default connect()(CartItem);
