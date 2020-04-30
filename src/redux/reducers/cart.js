@@ -12,10 +12,17 @@ const cart = (state = [], action) => {
       });
       return newState;
     case UPDATE_ITEM:
-      newState[action.itemIndex].quantity += action.quantity;
+      const foundIndex = newState.findIndex((item) => item.productId === action.productId);
+      if (foundIndex !== -1) {
+        newState[foundIndex].quantity = action.quantity;
+      }
       return [...newState];
     case DELETE_ITEM:
-      return state;
+      const indexOfElement = newState.findIndex((item) => item.productId === action.productId);
+      if (indexOfElement !== -1) {
+        newState.splice(indexOfElement, 1);
+      }
+      return [...newState];
     case REHYDRATE_CART:
       return [...action.cart];
     default:

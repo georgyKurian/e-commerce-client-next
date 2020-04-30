@@ -21,10 +21,10 @@ function deleteItem(productId) {
   };
 }
 
-function updateItem(itemIndex, quantity) {
+function updateItem(productId, quantity) {
   return {
     type: UPDATE_ITEM,
-    itemIndex,
+    productId,
     quantity,
   };
 }
@@ -50,7 +50,7 @@ export function addToCart(productId, quantity = 1) {
     if (foundIndex === -1) {
       dispatch(addItem(productId, quantity));
     } else {
-      dispatch(updateItem(foundIndex, (quantity)));
+      dispatch(updateItem(productId, (cart[foundIndex].quantity + quantity)));
     }
     const { cart: newCart } = getState();
     saveCartToLocalStorage(newCart);
