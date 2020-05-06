@@ -19,7 +19,7 @@
     "@zeit/next-css": "^1.0.1",
     "autoprefixer": "^9.7.6",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "^9.3.5",
+    "next": "^9.3.6",
     "next-purgecss": "^3.1.2",
     "next-redux-wrapper": "^5.0.0",
     "nprogress": "^0.2.0",
@@ -29,14 +29,14 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
-    "react-responsive-carousel": "^3.2.4",
+    "react-responsive-carousel": "^3.2.5",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "store2": "^2.11.1",
-    "tailwindcss": "^1.3.5"
+    "tailwindcss": "^1.4.4"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useState } from 'react';
 import HamburgerIcon from '../../images/hamburger-icon.svg';
+import ShoppingCart from '../../images/shopping_cart.svg';
 
 
 const cssClasses = 'text-center py-4 px-4 text-sm text-themeGray-300 inline-block hover:text-white';
@@ -41,9 +42,17 @@ const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => {
           {itemsInCart >= 0 ? (
             <Link href="/cart">
               <a className={cssClasses}>
-                My Cart
-                {' '}
-                {itemsInCart > 0 ? `(${itemsInCart})` : ''}
+                <div className="relative">
+                  <ShoppingCart class="w-8 h-8 inline fill-current" />
+                  {' '}
+                  {itemsInCart > 0 ? (
+                    <div className="absolute right-0 inset-y-0 ">
+                      <div className="-mr-2 rounded-full w-5 h-5 leading-5 bg-red-700 text-white text-center">
+                        {itemsInCart}
+                      </div>
+                    </div>
+                  ) : ''}
+                </div>
               </a>
             </Link>
           ) : null}
