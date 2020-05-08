@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import Product from '../../models/Product';
 import CartItem from './CartItem';
 import { fetchProductsIfNeeded } from '../../redux/actions/products';
-import { PrimaryButton } from '../Button';
 
 const ShoppingCartList = ({ cart: items, dispatch }) => {
   let flag = true;
@@ -47,26 +47,28 @@ const ShoppingCartList = ({ cart: items, dispatch }) => {
       );
     });
 
-  return (
-    <div>
-      {cartItems.length > 0 ? (
+  if (cartItems.length > 0) {
+    return (
+      <div>
         <div className="">
           <div className="flex flex-col items-center justify-around mb-2 p-2 bg-gray-200 lg:px-4 lg:px-4 lg:py-6 lg:w-4/12 lg:float-right">
             <span className="font-semibold">{`Cart Total (${totalQuantity} ${(totalQuantity === 1 ? 'item' : 'items')})`}</span>
             <span className="font-bold text-orange-600 text-3xl">
               {` $${subTotal / 100}`}
             </span>
-            <PrimaryButton className="">Checkout</PrimaryButton>
+            <Link href="/checkout/">
+              <a className="rounded leading-10 text-center text-base w-32 bg-blue-400 text-white w-3/4 mx-auto self-end m-1">Checkout</a>
+            </Link>
           </div>
           <div className="lg:w-8/12 lg:float-left lg:px-4">
             {cartItems}
           </div>
         </div>
-      ) : (
-        <p>Your cart is empty. Add some awesome products!</p>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
+
+  return (<p>Your cart is empty. Add some awesome products!</p>);
 };
 
 ShoppingCartList.propTypes = {
