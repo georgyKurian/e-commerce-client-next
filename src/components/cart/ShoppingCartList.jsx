@@ -50,15 +50,15 @@ const ShoppingCartList = ({ cart: items, dispatch }) => {
   return (
     <div>
       {cartItems.length > 0 ? (
-        <div className="flex flex-col lg:flex-row-reverse">
-          <div className="flex flex-col items-center justify-around mb-2 p-2 bg-gray-200 lg:px-4 lg:mx-4 lg::w-4/12">
+        <div className="">
+          <div className="flex flex-col items-center justify-around mb-2 p-2 bg-gray-200 lg:px-4 lg:px-4 lg:py-6 lg:w-4/12 lg:float-right">
             <span className="font-semibold">{`Cart Total (${totalQuantity} ${(totalQuantity === 1 ? 'item' : 'items')})`}</span>
             <span className="font-bold text-orange-600 text-3xl">
               {` $${subTotal / 100}`}
             </span>
             <PrimaryButton className="">Checkout</PrimaryButton>
           </div>
-          <div className="xl:w-8/12">
+          <div className="lg:w-8/12 lg:float-left lg:px-4">
             {cartItems}
           </div>
         </div>
