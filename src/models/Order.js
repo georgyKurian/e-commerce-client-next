@@ -68,7 +68,7 @@ export default class Order {
   /**
    * @return {string}
    */
-  getFormattedTotalPrice = () => `$${this.getTotalPrice() / 100}`;
+  getFormattedTotalPrice = () => `$${(this.getTotalPrice() / 100).toFixed(2)}`;
 
   /**
    * @return  {{_id: string, customer: string, timestamp: string, products: Array<Products>}}

@@ -43,7 +43,7 @@ const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => {
             <Link href="/cart">
               <a className={cssClasses}>
                 <div className="relative">
-                  <ShoppingCart class="w-8 h-8 inline fill-current" />
+                  <ShoppingCart className="w-8 h-8 inline fill-current" />
                   {' '}
                   {itemsInCart > 0 ? (
                     <div className="absolute right-0 inset-y-0 ">

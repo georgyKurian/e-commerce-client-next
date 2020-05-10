@@ -84,7 +84,7 @@ Cart.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect(({ products: { items: productList }, cart }) => {
+const ConnectedCart = connect(({ products: { items: productList }, cart }) => {
   const newCart = cart.map((cartItem) => {
     let foundProduct;
     if (productList) {
@@ -95,3 +95,7 @@ export default connect(({ products: { items: productList }, cart }) => {
   });
   return { cart: newCart };
 })(Cart);
+
+export default () => (
+  <ConnectedCart />
+);
