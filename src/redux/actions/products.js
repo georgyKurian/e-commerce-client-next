@@ -39,9 +39,9 @@ export function fetchProducts(categories) {
 }
 
 export function fetchProductsIfNeeded(categories) {
-  return (dispatch, getState) => {
+  return ((dispatch, getState) => {
     if (shouldFetchProducts(getState())) {
       return dispatch(fetchProducts(categories));
     }
-  };
+  });
 }

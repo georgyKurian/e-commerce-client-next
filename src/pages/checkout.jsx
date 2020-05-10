@@ -1,5 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MyLayout from '../components/Layouts/MyLayout';
@@ -10,10 +10,19 @@ import AddressFields from '../components/checkout/AddressFields';
 import Form from '../components/Form';
 
 
-const Checkout = (({ cart: items, dispatch }) => {
-  let flag = true;
+const CheckoutPage = (({ cart: items, dispatch }) => {
   let subTotal = 0;
   let totalQuantity = 0;
+
+  const [isFetchProducts, setIsFetchProducts] = useState(false);
+
+  useEffect(() => {
+    if (isFetchProducts) {
+      dispatch(fetchProductsIfNeeded());
+      setIsFetchProducts(true);
+    }
+  });
+
   const orderItemsList = items
     .map((item) => {
       let product = null;
@@ -32,9 +41,8 @@ const Checkout = (({ cart: items, dispatch }) => {
           />
         );
       }
-      if (flag) {
-        flag = false;
-        dispatch(fetchProductsIfNeeded());
+      if (!isFetchProducts) {
+        setIsFetchProducts(true);
       }
       return (
         <OrderItem
@@ -50,32 +58,34 @@ const Checkout = (({ cart: items, dispatch }) => {
   if (orderItemsList.length > 0) {
     return (
       <MyLayout title="Cart">
-        <div className="lg:w-1/2 lg:float-left lg:pr-6">
-          <div className="bg-gray-300 rounded-lg px-4 py-4">
-            <Form className="w-full overflow-hidden">
-              <h2>Billing Address</h2>
-              <AddressFields />
-            </Form>
-          </div>
-        </div>
-
-        <div className="lg:w-1/2 lg:float-left">
-          <div className="w-full bg-gray-200 px-4 py-4">
-            <h2>Order Summary</h2>
-            <div className="w-full table">
-              {orderItemsList}
+        <>
+          <div className="lg:w-1/2 lg:float-left lg:pr-6">
+            <div className="bg-gray-300 rounded-lg px-4 py-4">
+              <Form className="w-full overflow-hidden">
+                <h2>Billing Address</h2>
+                <AddressFields />
+              </Form>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-around mb-2 p-2 bg-gray-200 lg:px-4 lg:px-4 lg:py-6">
-            <span className="font-semibold">{`Cart Total (${totalQuantity} ${(totalQuantity === 1 ? 'item' : 'items')})`}</span>
-            <span className="font-bold text-orange-600 text-3xl">
-              {` $${subTotal / 100}`}
-            </span>
-            <Link href="/checkout/">
-              <a className="rounded leading-10 text-center text-base w-32 bg-blue-400 text-white w-3/4 mx-auto self-end m-1">Submit</a>
-            </Link>
+
+          <div className="lg:w-1/2 lg:float-left">
+            <div className="w-full bg-gray-200 px-4 py-4">
+              <h2>Order Summary</h2>
+              <div className="w-full table">
+                {orderItemsList}
+              </div>
+            </div>
+            <div className="flex flex-col items-center justify-around mb-2 p-2 bg-gray-200 lg:px-4 lg:px-4 lg:py-6">
+              <span className="font-semibold">{`Cart Total (${totalQuantity} ${(totalQuantity === 1 ? 'item' : 'items')})`}</span>
+              <span className="font-bold text-orange-600 text-3xl">
+                {` $${subTotal / 100}`}
+              </span>
+              <Link href="/checkout">
+                <a className="rounded leading-10 text-center text-base w-32 bg-blue-400 text-white w-3/4 mx-auto self-end m-1">Submit</a>
+              </Link>
+            </div>
           </div>
-        </div>
+        </>
       </MyLayout>
     );
   }
@@ -88,10 +98,10 @@ const Checkout = (({ cart: items, dispatch }) => {
 });
 
 
-Checkout.propTypes = {
+CheckoutPage.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.shape({
     productId: PropTypes.string,
-    quantity: PropTypes.string,
+    quantity: PropTypes.number,
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
@@ -106,4 +116,4 @@ export default connect(({ products: { items: productList }, cart }) => {
     return { product: foundProduct, ...cartItem };
   });
   return { cart: newCart };
-})(Checkout);
+})(CheckoutPage);
