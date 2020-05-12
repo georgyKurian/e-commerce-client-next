@@ -8,6 +8,7 @@ import Product from '../models/Product';
 import { fetchProductsIfNeeded } from '../redux/actions/products';
 import AddressFields from '../components/checkout/AddressFields';
 import { PrimaryButton } from '../components/Button';
+import Form from '../components/Form';
 
 const CheckoutPage = (({ cart: items, dispatch }) => {
   let subTotal = 0;
@@ -64,23 +65,11 @@ const CheckoutPage = (({ cart: items, dispatch }) => {
         <>
           <div className="lg:w-1/2 lg:float-left lg:pr-6">
             <div className="bg-gray-300 rounded-lg px-4 py-4">
-              <form className="w-full overflow-hidden" onSubmit={handleSubmit(formSubmit)}>
+              <Form className="w-full overflow-hidden" onSubmit={handleSubmit(formSubmit)}>
                 <h2>Billing Address</h2>
-                <AddressFields register={register} errors={errors} />
-                <input
-                  name="email"
-                  label="Street Address"
-                  ref={register({
-                    required: 'Required',
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: 'invalid email address',
-                    },
-                  })}
-                />
-                {errors.email && errors.email.message}
-                <PrimaryButton type="submit">Submit</PrimaryButton>
-              </form>
+                <AddressFields name="billing" errors={errors?.billing} register={register} />
+                <PrimaryButton type="submit" className="w-full">Submit</PrimaryButton>
+              </Form>
             </div>
           </div>
 

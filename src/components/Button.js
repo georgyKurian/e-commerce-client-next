@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 function Button({ className, children, ...rest }) {
   return (
     // eslint-disable-next-line react/button-has-type
-    <button className={` rounded h-10 text-base w-32 ${className}`} {...rest}>
+    <button className={`mx-auto rounded-lg h-10 text-base w-32 ${className}`} {...rest}>
       {children}
     </button>
   );

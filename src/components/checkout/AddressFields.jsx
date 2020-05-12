@@ -22,32 +22,67 @@ const AddressFields = ({
           message: 'Invalid format. Should be like "64 Humber St"',
         },
       })}
+      error={errors?.addressLine1?.message}
     />
-    {errors.addressLine1 && errors.addressLine1.message}
     <TextInput
       name={`${name}.addressLine2`}
       label="Apt/Unit Number"
       ref={register({
         pattern: {
-          value: /^[#.0-9a-zA-Z\s-/]+$/i,
+          value: /^[#0-9a-zA-Z\s.-/]+$/i,
+          message: 'Invalid character found! ( Use: letters, digits, #, .,-, / )',
         },
         maxLength: {
           value: 20,
           message: 'Too long! It should be less than 20 characters', // <p>error message</p>
         },
       })}
+      error={errors?.addressLine2?.message}
     />
     <TextInput
       name={`${name}.city`}
       label="City"
+      ref={register({
+        pattern: {
+          value: /^[a-zA-Z\s-.]+$/i,
+          message: 'Invalid character found! ( Use: letters, ., - )',
+        },
+        maxLength: {
+          value: 15,
+          message: 'Too long! It should be less than 15 characters', // <p>error message</p>
+        },
+      })}
+      error={errors?.city?.message}
     />
     <TextInput
       name={`${name}.province`}
       label="Province"
+      ref={register({
+        pattern: {
+          value: /^[a-zA-Z\s-.]+$/i,
+          message: 'Invalid character found! ( Use: letters, ., - )',
+        },
+        maxLength: {
+          value: 15,
+          message: 'Too long! It should be less than 15 characters', // <p>error message</p>
+        },
+      })}
+      error={errors?.province?.message}
     />
     <TextInput
       name={`${name}.country`}
       label="Country"
+      ref={register({
+        pattern: {
+          value: /^[a-zA-Z\s-.]+$/i,
+          message: 'Invalid character found! ( Use: letters, ., - )',
+        },
+        maxLength: {
+          value: 15,
+          message: 'Too long! It should be less than 15 characters', // <p>error message</p>
+        },
+      })}
+      error={errors?.country?.message}
     />
     <TextInput
       name={`${name}.postalCode`}
@@ -55,9 +90,11 @@ const AddressFields = ({
       ref={register({
         required: true,
         pattern: {
-          value: /^[#.0-9a-zA-Z\s-/]+$/i,
+          value: /^[a-zA-Z][0-9][a-zA-Z]\s[0-9][a-zA-Z][0-9]$/i,
+          message: 'Invalid postal code! (Example: L9B 9W5)',
         },
       })}
+      error={errors?.postalCode?.message}
     />
   </>
 );
