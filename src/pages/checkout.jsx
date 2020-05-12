@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,13 +7,16 @@ import OrderItem from '../components/checkout/OrderItem';
 import Product from '../models/Product';
 import { fetchProductsIfNeeded } from '../redux/actions/products';
 import AddressFields from '../components/checkout/AddressFields';
-import Form from '../components/Form';
-
+import { PrimaryButton } from '../components/Button';
 
 const CheckoutPage = (({ cart: items, dispatch }) => {
   let subTotal = 0;
   let totalQuantity = 0;
-
+  const { handleSubmit, register, errors } = useForm();
+  const formSubmit = (data) => {
+    alert(JSON.stringify(data));
+    console.log(JSON.stringify(data));
+  };
   const [isFetchProducts, setIsFetchProducts] = useState(false);
 
   useEffect(() => {
@@ -61,10 +64,23 @@ const CheckoutPage = (({ cart: items, dispatch }) => {
         <>
           <div className="lg:w-1/2 lg:float-left lg:pr-6">
             <div className="bg-gray-300 rounded-lg px-4 py-4">
-              <Form className="w-full overflow-hidden">
+              <form className="w-full overflow-hidden" onSubmit={handleSubmit(formSubmit)}>
                 <h2>Billing Address</h2>
-                <AddressFields />
-              </Form>
+                <AddressFields register={register} errors={errors} />
+                <input
+                  name="email"
+                  label="Street Address"
+                  ref={register({
+                    required: 'Required',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                      message: 'invalid email address',
+                    },
+                  })}
+                />
+                {errors.email && errors.email.message}
+                <PrimaryButton type="submit">Submit</PrimaryButton>
+              </form>
             </div>
           </div>
 
@@ -80,9 +96,6 @@ const CheckoutPage = (({ cart: items, dispatch }) => {
               <span className="font-bold text-orange-600 text-3xl">
                 {` $${subTotal / 100}`}
               </span>
-              <Link href="/checkout">
-                <a className="rounded leading-10 text-center text-base w-32 bg-blue-400 text-white w-3/4 mx-auto self-end m-1">Submit</a>
-              </Link>
             </div>
           </div>
         </>
