@@ -2,6 +2,10 @@ import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {
+  Elements, CardElement, useStripe, useElements,
+} from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import MyLayout from '../components/Layouts/MyLayout';
 import OrderItem from '../components/checkout/OrderItem';
 import Product from '../models/Product';
@@ -9,18 +13,33 @@ import { fetchProductsIfNeeded } from '../redux/actions/products';
 import AddressFields from '../components/checkout/AddressFields';
 import { PrimaryButton } from '../components/Button';
 import Form from '../components/Form';
+import getPaymentIntent from '../api/Payment';
+import StripePayment from '../components/checkout/StripePayment';
+
+
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+const stripePromise = loadStripe('pk_test_RfZ1PvFjLuWOvHitWXLyQuHg00t9NwKTCK');
 
 const CheckoutPage = (({ cart: items, dispatch }) => {
+  const [isFetchProducts, setIsFetchProducts] = useState(false);
+  const [clientSecret, setClientSecret] = useState(null);
+
   let subTotal = 0;
   let totalQuantity = 0;
   const { handleSubmit, register, errors } = useForm();
+
   const formSubmit = (data) => {
     alert(JSON.stringify(data));
     console.log(JSON.stringify(data));
   };
-  const [isFetchProducts, setIsFetchProducts] = useState(false);
 
   useEffect(() => {
+    if (!clientSecret) {
+      getPaymentIntent(items).then((data) => {
+        setClientSecret(data.clientSecret);
+      });
+    }
     if (isFetchProducts) {
       dispatch(fetchProductsIfNeeded());
       setIsFetchProducts(true);
@@ -87,6 +106,13 @@ const CheckoutPage = (({ cart: items, dispatch }) => {
               </span>
             </div>
           </div>
+
+          <div className="block overflow-hidden mb-2 p-2 bg-gray-200 lg:px-4 lg:px-4 lg:py-6">
+            <Elements stripe={stripePromise}>
+              <StripePayment clientScret={clientSecret} />
+            </Elements>
+          </div>
+
         </>
       </MyLayout>
     );

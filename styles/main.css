@@ -1,5 +1,8 @@
 @import "tailwindcss/base";
+
 @import "./base";
 @import "./components/layout.css";
+@import "./components/Stripe.css";
+
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
