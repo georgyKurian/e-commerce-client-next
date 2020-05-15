@@ -2,6 +2,7 @@ import {
   CardElement, useStripe, useElements,
 } from '@stripe/react-stripe-js';
 import Proptypes from 'prop-types';
+import { useRouter } from 'next/router';
 import { PrimaryButton } from '../Button';
 import Form from '../Form';
 
@@ -26,6 +27,7 @@ const CARD_OPTIONS = {
 
 
 const StripePayment = ({ clientSecret }) => {
+  const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
 
@@ -56,13 +58,14 @@ const StripePayment = ({ clientSecret }) => {
       })
       .then((result) => {
         // Handle result.error or result.paymentIntent
-        if(result.paymentIntent){
+        if (result.paymentIntent) {
           console.log(result.paymentIntent);
-          alert("Success!");
-        }
-        else{
+          router.push('/payment/successfull');
+          alert('Success!');
+          Router.push('');
+        } else {
           console.log(error);
-          alert("Error");
+          alert('Error');
         }
       });
   };
