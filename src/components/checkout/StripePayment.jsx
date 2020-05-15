@@ -56,6 +56,14 @@ const StripePayment = ({ clientSecret }) => {
       })
       .then((result) => {
         // Handle result.error or result.paymentIntent
+        if(result.paymentIntent){
+          console.log(result.paymentIntent);
+          alert("Success!");
+        }
+        else{
+          console.log(error);
+          alert("Error");
+        }
       });
   };
 

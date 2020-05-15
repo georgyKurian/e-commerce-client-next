@@ -109,7 +109,7 @@ const CheckoutPage = (({ cart: items, dispatch }) => {
 
           <div className="block overflow-hidden mb-2 p-2 bg-gray-200 lg:px-4 lg:px-4 lg:py-6">
             <Elements stripe={stripePromise}>
-              <StripePayment clientScret={clientSecret} />
+              <StripePayment clientSecret={clientSecret} />
             </Elements>
           </div>
 
