@@ -20,7 +20,7 @@ const stripePromise = loadStripe('pk_test_RfZ1PvFjLuWOvHitWXLyQuHg00t9NwKTCK');
 
 const PaymentSuccessfull = (({ cart: items, dispatch }) => (
   <MyLayout title="Cart">
-    <p>Order is successfull!</p>
+    <h2 className="text-center">Order is successfull!</h2>
   </MyLayout>
 ));
 
