@@ -6,7 +6,7 @@ export default class Order {
    * @param  {string} customer
    * @param  {Array} products
    * @param  {Array} contact
-   * @param  {Array} shippingAddress
+   * @param  {Array} billingAddress
    * @param  {number} createdAt
    */
   constructor({
@@ -14,7 +14,7 @@ export default class Order {
     customer,
     products,
     contact,
-    shippingAddress,
+    billingAddress,
     created_at: createdAt,
   }) {
     this.id = _id;
@@ -22,7 +22,7 @@ export default class Order {
     this.createdAt = createdAt;
     this.products = products.map((product) => new Product(product));
     this.contact = contact;
-    this.shippingAddress = shippingAddress;
+    this.billingAddress = billingAddress;
   }
 
   /**
@@ -58,7 +58,7 @@ export default class Order {
   /**
    * @return {string}
    */
-  getShippingAddress = () => this.shippingAddress;
+  getBillingAddress = () => this.billingAddress;
 
   /**
    * @return {number}
