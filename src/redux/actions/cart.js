@@ -4,6 +4,10 @@ export const ADD_ITEM = 'ADD_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const UPDATE_ITEM = 'UPDATE_ITEM';
 export const REMOVE_ALL = 'REMOVE_ALL';
+
+export const ADD_ORDER_ID = 'ADD_ORDER_ID';
+export const ADD_STRIPE_INTENT_SECRET = 'ADD_STRIPE_INTENT_SECRET';
+
 export const REHYDRATE_CART = 'REHYDRATE_CART';
 
 function addItem(productId, quantity) {
@@ -29,6 +33,21 @@ function updateItem(productId, quantity) {
   };
 }
 
+function addOrderId(orderId) {
+  return {
+    type: ADD_ORDER_ID,
+    orderId,
+  };
+}
+
+function addStripeSecret(stripeIntentSecet) {
+  return {
+    type: ADD_STRIPE_INTENT_SECRET,
+    stripeIntentSecet,
+  };
+}
+
+
 function rehydrateCartAction(cart) {
   return {
     type: REHYDRATE_CART,
@@ -46,11 +65,11 @@ function saveCartToLocalStorage(cart) {
 export function addToCart(productId, quantity = 1) {
   return (dispatch, getState) => {
     const { cart } = getState();
-    const foundIndex = cart.findIndex((item) => item.productId === productId);
+    const foundIndex = cart.items.findIndex((item) => item.productId === productId);
     if (foundIndex === -1) {
       dispatch(addItem(productId, quantity));
     } else {
-      dispatch(updateItem(productId, (cart[foundIndex].quantity + quantity)));
+      dispatch(updateItem(productId, (cart.items[foundIndex].quantity + quantity)));
     }
     const { cart: newCart } = getState();
     saveCartToLocalStorage(newCart);
@@ -78,6 +97,21 @@ export function updateCartQuantity(productId, quantity) {
     saveCartToLocalStorage(newCart);
   };
 }
+
+/**
+ * Thunk action creator
+ */
+export function startCheckout() {
+  return (dispatch, getState) => {
+    const { cart: { order: { orderId, stripeIntentSecret, isSynced } } } = getState();
+    if (!orderId) {
+      dispatch(updateItem(productId, quantity));
+      saveCartToLocalStorage(newCart);
+    }
+  };
+}
+
+
 /**
  * Thunk action creator
  */

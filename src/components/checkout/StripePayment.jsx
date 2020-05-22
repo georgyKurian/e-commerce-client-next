@@ -3,12 +3,12 @@ import {
 } from '@stripe/react-stripe-js';
 import Proptypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { useState } from "react";
+import { useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
 import { PrimaryButton } from '../Button';
 import Form from '../Form';
-import ClipLoader from "react-spinners/ClipLoader";
 
-const CARD_OPTIONS = {  
+const CARD_OPTIONS = {
   style: {
     base: {
       color: '#000',
@@ -34,7 +34,7 @@ const StripePayment = ({ clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
-  const [cardError, setCardError] = useState("");
+  const [cardError, setCardError] = useState('');
 
   const paymentHandleSubmit = async (event) => {
     // Block native form submission.
@@ -62,12 +62,12 @@ const StripePayment = ({ clientSecret }) => {
           },
         },
       })
-      .then(({paymentIntent, error}) => {
-        // Handle result.error or result.paymentIntent        
+      .then(({ paymentIntent, error }) => {
+        // Handle result.error or result.paymentIntent
         if (paymentIntent) {
           console.log(paymentIntent);
           router.push('/payment/successfull');
-          alert('Success!');          
+          alert('Success!');
         } else {
           console.log(error);
           setCardError(error.message);
@@ -76,26 +76,26 @@ const StripePayment = ({ clientSecret }) => {
       });
   };
 
-  const handleChange = ({error}) => {
-    if(error) {
-      setCardError(error.message);      
+  const handleChange = ({ error }) => {
+    if (error) {
+      setCardError(error.message);
+    } else {
+      setCardError('');
     }
-    else{
-       setCardError("");
-    }
-  }
+  };
 
   return (
     <Form onSubmit={paymentHandleSubmit}>
       <h2>Payment</h2>
       <CardElement options={CARD_OPTIONS} onChange={handleChange} />
-      {cardError!==""?<span className="error">{cardError}</span>:""}
-      <PrimaryButton type="submit" className="mt-4 w-full" disabled={!stripe && clientSecret}>
-      <ClipLoader
+      {cardError !== '' ? <span className="error">{cardError}</span> : ''}
+      <PrimaryButton type="submit" className="w-full mt-4" disabled={!stripe && clientSecret}>
+        <ClipLoader
           size="16px"
-          color={"#fff"}
+          color="#fff"
           loading={isLoading}
-        />&nbsp;Pay
+        />
+&nbsp;Pay
       </PrimaryButton>
     </Form>
   );

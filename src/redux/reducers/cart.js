@@ -6,19 +6,19 @@ const cart = (state = [], action) => {
   const newState = [...state];
   switch (action.type) {
     case ADD_ITEM:
-      newState.push({
+      newState.items.push({
         productId: action.productId,
         quantity: action.quantity,
       });
       return newState;
     case UPDATE_ITEM:
-      const foundIndex = newState.findIndex((item) => item.productId === action.productId);
+      const foundIndex = newState.items.findIndex((item) => item.productId === action.productId);
       if (foundIndex !== -1) {
         newState[foundIndex].quantity = action.quantity;
       }
       return [...newState];
     case DELETE_ITEM:
-      const indexOfElement = newState.findIndex((item) => item.productId === action.productId);
+      const indexOfElement = newState.items.findIndex((item) => item.productId === action.productId);
       if (indexOfElement !== -1) {
         newState.splice(indexOfElement, 1);
       }

@@ -1,20 +1,15 @@
-import { useForm } from 'react-hook-form';
+
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  Elements, CardElement, useStripe, useElements,
-} from '@stripe/react-stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import MyLayout from '../components/Layouts/MyLayout';
-import OrderItem from '../components/checkout/OrderItem';
 import Product from '../models/Product';
 import { fetchProductsIfNeeded } from '../redux/actions/products';
-import AddressFields from '../components/checkout/AddressFields';
-import { PrimaryButton } from '../components/Button';
-import Form from '../components/Form';
 import getPaymentIntent from '../api/Payment';
 import StripePayment from '../components/checkout/StripePayment';
+import Step1 from '../components/checkout/step1';
 
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
@@ -24,15 +19,12 @@ const stripePromise = loadStripe('pk_test_RfZ1PvFjLuWOvHitWXLyQuHg00t9NwKTCK');
 const CheckoutPage = (({ cart: items, dispatch }) => {
   const [isFetchProducts, setIsFetchProducts] = useState(false);
   const [clientSecret, setClientSecret] = useState(null);
+  const [currentStep, setCurrentStep] = useState(1);
 
-  let subTotal = 0;
-  let totalQuantity = 0;
-  const { handleSubmit, register, errors } = useForm();
 
-  const formSubmit = (data) => {
-    alert(JSON.stringify(data));
-    console.log(JSON.stringify(data));
-  };
+  function handleStepChange(step) {
+    setCurrentStep(step + 1);
+  }
 
   useEffect(() => {
     if (!clientSecret) {
@@ -46,72 +38,47 @@ const CheckoutPage = (({ cart: items, dispatch }) => {
     }
   });
 
-  const orderItemsList = items
-    .map((item) => {
+  const { price: subTotal, quantity: totalQuantity } = items
+    .reduce((total, item) => {
       let product = null;
       if (item.product) {
         product = new Product(item.product);
-        subTotal += item.quantity * product.getPrice();
-        totalQuantity += item.quantity;
-        return (
-          <OrderItem
-            key={product.getId()}
-            id={product.getId()}
-            name={product.getName()}
-            price={product.getFormattedPrice()}
-            quantity={item.quantity}
-            total={product.getFormattedSubtotal(item.quantity)}
-          />
-        );
+        const price = total.price + product.getSubtotal(item.quantity);
+        const quantity = total.quantity + item.quantity;
+        return {
+          price,
+          quantity,
+        };
       }
       if (!isFetchProducts) {
         setIsFetchProducts(true);
       }
-      return (
-        <OrderItem
-          key={item.productId}
-          id={item.productId}
-          name=""
-          price=""
-          quantity={item.quantity}
-          total=""
-        />
-      );
-    });
-  if (orderItemsList.length > 0) {
+      return null;
+    }, { quantity: 0, price: 0 });
+  if (items.length > 0) {
     return (
       <MyLayout title="Cart">
         <>
-          <div className="lg:w-1/2 lg:float-left lg:pr-6">
-            <div className="bg-gray-300 rounded-lg px-4 py-4">
-              <Form className="w-full overflow-hidden" onSubmit={handleSubmit(formSubmit)}>
-                <h2>Billing Address</h2>
-                <AddressFields name="billing" errors={errors?.billing} register={register} />
-                <PrimaryButton type="submit" className="w-full">Submit</PrimaryButton>
-              </Form>
-            </div>
-          </div>
-
-          <div className="lg:w-1/2 lg:float-left">
-            <div className="w-full bg-gray-200 px-4 py-4">
-              <h2>Order Summary</h2>
-              <div className="w-full table">
-                {orderItemsList}
+          <div className="w-full">
+            <div className="flex justify-between w-full px-4 py-4 border-b border-gray-200 items-ceter">
+              <span className="inline-block text-2xl">Checkout</span>
+              <div className="flex items-end inline-block">
+                <span className="font-semibold">{`Show Order Summary: $${subTotal / 100} (${totalQuantity} items)`}</span>
               </div>
             </div>
-            <div className="flex flex-col items-center justify-around mb-2 p-2 bg-gray-200 lg:px-4 lg:px-4 lg:py-6">
-              <span className="font-semibold">{`Cart Total (${totalQuantity} ${(totalQuantity === 1 ? 'item' : 'items')})`}</span>
-              <span className="font-bold text-orange-600 text-3xl">
-                {` $${subTotal / 100}`}
-              </span>
-            </div>
+
           </div>
 
-          <div className="block overflow-hidden mb-2 p-2 bg-gray-200 lg:px-4 lg:px-4 lg:py-6">
+          {currentStep === 1 && <Step1 stepChange={handleStepChange} />}
+
+          {currentStep === 2
+          && (
+          <div className="block p-2 mb-2 overflow-hidden bg-gray-200 lg:px-4 lg:py-6">
             <Elements stripe={stripePromise}>
               <StripePayment clientSecret={clientSecret} />
             </Elements>
           </div>
+          )}
 
         </>
       </MyLayout>

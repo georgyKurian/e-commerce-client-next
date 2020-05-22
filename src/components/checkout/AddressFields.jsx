@@ -27,7 +27,7 @@ const AddressFields = ({
           required: 'This field is required!',
           pattern: {
             value: /^\d+\s[A-z|\s]+$/i,
-            message: 'Invalid format. Should be like "64 Humber St"',
+            message: 'Invalid format! It should be like "64 Humber St"',
           },
         })}
         error={errors?.addressLine1?.message}
@@ -48,7 +48,7 @@ const AddressFields = ({
         })}
         error={errors?.addressLine2?.message}
       />
-      <div className="w-1/2 float-left">
+      <div className="float-left w-1/2">
         <TextInput
           name={`${name}.city`}
           label="City"
@@ -66,7 +66,7 @@ const AddressFields = ({
           error={errors?.city?.message}
         />
       </div>
-      <div className="w-1/2 float-right">
+      <div className="float-right w-1/2">
         <TextInput
           name={`${name}.province`}
           label="Province"
