@@ -100,8 +100,8 @@ Header.defaultProps = {
   isAdmin: 0,
 };
 
-export default connect(({ auth: { user }, cart }) => {
-  const totalQuantity = cart.reduce((total, currentValue) => total + currentValue.quantity, 0);
+export default connect(({ auth: { user }, cart: {items:cartItems} }) => {
+  const totalQuantity = cartItems.reduce((total, currentValue) => total + currentValue.quantity, 0);
   const authData = {
     itemsInCart: totalQuantity,
     isLoggedIn: false,

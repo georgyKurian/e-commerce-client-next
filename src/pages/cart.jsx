@@ -99,7 +99,7 @@ CartPage.propTypes = {
 };
 
 export default connect(({ products: { items: productList }, cart }) => {
-  const newCart = cart.map((cartItem) => {
+  const newCart = cart.items.map((cartItem) => {
     let foundProduct;
     if (productList) {
       // eslint-disable-next-line no-underscore-dangle

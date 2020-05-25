@@ -2,8 +2,8 @@ import {
   ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, REHYDRATE_CART,
 } from '../actions/cart';
 
-const cart = (state = { items:[]}, action) => {
-  const newState = {...state};
+const cart = (state = { isSynced: false, }, action) => {
+  const newState = [...state];
   switch (action.type) {
     case ADD_ITEM:
       newState.items.push({

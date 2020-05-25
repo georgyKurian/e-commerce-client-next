@@ -101,8 +101,8 @@ CheckoutPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect(({ products: { items: productList }, cart }) => {
-  const newCart = cart.map((cartItem) => {
+export default connect(({ products: { items: productList }, cart, checkout }) => {
+  const newCart = cart.items.map((cartItem) => {
     let foundProduct;
     if (productList) {
       // eslint-disable-next-line no-underscore-dangle
