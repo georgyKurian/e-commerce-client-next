@@ -16,7 +16,7 @@ import Step1 from '../components/checkout/step1';
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_RfZ1PvFjLuWOvHitWXLyQuHg00t9NwKTCK');
 
-const CheckoutPage = (({ cart: items, dispatch }) => {
+const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => {
   const [isFetchProducts, setIsFetchProducts] = useState(false);
   const [clientSecret, setClientSecret] = useState(null);
   const [currentStep, setCurrentStep] = useState(1);
@@ -110,5 +110,5 @@ export default connect(({ products: { items: productList }, cart, checkout }) =>
     }
     return { product: foundProduct, ...cartItem };
   });
-  return { cart: newCart };
+  return { cart: { items: newCart, lastUpdated: cart.lastUpdated }, checkout };
 })(CheckoutPage);

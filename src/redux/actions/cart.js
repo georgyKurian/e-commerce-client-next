@@ -10,7 +10,8 @@ export const REHYDRATE_CART = 'REHYDRATE_CART';
 /*
  {
     items:[],
-    cartTotal, 
+    cartTotal,
+    lastUpdated
  }
  */
 
@@ -20,7 +21,7 @@ function addItem(productId, quantity) {
     productId,
     quantity,
   };
-}  
+}
 
 function deleteItem(productId) {
   return {
