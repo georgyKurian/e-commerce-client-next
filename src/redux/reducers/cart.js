@@ -18,14 +18,14 @@ const cart = (state = { items: [] }, action) => {
       newState.lastUpdated = lastUpdated;
       const foundIndex = newState.items.findIndex((item) => item.productId === action.productId);
       if (foundIndex !== -1) {
-        newState[foundIndex].quantity = action.quantity;
+        newState.items[foundIndex].quantity = action.quantity;
       }
-      return [...newState];
+      return newState;
     case DELETE_ITEM:
       newState.lastUpdated = lastUpdated;
       const indexOfElement = newState.items.findIndex((item) => item.productId === action.productId);
       if (indexOfElement !== -1) {
-        newState.splice(indexOfElement, 1);
+        newState.items.splice(indexOfElement, 1);
       }
       return newState;
     case REHYDRATE_CART:

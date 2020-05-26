@@ -23,10 +23,10 @@ const checkout = (state = { isSyncing: false }, action) => {
       return { isSyncing: false };
     case SYNCING_STARTED:
       newState.isSyncing = true;
-      return { newState };
+      return newState;
     case SYNCING_STOPPED:
       newState.isSyncing = false;
-      return { newState };
+      return newState;
     case REHYDRATE_CHECKOUT:
       return { ...action.checkout };
     default:

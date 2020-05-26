@@ -8,6 +8,7 @@ const getHeader = async (token = null) => {
   }
   return {
     authorization: `Bearer ${currentToken}`,
+    'Content-Type': 'application/json' 
   };
 };
 

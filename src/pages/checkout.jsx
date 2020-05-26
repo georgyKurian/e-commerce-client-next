@@ -7,7 +7,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import MyLayout from '../components/Layouts/MyLayout';
 import Product from '../models/Product';
 import { fetchProductsIfNeeded } from '../redux/actions/products';
-import getPaymentIntent from '../api/Payment';
+import { startCheckout } from '../redux/actions/checkout';
 import StripePayment from '../components/checkout/StripePayment';
 import Step1 from '../components/checkout/step1';
 
@@ -27,11 +27,7 @@ const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => 
   }
 
   useEffect(() => {
-    if (!clientSecret) {
-      getPaymentIntent(items).then((data) => {
-        setClientSecret(data.clientSecret);
-      });
-    }
+    dispatch(startCheckout());
     if (isFetchProducts) {
       dispatch(fetchProductsIfNeeded());
       setIsFetchProducts(true);
@@ -90,7 +86,7 @@ const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => 
       <p>Your cart is empty. Add some awesome products!</p>
     </MyLayout>
   );
-});
+});0
 
 
 CheckoutPage.propTypes = {

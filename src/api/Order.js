@@ -6,7 +6,7 @@ const createOrder = async (items) => {
   return fetch('/v1/orders', {
     method: 'POST',
     headers: authHeadder,
-    items,
+    body:JSON.stringify({items:items}),
   }).then((response) => {
     if (response.ok) {
       return {
