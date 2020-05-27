@@ -1,20 +1,20 @@
 import getAuthHeader from './getAuthHeader';
 import { getResponse } from './fetch';
 
-const createOrder = async (items) => {
-  const authHeadder = await getAuthHeader();
+const createOrder = (items) => {
+  const authHeadder = getAuthHeader();
   return getResponse('/v1/orders', {
     method: 'POST',
     headers: authHeadder,
     body: JSON.stringify({ items }),
-  }).then((response) => ({
+  }).then(async(response) => ({
     success: true,
-    data: response.json(),
+    data: await response.json(),
   }));
 };
 
-const updateOrder = async (orderId, items) => {
-  const authHeadder = await getAuthHeader();
+const updateOrder =  (orderId, items) => {
+  const authHeadder = getAuthHeader();
   return fetch('/v1/orders', {
     method: 'POST',
     headers: authHeadder,
