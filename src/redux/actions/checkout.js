@@ -102,33 +102,33 @@ export function updateCheckout() {
  * Thunk action creator
  */
 export function startCheckout() {
-    return (dispatch, getState) => {
+  return (dispatch, getState) => {
     const {
       checkout: {
-        orderId, isSyncing,
-      }, cart: { items },
+        orderId, isSyncing, lastSync,
+      }, cart: { items, lastUpdated },
     } = getState();
 
-    if (!isSyncing) {
+    if (!(lastSync && lastUpdated && lastSync >= lastUpdated) && !isSyncing) {
       if (!orderId) {
         const startTime = Date.now();
         dispatch(syncingStarted());
-        return createOrderAPI(items).then((response)=>{
+        return createOrderAPI(items).then((response) => {
           if (response.success) {
-            dispatch(createOrder({ ...response.data, startTime }));
-          }          
-        }).then(()=>{
+            const { orderId: newOrderId, orderTotal, paymentIntentSecret } = response.data;
+            dispatch(createOrder(newOrderId, orderTotal, paymentIntentSecret, startTime));
+          }
+        }).then(() => {
           dispatch(syncingStopped());
         })
-        .then(()=>{
-          const { checkout: newCheckout } = getState();        
-          saveCheckoutToLocalStorage(newCheckout);
-        });       
-        
-      } else {
-        updateCheckout();
+          .then(() => {
+            const { checkout: newCheckout } = getState();
+            saveCheckoutToLocalStorage(newCheckout);
+          });
       }
-    }      
+      updateCheckout();
+    }
+    return null;
   };
 }
 
