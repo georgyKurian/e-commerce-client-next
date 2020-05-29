@@ -10,6 +10,9 @@ import initStore from '../redux/stores';
 import '../../styles/main.css';
 import { authRehydrate } from '../redux/actions/auth';
 import { rehydrateCart } from '../redux/actions/cart';
+import { rehydrateCheckout } from '../redux/actions/checkout';
+import { UserContext } from '../context/UserContext';
+
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
@@ -36,24 +39,29 @@ class MyApp extends App {
   }
 
   static async rehydrate(store) {
-    const { auth: { token }, cart } = store.getState();
+    const { auth: { token }, cart, checkout } = store.getState();
     if (!token) {
       await store.dispatch(authRehydrate());
     }
-    if (!cart || cart.length === 0) {
+    if (!cart || cart.items || cart.items.length === 0) {
       await store.dispatch(rehydrateCart());
+    }
+    if (!(checkout && Object.keys(checkout).length !== 0)) {
+      await store.dispatch(rehydrateCheckout());
     }
   }
 
   render() {
-    const { Component, pageProps, store } = this.props;
+    const {
+      Component, pageProps, store,
+    } = this.props;
     return (
       <>
         <Head>
           {/* Import CSS for nprogress */}
           <link rel="stylesheet" type="text/css" href="/nprogress.css" />
         </Head>
-        <Provider store={store} cssStyle="min-width:10px;">
+        <Provider store={store}>
           <Component {...pageProps} cssStyle="min-width:10px;" />
         </Provider>
       </>

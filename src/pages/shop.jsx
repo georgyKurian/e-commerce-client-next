@@ -13,9 +13,9 @@ class Shop extends React.Component {
   }
 
   render() {
-    const { items } = this.props;
-    const productList = items.map(
-      (productData) => new Product(productData),
+    const { productMap, productIdList } = this.props;
+    const productList = productIdList.map(
+      (productId) => new Product(productMap[productId]),
     );
     return (
       <MyLayout title="Shop">
@@ -26,7 +26,8 @@ class Shop extends React.Component {
 }
 
 Shop.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  productMap: PropTypes.arrayOf(PropTypes.object).isRequired,
+  productIdList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect((state) => state.products)(Shop);
+export default connect((state) => ({ productMap: state.products.getId, productIdList: state.products.getAllIds }))(Shop);

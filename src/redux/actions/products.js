@@ -18,9 +18,7 @@ function receiveProducts(productDataList) {
 
 function shouldFetchProducts(state) {
   const { products } = state;
-  if (!(products)) {
-    return true;
-  } if (!products.items && !products.isFetching) {
+  if (!(products) || (products.getAllIds.length === 0 && !products.isFetching)) {
     return true;
   }
   return products.didInvalidate;

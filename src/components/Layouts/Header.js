@@ -2,22 +2,26 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import HamburgerIcon from '../../images/hamburger-icon.svg';
 import ShoppingCart from '../../images/shopping_cart.svg';
+import { UserContext } from '../../context/UserContext';
 
 
 const cssClasses = 'text-center py-4 px-4 text-sm text-themeGray-300 inline-block hover:text-white';
 
-const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => {
+const Header = ({ itemsInCart }) => {
   const [isButtonToggled, setButtonToggled] = useState(false);
+  const user = useContext(UserContext);
+
   function handleSearchToggleClick() {
     setButtonToggled(true);
   }
+
   return (
-    <header className="fixed top-0 w-full bg-themeGray-700 z-10">
-      <div className="inner-wrap flex flex-wrap items-center justify-center ">
-        <nav className="hidden lg:block NavigationBar flex justify-center text-white" aria-label="Desktop Navigation">
+    <header className="fixed top-0 z-10 w-full bg-themeGray-700">
+      <div className="flex flex-wrap items-center justify-center inner-wrap">
+        <nav className="flex justify-center hidden text-white lg:block NavigationBar" aria-label="Desktop Navigation">
           <Link href="/">
             <a className={cssClasses}>Home</a>
           </Link>
@@ -27,7 +31,7 @@ const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => {
           <Link href="/category/[categoryName]" as="/category/mobile">
             <a className={cssClasses}>#mobile</a>
           </Link>
-          {isAdmin && (
+          {user?.isAdmin && (
           <>
             <Link href="/admin/users">
               <a className={cssClasses}>Users</a>
@@ -43,11 +47,11 @@ const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => {
             <Link href="/cart">
               <a className={cssClasses}>
                 <div className="relative">
-                  <ShoppingCart className="w-8 h-8 inline fill-current" />
+                  <ShoppingCart className="inline w-8 h-8 fill-current" />
                   {' '}
                   {itemsInCart > 0 ? (
-                    <div className="absolute right-0 inset-y-0 ">
-                      <div className="-mr-2 rounded-full w-5 h-5 leading-5 bg-red-700 text-white text-center">
+                    <div className="absolute inset-y-0 right-0">
+                      <div className="w-5 h-5 -mr-2 text-center text-white bg-red-700 rounded-full leading-5">
                         {itemsInCart}
                       </div>
                     </div>
@@ -56,7 +60,7 @@ const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => {
               </a>
             </Link>
           ) : null}
-          {isLoggedIn ? (
+          {user?.isLoggedIn ? (
             <>
               <Link href="/orders">
                 <a className={cssClasses}>Orders</a>
@@ -74,8 +78,8 @@ const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => {
         <div className="relative flex items-center my-2">
           {isButtonToggled ? (
             <>
-              <input aria-label="search" className="rounded-full pl-3 pr-8 h-8 text-gray-700" type="text" placeholder="To be implemented!" />
-              <button className="text-white px-2 py-2 mx-1 absolute right-0" type="submit"><img src="/search-icon.svg" alt="Search Icon" /></button>
+              <input aria-label="search" className="h-8 pl-3 pr-8 text-gray-700 rounded-full" type="text" placeholder="To be implemented!" />
+              <button className="absolute right-0 px-2 py-2 mx-1 text-white" type="submit"><img src="/search-icon.svg" alt="Search Icon" /></button>
             </>
           )
             : (
@@ -90,30 +94,15 @@ const Header = ({ isLoggedIn, itemsInCart, isAdmin }) => {
 
 Header.propTypes = {
   itemsInCart: PropTypes.number,
-  isLoggedIn: PropTypes.bool,
-  isAdmin: PropTypes.bool,
 };
 
 Header.defaultProps = {
   itemsInCart: 0,
-  isLoggedIn: 0,
-  isAdmin: 0,
 };
 
-export default connect(({ auth: { user }, cart: {items:cartItems} }) => {
+export default connect(({ cart: { items: cartItems } }) => {
   const totalQuantity = cartItems.reduce((total, currentValue) => total + currentValue.quantity, 0);
-  const authData = {
+  return {
     itemsInCart: totalQuantity,
-    isLoggedIn: false,
-    isAdmin: false,
   };
-
-  // eslint-disable-next-line no-underscore-dangle
-  if (user && user.data && user.data._id) {
-    authData.isLoggedIn = true;
-    if (user.data.role && user.data.role === 'admin') {
-      authData.isAdmin = true;
-    }
-  }
-  return authData;
 })(Header);

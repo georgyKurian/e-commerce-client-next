@@ -4,14 +4,11 @@ export default class Cart {
   /**
    * @param  {Array} cartItems
    */
-  constructor({
-    cartItems,
-  }) {
-    this.cartItems = cartItems;
+  constructor(cartItems) {
+    this.items = cartItems;
     const totalObject = cartItems.reduce((total, item) => {
-      let product = null;
-      if (item.product) {
-        product = new Product(item.product);
+      if (item.productId) {
+        const product = new Product(item.productId);
         const amount = total.amount + (item.quantity * product.getPrice());
         const quantity = total.quantity + item.quantity;
         return { amount, quantity };
@@ -25,7 +22,7 @@ export default class Cart {
     this.totalQuantity = totalObject.quantity;
   }
 
-  getCartItems = () => this.cartItems;
+  getItems = () => this.items;
 
   /**
    * @return {string}

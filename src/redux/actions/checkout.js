@@ -68,7 +68,7 @@ function rehydrateCheckoutAction(checkout) {
 }
 
 function saveCheckoutToLocalStorage(cart) {
-  localStorage.set('cart', cart, true);
+  localStorage.set('checkout', cart, true);
 }
 
 
@@ -79,11 +79,11 @@ export function updateCheckout() {
   return (dispatch, getState) => {
     const {
       checkout: {
-        orderId, stripeIntentSecret, orderTotal, isSynced, isSyncing,
+        orderId, stripeIntentSecret, orderTotal, isSyncing,
       }, cart: { items },
     } = getState();
 
-    if (!isSynced && !isSyncing) {
+    if (!isSyncing) {
       if (!orderId) {
         const startTime = Date.now();
         dispatch(syncingStarted());
@@ -113,14 +113,15 @@ export function startCheckout() {
       if (!orderId) {
         const startTime = Date.now();
         dispatch(syncingStarted());
-        return createOrderAPI(items).then((response) => {
-          if (response.success) {
-            const { orderId: newOrderId, orderTotal, paymentIntentSecret } = response.data;
-            dispatch(createOrder(newOrderId, orderTotal, paymentIntentSecret, startTime));
-          }
-        }).then(() => {
-          dispatch(syncingStopped());
-        })
+        return createOrderAPI(items)
+          .then((response) => {
+            if (response.success) {
+              const { orderId: newOrderId, orderTotal, paymentIntentSecret } = response.data;
+              dispatch(createOrder(newOrderId, orderTotal, paymentIntentSecret, startTime));
+            } else {
+              dispatch(syncingStopped());
+            }
+          }, () => { dispatch(syncingStopped()); })
           .then(() => {
             const { checkout: newCheckout } = getState();
             saveCheckoutToLocalStorage(newCheckout);

@@ -2,7 +2,7 @@ import {
   CREATE_ORDER, UPDATE_ORDER, CLEAR_ORDER, SYNCING_STARTED, SYNCING_STOPPED, REHYDRATE_CHECKOUT,
 } from '../actions/checkout';
 
-const checkout = (state = { isSyncing: false }, action) => {
+const checkout = (state = { }, action) => {
   const newState = { ...state };
   switch (action.type) {
     case CREATE_ORDER:

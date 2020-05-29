@@ -29,6 +29,10 @@ export default class Product {
     this.reviewCount = reviewCount;
   }
 
+  static async fetch(productId) {
+    return new this({});
+  }
+
   /**
    * @return {string}
    */

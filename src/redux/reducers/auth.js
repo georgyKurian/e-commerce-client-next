@@ -20,7 +20,7 @@ const user = (state = {}, { type, userData }) => {
       return { ...state, isFetching: true };
     case AUTH_RECEIVED_USER:
       return {
-        ...state, isFetching: false, isInvalidated: false, data: userData,
+        ...state, isFetching: false, isAdmin: (userData?.role && userData.role === 'Admin'), isLoggedIn: true, ...userData,
       };
     case AUTH_DELETE_USER:
       return null;

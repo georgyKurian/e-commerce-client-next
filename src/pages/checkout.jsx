@@ -1,15 +1,18 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import Router from 'next/router';
 import MyLayout from '../components/Layouts/MyLayout';
 import Product from '../models/Product';
 import { fetchProductsIfNeeded } from '../redux/actions/products';
 import { startCheckout } from '../redux/actions/checkout';
 import StripePayment from '../components/checkout/StripePayment';
 import Step1 from '../components/checkout/step1';
+import { UserContext } from '../context/UserContext';
+import Cart from '../models/Cart';
 
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
@@ -18,21 +21,27 @@ const stripePromise = loadStripe('pk_test_RfZ1PvFjLuWOvHitWXLyQuHg00t9NwKTCK');
 
 const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => {
   const [isFetchProducts, setIsFetchProducts] = useState(false);
-  const [clientSecret, setClientSecret] = useState(null);
   const [currentStep, setCurrentStep] = useState(1);
+  const user = useContext(UserContext);
 
+  const cartObject = new Cart(items);
+
+  if (!user?.isLoggedIn) Router.push('/login');
 
   function handleStepChange(step) {
     setCurrentStep(step + 1);
   }
 
   useEffect(() => {
-    dispatch(startCheckout());
     if (isFetchProducts) {
       dispatch(fetchProductsIfNeeded());
       setIsFetchProducts(true);
     }
-  });
+  }, [isFetchProducts]);
+
+  useEffect(() => {
+    dispatch(startCheckout());
+  }, [lastUpdated]);
 
   const { price: subTotal, quantity: totalQuantity } = items
     .reduce((total, item) => {
@@ -70,9 +79,18 @@ const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => 
           {currentStep === 2
           && (
           <div className="block p-2 mb-2 overflow-hidden bg-gray-200 lg:px-4 lg:py-6">
-            <Elements stripe={stripePromise}>
-              <StripePayment clientSecret={clientSecret} />
-            </Elements>
+            {checkout?.paymentIntentSecret ? (
+              <Elements stripe={stripePromise}>
+                <StripePayment clientSecret={checkout.paymentIntentSecret} />
+              </Elements>
+            ) : (
+              <div>
+                <span>
+                  Sorry! We are experiencing some problem with payment system.
+                  Try after some time
+                </span>
+              </div>
+            )}
           </div>
           )}
 
@@ -86,15 +104,27 @@ const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => 
       <p>Your cart is empty. Add some awesome products!</p>
     </MyLayout>
   );
-});0
+});
 
 
 CheckoutPage.propTypes = {
-  cart: PropTypes.arrayOf(PropTypes.shape({
-    productId: PropTypes.string,
-    quantity: PropTypes.number,
-  })).isRequired,
+  cart: PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.shape({
+      productId: PropTypes.string,
+      quantity: PropTypes.number,
+    })).isRequired,
+    lastUpdated: PropTypes.number,
+  }).isRequired,
+  checkout: PropTypes.shape({
+    orderTotal: PropTypes.number,
+    paymentIntentSecret: PropTypes.string,
+    lastSync: PropTypes.number,
+  }),
   dispatch: PropTypes.func.isRequired,
+};
+
+CheckoutPage.defaultProps = {
+  checkout: {},
 };
 
 export default connect(({ products: { items: productList }, cart, checkout }) => {
