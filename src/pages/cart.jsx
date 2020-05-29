@@ -63,13 +63,13 @@ const CartPage = (({ cart: items, dispatch }) => {
     return (
       <MyLayout title="Cart">
         <>
-          <div className="flex flex-col items-center justify-around mb-2 p-2 bg-gray-200 lg:px-4 lg:px-4 lg:py-6 lg:w-4/12 lg:float-right">
+          <div className="flex flex-col items-center justify-around p-2 mb-2 bg-gray-200 lg:px-4 lg:py-6 lg:w-4/12 lg:float-right">
             <span className="font-semibold">{`Cart Total ( ${(totalQuantity === 1 ? 'item' : 'items')})`}</span>
-            <span className="font-bold text-orange-600 text-3xl">
+            <span className="text-3xl font-bold text-orange-600">
               {` $${subTotal / 100}`}
             </span>
             <Link href="/checkout">
-              <a className="rounded leading-10 text-center text-base w-32 bg-blue-400 text-white w-3/4 mx-auto self-end m-1">Checkout</a>
+              <a className="self-end w-32 w-3/4 m-1 mx-auto text-base text-center text-white bg-blue-400 rounded leading-10">Checkout</a>
             </Link>
           </div>
           <div className="lg:w-8/12 lg:float-left lg:px-4">
@@ -87,9 +87,6 @@ const CartPage = (({ cart: items, dispatch }) => {
   );
 });
 
-CartPage.com;
-
-
 CartPage.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.shape({
     productId: PropTypes.string,
@@ -98,12 +95,12 @@ CartPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect(({ products: { items: productList }, cart }) => {
+export default connect(({ products: { getId: productList, getAllIds: productIdList }, cart }) => {
   const newCart = cart.items.map((cartItem) => {
     let foundProduct;
     if (productList) {
       // eslint-disable-next-line no-underscore-dangle
-      foundProduct = productList.find((product) => product._id === cartItem.productId);
+      foundProduct = productList[cartItem.productId];
     }
     return { product: foundProduct, ...cartItem };
   });
