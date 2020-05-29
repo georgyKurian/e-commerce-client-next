@@ -43,23 +43,6 @@ const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => 
     dispatch(startCheckout());
   }, [lastUpdated]);
 
-  const { price: subTotal, quantity: totalQuantity } = items
-    .reduce((total, item) => {
-      let product = null;
-      if (item.product) {
-        product = new Product(item.product);
-        const price = total.price + product.getSubtotal(item.quantity);
-        const quantity = total.quantity + item.quantity;
-        return {
-          price,
-          quantity,
-        };
-      }
-      if (!isFetchProducts) {
-        setIsFetchProducts(true);
-      }
-      return null;
-    }, { quantity: 0, price: 0 });
   if (items.length > 0) {
     return (
       <MyLayout title="Cart">
@@ -68,7 +51,7 @@ const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => 
             <div className="flex justify-between w-full px-4 py-4 border-b border-gray-200 items-ceter">
               <span className="inline-block text-2xl">Checkout</span>
               <div className="flex items-end inline-block">
-                <span className="font-semibold">{`Show Order Summary: $${subTotal / 100} (${totalQuantity} items)`}</span>
+                <span className="font-semibold">{`Show Order Summary: $${cartObject.getTotalAmount() / 100} (${cartObject.getTotalQuantity()} items)`}</span>
               </div>
             </div>
 
