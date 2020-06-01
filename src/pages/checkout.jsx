@@ -1,12 +1,13 @@
 
-import { useEffect, useState, useContext, useMemo } from 'react';
+import {
+  useEffect, useState, useContext, useMemo,
+} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import Router from 'next/router';
 import MyLayout from '../components/Layouts/MyLayout';
-import Product from '../models/Product';
 import { fetchProductsIfNeeded } from '../redux/actions/products';
 import { startCheckout } from '../redux/actions/checkout';
 import StripePayment from '../components/checkout/StripePayment';
@@ -110,7 +111,7 @@ CheckoutPage.defaultProps = {
   checkout: {},
 };
 
-export default connect(({ products: { getId }, cart, checkout }) => {
-  const cartObject  = useMemo=(()=>new Cart(cart.items,getId),[cart.items,getId])  
+export default connect(({ products: { getId, getAllIds }, cart, checkout }) => {
+  const cartObject = useMemo(() => new Cart(cart.items, getId, getAllIds), [cart.items, getId, getAllIds]);
   return { cart: { items: cartObject.getItems(), lastUpdated: cart.lastUpdated }, checkout };
 })(CheckoutPage);

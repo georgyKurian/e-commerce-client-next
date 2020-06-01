@@ -4,17 +4,21 @@ export default class Cart {
   /**
    * @param  {Array} cartItems
    */
-  constructor(cartItems,productsById) {
-    this.items = cartItems;
-    const totalAmount = 0;
-    const totalQuantity = 0;
-    cartItems.forEach((item) => {
-      if (item.productId && productsById[item.productId]) {
-        const product = new Product(productsById[item.productId]);
-        item.total = item.quantity * product.getPrice();
-        this.totalAmount = this.totalAmount + item.total ;
+  constructor(cartItems, productsById, productIdList) {
+    this.totalAmount = 0;
+    this.totalQuantity = 0;
+    this.items = cartItems.map((item) => {
+      const newItem = { ...item };
+      if (newItem?.productId
+        && productIdList.includes(newItem.productId)
+        && productsById[newItem.productId]
+      ) {
+        const product = new Product(productsById[newItem.productId]);
+        newItem.total = newItem.quantity * product.getPrice();
+        this.totalAmount += newItem.total;
       }
-      this.totalQuantity = this.totalQuantity + item.quantity;
+      this.totalQuantity += newItem.quantity;
+      return newItem;
     });
   }
 
