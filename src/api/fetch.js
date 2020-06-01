@@ -1,20 +1,21 @@
 import fetch from 'isomorphic-unfetch';
 
 const baseURL = process.env.REACT_APP_API_URL;
-const defaultOption = {
-  headers: { 'Content-Type': 'application/json' },
+const defaultHeader = { 'Content-Type': 'application/json' };
+const defaultOption = { 
 };
 
-export default (url, options) => fetch(baseURL + url, { ...defaultOption, ...options })
+export default (url, {headers,...otherOptions}) => {
+  return fetch(baseURL + url, { ...defaultOption, ...Object.assign({},defaultHeader,headers), ...otherOptions })
   .then((r) => {
     if (r.ok) return r.json();
     return [];
   })
   .catch((err) => {
     console.log(err);
-  });
+  })};
 
-export const getResponse = (url, options) => fetch(baseURL + url, { ...defaultOption, ...options })
+export const getResponse = (url, {headers,...otherOptions}) => fetch(baseURL + url, { ...defaultOption, ...Object.assign({},defaultHeader,headers), ...otherOptions })
   .catch((err) => {
     console.log(err);
   });

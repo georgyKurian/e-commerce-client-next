@@ -1,5 +1,5 @@
 
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useMemo } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Elements } from '@stripe/react-stripe-js';
@@ -110,14 +110,7 @@ CheckoutPage.defaultProps = {
   checkout: {},
 };
 
-export default connect(({ products: { items: productList }, cart, checkout }) => {
-  const newCart = cart.items.map((cartItem) => {
-    let foundProduct;
-    if (productList) {
-      // eslint-disable-next-line no-underscore-dangle
-      foundProduct = productList.find((product) => product._id === cartItem.productId);
-    }
-    return { product: foundProduct, ...cartItem };
-  });
-  return { cart: { items: newCart, lastUpdated: cart.lastUpdated }, checkout };
+export default connect(({ products: { getId }, cart, checkout }) => {
+  const cartObject  = useMemo=(()=>new Cart(cart.items,getId),[cart.items,getId])  
+  return { cart: { items: cartObject.getItems(), lastUpdated: cart.lastUpdated }, checkout };
 })(CheckoutPage);

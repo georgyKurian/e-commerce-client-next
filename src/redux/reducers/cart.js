@@ -11,8 +11,9 @@ const cart = (state = { items: [] }, action) => {
       newState.lastUpdated = lastUpdated;
       newState.items.push({
         productId: action.productId,
-        quantity: action.quantity,
+        quantity: action.quantity,  
       });
+      newState.items = [...newState.items]
       return newState;
     case UPDATE_ITEM:
       newState.lastUpdated = lastUpdated;
@@ -20,6 +21,7 @@ const cart = (state = { items: [] }, action) => {
       if (foundIndex !== -1) {
         newState.items[foundIndex].quantity = action.quantity;
       }
+      newState.items = [...newState.items]
       return newState;
     case DELETE_ITEM:
       newState.lastUpdated = lastUpdated;
@@ -27,6 +29,7 @@ const cart = (state = { items: [] }, action) => {
       if (indexOfElement !== -1) {
         newState.items.splice(indexOfElement, 1);
       }
+      newState.items = [...newState.items]
       return newState;
     case REHYDRATE_CART:
       return { ...action.cart };
