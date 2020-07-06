@@ -6,14 +6,14 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
-    'plugin:tailwind/recommended'
+    'plugin:tailwind/recommended',
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
-    'React': 'writable',
+    React: 'writable',
   },
-  parser: "babel-eslint",
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -25,9 +25,9 @@ module.exports = {
     'react',
   ],
   rules: {
-    "react/react-in-jsx-scope": "off",
-    "react/destructuring-assignment": [1, "always", { "ignoreClassFields": true }],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/jsx-props-no-spreading": "off",
+    'react/react-in-jsx-scope': 'off',
+    'react/destructuring-assignment': [1, 'always', { ignoreClassFields: true }],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/jsx-props-no-spreading': 'off',
   },
 };

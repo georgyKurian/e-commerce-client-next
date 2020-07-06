@@ -2,25 +2,36 @@ import {
   CREATE_ORDER, UPDATE_ORDER, CLEAR_ORDER, SYNCING_STARTED, SYNCING_STOPPED, REHYDRATE_CHECKOUT,
 } from '../actions/checkout';
 
-const checkout = (state = { }, action) => {
+const initialState = {
+  isSyncing: false,
+  lastSync: null,
+  paymentIntentSecret: null,
+  order: {},
+};
+
+const checkout = (state = { ...initialState }, {
+  type, paymentIntentSecret, lastSync, checkout, ...order
+}) => {
   const newState = { ...state };
-  switch (action.type) {
+  switch (type) {
     case CREATE_ORDER:
-      newState.orderId = action.orderId;
-      newState.orderTotal = action.orderTotal;
-      newState.paymentIntentSecret = action.paymentIntentSecret;
-      newState.lastSync = action.lastSync;
+      newState.order = order;
+      newState.paymentIntentSecret = paymentIntentSecret;
+      newState.lastSync = lastSync;
       newState.isSyncing = false;
       return newState;
     case UPDATE_ORDER:
-      newState.orderId = action.orderId;
-      newState.orderTotal = action.orderTotal;
-      newState.paymentIntentSecret = action.paymentIntentSecret;
-      newState.lastSync = action.lastSync;
+      newState.order = order;
+      if (paymentIntentSecret) {
+        newState.paymentIntentSecret = paymentIntentSecret;
+      }
+      if (lastSync) {
+        newState.lastSync = lastSync;
+      }
       newState.isSyncing = false;
       return newState;
     case CLEAR_ORDER:
-      return { isSyncing: false };
+      return { ...initialState };
     case SYNCING_STARTED:
       newState.isSyncing = true;
       return newState;
@@ -28,7 +39,7 @@ const checkout = (state = { }, action) => {
       newState.isSyncing = false;
       return newState;
     case REHYDRATE_CHECKOUT:
-      return { ...action.checkout };
+      return { ...checkout };
     default:
       return state;
   }

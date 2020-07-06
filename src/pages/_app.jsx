@@ -11,7 +11,6 @@ import '../../styles/main.css';
 import { authRehydrate } from '../redux/actions/auth';
 import { rehydrateCart } from '../redux/actions/cart';
 import { rehydrateCheckout } from '../redux/actions/checkout';
-import { UserContext } from '../context/UserContext';
 
 
 Router.events.on('routeChangeStart', () => {
@@ -43,7 +42,7 @@ class MyApp extends App {
     if (!token) {
       await store.dispatch(authRehydrate());
     }
-    if (!cart || cart.items || cart.items.length === 0) {
+    if (cart?.items?.length === 0) {
       await store.dispatch(rehydrateCart());
     }
     if (!(checkout && Object.keys(checkout).length !== 0)) {

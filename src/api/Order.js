@@ -13,17 +13,17 @@ const createOrder = (items) => {
   }));
 };
 
-const updateOrder = (orderId, items) => {
+const updateOrderItems = (orderId, items) => {
   const authHeadder = getAuthHeader();
-  return fetch('/v1/orders', {
-    method: 'POST',
+  return fetch(`/v1/orders/${orderId}`, {
+    method: 'PUT',
     headers: authHeadder,
-    body: { orderId, items },
-  }).then((response) => {
+    body: JSON.stringify({ items }),
+  }).then(async (response) => {
     if (response.ok) {
       return {
         success: true,
-        data: response.json(),
+        data: await response.json(),
       };
     }
     switch (response.status) {
@@ -47,6 +47,76 @@ const updateOrder = (orderId, items) => {
   });
 };
 
+const updateOrderAddress = (orderId, billingAddress) => {
+  const authHeadder = getAuthHeader();
+  return getResponse(`/v1/orders/${orderId}`, {
+    method: 'PUT',
+    headers: authHeadder,
+    body: JSON.stringify({ billingAddress }),
+  }).then(async (response) => {
+    if (response.ok) {
+      return {
+        success: true,
+        data: await response.json(),
+      };
+    }
+    switch (response.status) {
+      case 400:
+        return {
+          success: false,
+          error:
+              "We coudn't setup the order for you. Please check your contact and shipping details.",
+        };
+      case 401:
+        return {
+          success: false,
+          error:
+              'Placing the order failed because your session expired. Please, refresh the page and try agaian.',
+        };
+      default:
+        return {
+          success: false,
+          error: 'An unknown erroroccured. Please, retry again latter.',
+        };
+    }
+  });
+};
+
+const updateOrderStatus = (orderId, status = 'Paid') => {
+  const authHeadder = getAuthHeader();
+  return getResponse(`/v1/orders/${orderId}`, {
+    method: 'PUT',
+    headers: authHeadder,
+    body: JSON.stringify({ status }),
+  }).then(async (response) => {
+    if (response.ok) {
+      return {
+        success: true,
+        data: await response.json(),
+      };
+    }
+    switch (response.status) {
+      case 400:
+        return {
+          success: false,
+          error:
+              "We coudn't setup the order for you. Please check your contact and shipping details.",
+        };
+      case 401:
+        return {
+          success: false,
+          error:
+              'Placing the order failed because your session expired. Please, refresh the page and try agaian.',
+        };
+      default:
+        return {
+          success: false,
+          error: 'An unknown erroroccured. Please, retry again latter.',
+        };
+    }
+  });
+};
+
 const getUserOrders = async () => {
   const authHeadder = await getAuthHeader();
   return fetch('/v1/orders', {
@@ -55,4 +125,6 @@ const getUserOrders = async () => {
   });
 };
 
-export { createOrder, updateOrder, getUserOrders };
+export {
+  createOrder, updateOrderItems, updateOrderAddress, updateOrderStatus, getUserOrders,
+};

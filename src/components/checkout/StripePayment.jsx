@@ -5,6 +5,7 @@ import Proptypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { useDispatch, useSelector } from 'react-redux';
 import { PrimaryButton } from '../Button';
 import Form from '../Form';
 
@@ -26,6 +27,7 @@ const CARD_OPTIONS = {
       color: '#e53e3e',
     },
   },
+  hidePostalCode: false,
 };
 
 
@@ -33,6 +35,9 @@ const StripePayment = ({ clientSecret }) => {
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
+  const billingAddress = useSelector((state) => state.checkout.order?.billingAddress);
+  const userEmail = useSelector((state) => state.auth?.user?.email);
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [cardError, setCardError] = useState('');
 
@@ -58,18 +63,25 @@ const StripePayment = ({ clientSecret }) => {
         payment_method: {
           card: cardElement,
           billing_details: {
-            name: 'Jenny Rosen',
+            address: {
+              line1: billingAddress.addressLine1,
+              line2: billingAddress.addressLin2,
+              city: billingAddress.city,
+              state: billingAddress.province,
+              country: billingAddress.country,
+              postal_code: billingAddress.postalCode,
+            },
+            email: userEmail,
           },
         },
+        receipt_email: userEmail,
       })
       .then(({ paymentIntent, error }) => {
         // Handle result.error or result.paymentIntent
         if (paymentIntent) {
-          console.log(paymentIntent);
+          dispatch();
           router.push('/payment/successfull');
-          alert('Success!');
         } else {
-          console.log(error);
           setCardError(error.message);
           setIsLoading(false);
         }

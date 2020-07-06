@@ -95,7 +95,7 @@ export function updateCartQuantity(productId, quantity) {
 export function rehydrateCart() {
   return (dispatch) => {
     const cart = localStorage.get('cart');
-    if (cart) {
+    if (cart?.items?.length) {
       dispatch(rehydrateCartAction(cart));
     }
   };

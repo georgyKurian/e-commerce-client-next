@@ -3,8 +3,10 @@ import Product from './Product';
 export default class Cart {
   /**
    * @param  {Array} cartItems
+   * @param  {Array} productsById
+   * @param  {Array} productIdList
    */
-  constructor(cartItems, productsById, productIdList) {
+  constructor(cartItems, productsById = {}, productIdList = []) {
     this.totalAmount = 0;
     this.totalQuantity = 0;
     this.items = cartItems.map((item) => {
@@ -14,7 +16,9 @@ export default class Cart {
         && productsById[newItem.productId]
       ) {
         const product = new Product(productsById[newItem.productId]);
-        newItem.total = newItem.quantity * product.getPrice();
+        newItem.product = product;
+        newItem.total = product.getSubtotal(newItem.quantity);
+        newItem.formattedTotal = product.getFormattedSubtotal(newItem.quantity);
         this.totalAmount += newItem.total;
       }
       this.totalQuantity += newItem.quantity;
@@ -37,5 +41,5 @@ export default class Cart {
   /**
    * @return {string}
    */
-  getFormattedTotalAmount = () => `$${(this.getTotalAmount() / 100).toFixed(2)}`;
+  getFormattedTotalAmount = () => `$${(this.getTotalAmount / 100).toFixed(2)}`;
 }

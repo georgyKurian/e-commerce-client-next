@@ -47,10 +47,10 @@ class CartItem extends Component {
     } = this.props;
     return (
       <div
-        className="flex flex-wrap relative flex-wrap justify-between items-center rounded bg-themeGray-200 p-2 mb-2"
+        className="relative flex flex-wrap items-center justify-between p-2 mb-2 rounded bg-themeGray-200"
       >
-        <div className="w-full flex lg:w-3/5">
-          <div className="relative rounded overflow-hidden h-16 w-24">
+        <div className="flex w-full lg:w-3/5">
+          <div className="relative w-24 h-16 overflow-hidden rounded">
             <Link href="/products/[id]" as={`/products/${id}`}>
               <a>
                 <img
@@ -58,15 +58,15 @@ class CartItem extends Component {
                   alt="Product"
                   onMouseEnter={this.handleMouseOver}
                   onMouseLeave={this.handleMouseLeave}
-                  className="h-full object-cover"
+                  className="object-cover h-full"
                 />
               </a>
             </Link>
           </div>
-          <div className="flex-grow flex flex-col pl-2 items-start lg:flex-row lg:justify-between lg:items-center">
-            <div className="flex-grow flex flex-col justify-center">
+          <div className="flex flex-col items-start flex-grow pl-2 lg:flex-row lg:justify-between lg:items-center">
+            <div className="flex flex-col justify-center flex-grow">
               <Link href="/products/[id]" as={`/products/${id}`}>
-                <a className="text-blue-700 leading-none">{name}</a>
+                <a className="leading-none text-blue-700">{name}</a>
               </Link>
               <Rating
                 rating={avgRating}
@@ -74,25 +74,25 @@ class CartItem extends Component {
               />
             </div>
             <div>
-              <span className="text-orange-600 font-medium text-xl">
+              <span className="text-xl font-medium text-orange-600">
                 {price}
               </span>
             </div>
           </div>
         </div>
-        <div className="my-3 flex flex-col justify-center items-center lg:my-0">
+        <div className="flex flex-col items-center justify-center my-3 lg:my-0">
           <form action="">
-            <label className="text-gray-600 text-sm">
-              Qty
+            <label className="text-sm text-gray-600">
+              Qty :
               <Quantity className="w-10 h-10 text-right rounded" value={quantity} onQuantityChange={this.handleQuantityChange} />
             </label>
           </form>
         </div>
-        <div className="hidden flex flex-col justify-center items-center lg:block">
-          <span className="text-gray-600 text-sm">Total</span>
+        <div className="flex flex-col items-center justify-center hidden lg:block">
+          <span className="text-sm text-gray-600">Total :</span>
           <span className="w-10 h-10 text-right">{total}</span>
         </div>
-        <div className="text-center flex items-center">
+        <div className="flex items-center text-center">
           <button type="button" className="mx-auto text-red-600 cursor-pointer" aria-label="Removes this product from the cart" onClick={this.handleRemoveItem}>
             <img src="/delete-24px.svg" alt="Remove" title="Remove from cart" className="opacity-50 hover:opacity-75" />
           </button>

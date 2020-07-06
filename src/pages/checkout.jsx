@@ -1,18 +1,16 @@
 
 import {
-  useEffect, useState, useContext, useMemo,
+  useEffect, useState, useMemo,
 } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import MyLayout from '../components/Layouts/MyLayout';
 import { fetchProductsIfNeeded } from '../redux/actions/products';
-import { startCheckout } from '../redux/actions/checkout';
+import { startCheckout, updateCheckoutBillingAddress } from '../redux/actions/checkout';
 import StripePayment from '../components/checkout/StripePayment';
 import Step1 from '../components/checkout/step1';
-import { UserContext } from '../context/UserContext';
 import Cart from '../models/Cart';
 
 
@@ -20,18 +18,27 @@ import Cart from '../models/Cart';
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_RfZ1PvFjLuWOvHitWXLyQuHg00t9NwKTCK');
 
-const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => {
+const CheckoutPage = (() => {
   const [isFetchProducts, setIsFetchProducts] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-  const user = useContext(UserContext);
+  const isLoggedIn = useSelector((state) => state.auth?.user?.isLoggedIn);
+  const checkout = useSelector((state) => state.checkout);
+  const { items, lastUpdated } = useSelector((state) => state.cart);
+  const productList = useSelector((state) => state.products.getId);
+  const productIdList = useSelector((state) => state.products.getAllIds);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-  const cartObject = new Cart(items);
+  const cartObject = useMemo(
+    () => new Cart(items, productList, productIdList),
+    [items, productList, productIdList],
+  );
 
-  if (!user?.isLoggedIn) Router.push('/login');
-
-  function handleStepChange(step) {
-    setCurrentStep(step + 1);
-  }
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push('/login');
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     if (isFetchProducts) {
@@ -41,8 +48,16 @@ const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => 
   }, [isFetchProducts]);
 
   useEffect(() => {
-    dispatch(startCheckout());
-  }, [lastUpdated]);
+    if (isLoggedIn) {
+      dispatch(startCheckout());
+    }
+  }, [isLoggedIn, lastUpdated]);
+
+  const handleStep1Submit = async (billingAddress) => {
+    await dispatch(updateCheckoutBillingAddress(billingAddress));
+    setCurrentStep(2);
+  };
+
 
   if (items.length > 0) {
     return (
@@ -55,10 +70,15 @@ const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => 
                 <span className="font-semibold">{`Show Order Summary: $${cartObject.getTotalAmount() / 100} (${cartObject.getTotalQuantity()} items)`}</span>
               </div>
             </div>
-
           </div>
 
-          {currentStep === 1 && <Step1 stepChange={handleStepChange} />}
+          {currentStep === 1
+          && (
+          <Step1
+            onSubmit={handleStep1Submit}
+            billingAddress={checkout.billingAddress}
+          />
+          )}
 
           {currentStep === 2
           && (
@@ -77,7 +97,6 @@ const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => 
             )}
           </div>
           )}
-
         </>
       </MyLayout>
     );
@@ -91,27 +110,4 @@ const CheckoutPage = (({ cart: { items, lastUpdated }, checkout, dispatch }) => 
 });
 
 
-CheckoutPage.propTypes = {
-  cart: PropTypes.shape({
-    items: PropTypes.arrayOf(PropTypes.shape({
-      productId: PropTypes.string,
-      quantity: PropTypes.number,
-    })).isRequired,
-    lastUpdated: PropTypes.number,
-  }).isRequired,
-  checkout: PropTypes.shape({
-    orderTotal: PropTypes.number,
-    paymentIntentSecret: PropTypes.string,
-    lastSync: PropTypes.number,
-  }),
-  dispatch: PropTypes.func.isRequired,
-};
-
-CheckoutPage.defaultProps = {
-  checkout: {},
-};
-
-export default connect(({ products: { getId, getAllIds }, cart, checkout }) => {
-  const cartObject = useMemo(() => new Cart(cart.items, getId, getAllIds), [cart.items, getId, getAllIds]);
-  return { cart: { items: cartObject.getItems(), lastUpdated: cart.lastUpdated }, checkout };
-})(CheckoutPage);
+export default CheckoutPage;

@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { PropTypes } from 'prop-types';
-import { useForm } from 'react-hook-form';
 import TextInput from '../inputs/TextInput';
+import CountrySelect from '../inputs/CountrySelect';
 
 const AddressFields = ({
   address: {
@@ -22,6 +21,7 @@ const AddressFields = ({
     <>
       <TextInput
         name={`${name}.addressLine1`}
+        value={addressLine1}
         label="Street Address"
         ref={register({
           required: 'This field is required!',
@@ -34,6 +34,7 @@ const AddressFields = ({
       />
       <TextInput
         name={`${name}.addressLine2`}
+        value={addressLine2}
         label="Apt/Unit Number"
         className="mb-0"
         ref={register({
@@ -51,6 +52,7 @@ const AddressFields = ({
       <div className="float-left w-1/2">
         <TextInput
           name={`${name}.city`}
+          value={city}
           label="City"
           ref={register({
             required: 'This field is required!',
@@ -69,6 +71,7 @@ const AddressFields = ({
       <div className="float-right w-1/2">
         <TextInput
           name={`${name}.province`}
+          value={province}
           label="Province"
           ref={register({
             required: 'This field is required!',
@@ -86,6 +89,7 @@ const AddressFields = ({
       </div>
       <TextInput
         name={`${name}.country`}
+        value={country}
         label="Country"
         ref={register({
           required: 'This field is required!',
@@ -100,8 +104,17 @@ const AddressFields = ({
         })}
         error={errors?.country?.message}
       />
+      <CountrySelect
+        options={[
+          {
+            name: 'Canada',
+            code: 'CA',
+          },
+        ]}
+      />
       <TextInput
         name={`${name}.postalCode`}
+        value={postalCode}
         label="Postal Code"
         ref={register({
           required: 'This field is required!',

@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import MyLayout from '../components/Layouts/MyLayout';
 import CartItem from '../components/cart/CartItem';
-import Product from '../models/Product';
 import { fetchProductsIfNeeded } from '../redux/actions/products';
+import Cart from '../models/Cart';
 
-
-const CartPage = (({ cart: items, dispatch }) => {
-  let subTotal = 0;
-  let totalQuantity = 0;
-
+const CartPage = (() => {
   const [isFetchProducts, setIsFetchProducts] = useState(false);
+  const cartItems = useSelector((state) => state.cart.items);
+  const productList = useSelector((state) => state.products.getId);
+  const productIdList = useSelector((state) => state.products.getAllIds);
+  const dispatch = useDispatch();
+
+
+  const cartObject = useMemo(
+    () => new Cart(cartItems, productList, productIdList),
+    [cartItems, productList, productIdList],
+  );
+
+  const subTotal = cartObject.getTotalAmount();
+  const totalQuantity = cartObject.getTotalQuantity();
 
   useEffect(() => {
     if (isFetchProducts) {
@@ -21,24 +30,20 @@ const CartPage = (({ cart: items, dispatch }) => {
     }
   });
 
-  const cartItems = items
+  const cartItemsComponents = cartObject.getItems()
     .map((item) => {
-      let product = null;
       if (item.product) {
-        product = new Product(item.product);
-        subTotal += item.quantity * product.getPrice();
-        totalQuantity += item.quantity;
         return (
           <CartItem
-            key={product.getId()}
-            id={product.getId()}
-            name={product.getName()}
-            avgRating={product.getAvgRating()}
-            reviewCount={product.getReviewCount()}
-            price={product.getFormattedPrice()}
-            images={product.getImages()}
+            key={item.product.getId()}
+            id={item.product.getId()}
+            name={item.product.getName()}
+            avgRating={item.product.getAvgRating()}
+            reviewCount={item.product.getReviewCount()}
+            price={item.product.getFormattedPrice()}
+            images={item.product.getImages()}
             quantity={item.quantity}
-            total={product.getFormattedSubtotal(item.quantity)}
+            total={item.formattedTotal}
           />
         );
       }
@@ -73,7 +78,7 @@ const CartPage = (({ cart: items, dispatch }) => {
             </Link>
           </div>
           <div className="lg:w-8/12 lg:float-left lg:px-4">
-            {cartItems}
+            {cartItemsComponents}
           </div>
         </>
       </MyLayout>
@@ -95,14 +100,4 @@ CartPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect(({ products: { getId: productList, getAllIds: productIdList }, cart }) => {
-  const newCart = cart.items.map((cartItem) => {
-    let foundProduct;
-    if (productList) {
-      // eslint-disable-next-line no-underscore-dangle
-      foundProduct = productList[cartItem.productId];
-    }
-    return { product: foundProduct, ...cartItem };
-  });
-  return { cart: newCart };
-})(CartPage);
+export default CartPage;

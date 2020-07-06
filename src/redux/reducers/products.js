@@ -1,22 +1,16 @@
 import { combineReducers } from 'redux';
 import { REQUEST_PRODUCTS, RECEIVE_PRODUCTS } from '../actions/products';
 
-const productState = (state = { items: {} }, action) => {
+const productState = (state = { }, action) => {
+  const newState = { ...state };
   switch (action.type) {
     case REQUEST_PRODUCTS:
-      return {
-        ...state,
-        isFetching: true,
-        didInvalidate: false,
-      };
+      newState.isFetching = true;
+      return newState;
     case RECEIVE_PRODUCTS:
-      return {
-        ...state,
-        isFetching: false,
-        didInvalidate: false,
-        lastFetched: Date.now(),
-
-      };
+      newState.isFetching = false;
+      newState.lastFetched = Date.now();
+      return newState;
     default:
       return state;
   }

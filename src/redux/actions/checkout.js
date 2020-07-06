@@ -1,8 +1,11 @@
 import localStorage from 'store2';
-import { createOrder as createOrderAPI } from '../../api/Order';
+import {
+  createOrder as createOrderAPI, updateOrderItems as updateOrderItemsAPI, updateOrderAddress, updateOrderStatus,
+} from '../../api/Order';
 
 export const CREATE_ORDER = 'CREATE_ORDER';
 export const UPDATE_ORDER = 'UPDATE_ORDER';
+export const SET_ORDER_BILLING_ADDRESS = 'SET_ORDER_BILLING_ADDRESS';
 export const CLEAR_ORDER = 'CLEAR_ORDER';
 export const SYNCING_STARTED = 'SYNCING_STARTED';
 export const SYNCING_STOPPED = 'SYNCING_STOPPED';
@@ -18,25 +21,22 @@ export const REHYDRATE_CHECKOUT = 'REHYDRATE_CHECKOUT';
  *  isSyncing
  * }
  */
-function createOrder(orderId, orderTotal, paymentIntentSecret, lastSync) {
+function createOrder(order, lastSync) {
   return {
     type: CREATE_ORDER,
-    orderId,
-    orderTotal,
-    paymentIntentSecret,
+    ...order,
     lastSync,
   };
 }
 
-function updateOrder(orderId, orderTotal, paymentIntentSecret, lastSync) {
+function updateOrder(order, lastSync) {
   return {
     type: UPDATE_ORDER,
-    orderId,
-    orderTotal,
-    paymentIntentSecret,
+    ...order,
     lastSync,
   };
 }
+
 
 function clearOrder(orderId) {
   return {
@@ -72,31 +72,40 @@ function saveCheckoutToLocalStorage(cart) {
 }
 
 
-/**
- * Thunk action creator
- */
-export function updateCheckout() {
-  return (dispatch, getState) => {
-    const {
-      checkout: {
-        orderId, stripeIntentSecret, orderTotal, isSyncing,
-      }, cart: { items },
-    } = getState();
-
-    if (!isSyncing) {
-      if (!orderId) {
-        const startTime = Date.now();
-        dispatch(syncingStarted());
-        updateOrder(items);
-        dispatch(syncingStopped());
-        const { checkout: newCheckout } = getState();
-        saveCheckoutToLocalStorage(newCheckout);
+const createCheckoutOrder = (dispatch, getState, items) => {
+  const startTime = Date.now();
+  dispatch(syncingStarted());
+  return createOrderAPI(items)
+    .then((response) => {
+      if (response.success) {
+        dispatch(createOrder(response.data, startTime));
       } else {
-        dispatch(updateOrder(orderId, items));
+        dispatch(syncingStopped());
       }
-    }
-  };
-}
+    }, () => { dispatch(syncingStopped()); })
+    .then(() => {
+      const { checkout: newCheckout } = getState();
+      saveCheckoutToLocalStorage(newCheckout);
+    });
+};
+
+const updateCheckoutOrder = (dispatch, getState, orderId, items) => {
+  const startTime = Date.now();
+  dispatch(syncingStarted());
+  return updateOrderItemsAPI(orderId, items)
+    .then((response) => {
+      if (response.success) {
+        dispatch(updateOrder(response.data, startTime));
+      } else {
+        dispatch(syncingStopped());
+      }
+    }, () => { dispatch(syncingStopped()); })
+    .then(() => {
+      const { checkout: newCheckout } = getState();
+      saveCheckoutToLocalStorage(newCheckout);
+    });
+};
+
 
 /**
  * Thunk action creator
@@ -105,31 +114,40 @@ export function startCheckout() {
   return (dispatch, getState) => {
     const {
       checkout: {
-        orderId, isSyncing, lastSync,
+        order: { _id: orderId }, isSyncing, lastSync,
       }, cart: { items, lastUpdated },
     } = getState();
 
     if (!(lastSync && lastUpdated && lastSync >= lastUpdated) && !isSyncing) {
       if (!orderId) {
-        const startTime = Date.now();
-        dispatch(syncingStarted());
-        return createOrderAPI(items)
-          .then((response) => {
-            if (response.success) {
-              const { orderId: newOrderId, orderTotal, paymentIntentSecret } = response.data;
-              dispatch(createOrder(newOrderId, orderTotal, paymentIntentSecret, startTime));
-            } else {
-              dispatch(syncingStopped());
-            }
-          }, () => { dispatch(syncingStopped()); })
-          .then(() => {
-            const { checkout: newCheckout } = getState();
-            saveCheckoutToLocalStorage(newCheckout);
-          });
+        return createCheckoutOrder(dispatch, getState, items);
       }
-      updateCheckout();
+      return updateCheckoutOrder(dispatch, getState, orderId, items);
     }
     return null;
+  };
+}
+
+/**
+ * Thunk action creator
+ */
+export function updateCheckoutBillingAddress(billingAddress) {
+  return (dispatch, getState) => {
+    const {
+      checkout: {
+        order: { _id: orderId },
+      },
+    } = getState();
+    updateOrderAddress(orderId, billingAddress)
+      .then((response) => {
+        if (response.success) {
+          dispatch(updateOrder(response.data));
+        }
+      })
+      .then(() => {
+        const { checkout: newCheckout } = getState();
+        saveCheckoutToLocalStorage(newCheckout);
+      });
   };
 }
 
@@ -140,17 +158,18 @@ export function checkoutComplete() {
   return (dispatch, getState) => {
     const {
       checkout: {
-        orderId, stripeIntentSecret, orderTotal, isSynced, isSyncing,
+        order: { _id: orderId },
       },
-      cart: { items },
     } = getState();
 
-    if (!isSyncing && orderId) {
-      dispatch(clearOrder());
+    if (orderId) {
+      updateOrderStatus(orderId, 'Paid')
+        .finally(() => {
+          dispatch(clearOrder());
+        });
+
       const { checkout: newCheckout } = getState();
       saveCheckoutToLocalStorage(newCheckout);
-    } else {
-      dispatch(updateOrder(orderId, items));
     }
   };
 }

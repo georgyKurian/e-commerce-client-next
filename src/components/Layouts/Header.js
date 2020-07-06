@@ -1,18 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { useState, useContext } from 'react';
+import { connect, useSelector } from 'react-redux';
+import { useState } from 'react';
 import HamburgerIcon from '../../images/hamburger-icon.svg';
 import ShoppingCart from '../../images/shopping_cart.svg';
-import { UserContext } from '../../context/UserContext';
 
 
 const cssClasses = 'text-center py-4 px-4 text-sm text-themeGray-300 inline-block hover:text-white';
 
 const Header = ({ itemsInCart }) => {
   const [isButtonToggled, setButtonToggled] = useState(false);
-  const user = useContext(UserContext);
+  const user = useSelector((state) => state.auth?.user);
 
   function handleSearchToggleClick() {
     setButtonToggled(true);
