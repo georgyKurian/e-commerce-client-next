@@ -1,0 +1,5 @@
+.customDropDown {
+  overflow: hidden;
+  background: url("public/keyboard_arrow_down.svg") no-repeat right white;
+  position: relative;
+}

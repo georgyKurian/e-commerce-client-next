@@ -87,31 +87,30 @@ const AddressFields = ({
           error={errors?.province?.message}
         />
       </div>
-      <TextInput
+      <CountrySelect
         name={`${name}.country`}
-        value={country}
         label="Country"
+        value={country}
         ref={register({
           required: 'This field is required!',
-          pattern: {
-            value: /^[a-zA-Z\s-.]+$/i,
-            message: 'Invalid character found! ( Use: letters, ., - )',
-          },
-          maxLength: {
-            value: 15,
-            message: 'Too long! It should be less than 15 characters', // <p>error message</p>
-          },
         })}
         error={errors?.country?.message}
       />
-      <CountrySelect
-        options={[
-          {
-            name: 'Canada',
-            code: 'CA',
+      {/* <select
+        name={`${name}.country`}
+        value={country}
+        ref={register({
+          required: 'This field is required!',
+          validate: (value) => {
+            alert(value);
           },
-        ]}
-      />
+        })}
+        error={errors?.country?.message}
+      >
+        <option value="">-select-</option>
+        <option value="US">US</option>
+        <option value="CA">US</option>
+      </select> */}
       <TextInput
         name={`${name}.postalCode`}
         value={postalCode}

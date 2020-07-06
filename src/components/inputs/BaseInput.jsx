@@ -21,6 +21,8 @@ const BaseInput = React.forwardRef(({
   </div>
 ));
 
+BaseInput.displayName = 'BaseInput';
+
 BaseInput.propTypes = {
   name: PropTypes.string.isRequired,
   className: PropTypes.string,

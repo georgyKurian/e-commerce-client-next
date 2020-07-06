@@ -12,6 +12,7 @@ export default class Order {
   constructor({
     _id,
     customer,
+    status,
     products,
     contact,
     billingAddress,
@@ -19,6 +20,7 @@ export default class Order {
   }) {
     this.id = _id;
     this.customer = customer;
+    this.status = status;
     this.createdAt = createdAt;
     this.products = products.map((product) => new Product(product));
     this.contact = contact;
@@ -34,6 +36,25 @@ export default class Order {
    * @return {string}
    */
   getCustomer = () => this.customer;
+
+  /**
+   * @return {string}
+   */
+  getStatus = () => this.status;
+
+  /**
+   * @return {string}
+   */
+  getStatusColor = () => {
+    switch (this.status) {
+      case 'confirmed':
+        return 'green-300';
+      case 'pending':
+        return 'blue-300';
+      default:
+        return 'gray-300';
+    }
+  };
 
   /**
    * @return {number}

@@ -4,7 +4,7 @@ import Order from '../../models/Order';
 import OrderItem from './OrderItem';
 
 const OrderCard = ({ order }) => (
-  <div className="OrderSummary mb-10">
+  <div className="mb-10 OrderSummary">
     <div className="flex justify-between px-5 py-3 bg-gray-200 border border-gray-400">
       <div>
         <div className="font-semibold">Order Placed</div>
@@ -35,12 +35,19 @@ const OrderCard = ({ order }) => (
           ))}
         </tbody>
         <tfoot>
-          <tr className="font-bold text-xl text-gray-800">
+          <tr className="text-xl font-bold text-gray-800">
             <td colSpan="3" className="px-5 text-right">Total</td>
             <td className="px-5 text-right">{order.getFormattedTotalPrice()}</td>
           </tr>
         </tfoot>
       </table>
+    </div>
+    <div className="flex justify-between px-5 py-3 bg-gray-200 border border-gray-400">
+      <span>
+        Status :
+        {' '}
+        {order.getStatus()}
+      </span>
     </div>
   </div>
 );

@@ -8,6 +8,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import { useDispatch, useSelector } from 'react-redux';
 import { PrimaryButton } from '../Button';
 import Form from '../Form';
+import { checkoutComplete } from '../../redux/actions/checkout';
 
 const CARD_OPTIONS = {
   style: {
@@ -79,8 +80,8 @@ const StripePayment = ({ clientSecret }) => {
       .then(({ paymentIntent, error }) => {
         // Handle result.error or result.paymentIntent
         if (paymentIntent) {
-          dispatch();
-          router.push('/payment/successfull');
+          dispatch(checkoutComplete);
+          // router.push('/payment/successfull');
         } else {
           setCardError(error.message);
           setIsLoading(false);
