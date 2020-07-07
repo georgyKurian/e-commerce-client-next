@@ -120,6 +120,9 @@ export function startCheckout() {
 
     if (!(lastSync && lastUpdated && lastSync >= lastUpdated) && !isSyncing) {
       if (!orderId) {
+        if (items.length === 0) {
+          return null;
+        }
         return createCheckoutOrder(dispatch, getState, items);
       }
       return updateCheckoutOrder(dispatch, getState, orderId, items);

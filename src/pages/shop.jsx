@@ -26,8 +26,16 @@ class Shop extends React.Component {
 }
 
 Shop.propTypes = {
-  productMap: PropTypes.arrayOf(PropTypes.object).isRequired,
+  productMap: PropTypes.objectOf(PropTypes.shape({
+    _id: PropTypes.string.required,
+    name: PropTypes.string.required,
+    price: PropTypes.number.required,
+    images: PropTypes.number.required,
+  })).isRequired,
   productIdList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect((state) => ({ productMap: state.products.getId, productIdList: state.products.getAllIds }))(Shop);
+export default connect((state) => ({
+  productMap: state.products.getId,
+  productIdList: state.products.getAllIds,
+}))(Shop);

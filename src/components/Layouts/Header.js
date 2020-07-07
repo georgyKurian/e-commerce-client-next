@@ -18,9 +18,9 @@ const Header = ({ itemsInCart }) => {
   }
 
   return (
-    <header className="fixed top-0 z-10 w-full bg-themeGray-700">
+    <header className="fixed top-0 z-10 w-full outer-wrap bg-themeGray-700">
       <div className="flex flex-wrap items-center justify-center inner-wrap">
-        <nav className="flex justify-center hidden text-white lg:block NavigationBar" aria-label="Desktop Navigation">
+        <nav className="hidden text-white lg:block NavigationBar" aria-label="Desktop Navigation">
           <Link href="/">
             <a className={cssClasses}>Home</a>
           </Link>

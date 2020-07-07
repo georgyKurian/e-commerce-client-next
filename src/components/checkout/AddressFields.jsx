@@ -123,7 +123,7 @@ const AddressFields = ({
           },
         })}
         error={errors?.postalCode?.message}
-        onKeyUp={formatPostalCode}
+        onChange={formatPostalCode}
         maxLength={7}
       />
     </>

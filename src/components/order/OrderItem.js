@@ -16,14 +16,14 @@ class OrderItem extends Component {
     } = this.props;
     return (
       <tr
-        className="bg-themeGray-200 p-2 border-t border-b border-gray-400"
+        className="p-2 border-t border-b border-gray-400 bg-themeGray-200"
       >
         <td className="px-5">
           <Link href="/products/[id]" as={`/products/${id}`}>
             <a className="text-blue-700">{name}</a>
           </Link>
         </td>
-        <td className="text-orange-600 font-medium text-xl px-5">{price}</td>
+        <td className="px-5 text-xl font-medium text-orange-600">{price}</td>
         <td className="px-5">{`Qty : ${quantity}`}</td>
         <td className="px-5">{`${subtotal}`}</td>
       </tr>
@@ -32,7 +32,6 @@ class OrderItem extends Component {
 }
 
 OrderItem.propTypes = {
-  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,

@@ -15,7 +15,6 @@ const CARD_OPTIONS = {
     base: {
       color: '#000',
       backgroundColor: '#fff',
-      borderColor: '#000',
       fontWeight: 500,
       fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
       fontSize: '16px',

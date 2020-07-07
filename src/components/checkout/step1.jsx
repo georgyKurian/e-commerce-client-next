@@ -7,7 +7,9 @@ const Step1 = ({ onSubmit, billingAddress }) => {
   const { handleSubmit, register, errors } = useForm();
 
   const formSubmit = (data) => {
-    onSubmit(data.billing);
+    const newBillingAddress = { ...data.billing };
+    newBillingAddress.postalCode = data.billing.postalCode.replace(/\s+/, '');
+    onSubmit(newBillingAddress);
   };
 
   return (
