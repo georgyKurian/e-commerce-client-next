@@ -1,0 +1,5 @@
+select.customDropDown {
+  background: url("/keyboard_arrow_down.svg") no-repeat white;
+  background-size: 30px 30px;
+  background-position: right 5% center;
+}

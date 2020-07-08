@@ -29,6 +29,10 @@ export default class Product {
     this.reviewCount = reviewCount;
   }
 
+  static async fetch(productId) {
+    return new this({});
+  }
+
   /**
    * @return {string}
    */
@@ -42,12 +46,12 @@ export default class Product {
   /**
    * @return {string}
    */
-  getFormattedPrice = () => `$${this.price / 100}`;
+  getFormattedPrice = () => `$${(this.price / 100).toFixed(2)}`;
 
   /**
    * @return {string}
    */
-  getFormattedSubtotal = (quantity) => `$${this.getSubtotal(quantity) / 100}`;
+  getFormattedSubtotal = (quantity) => `$${(this.getSubtotal(quantity) / 100).toFixed(2)}`;
 
   /**
    * @return {number}

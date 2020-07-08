@@ -1,30 +1,43 @@
+/* eslint-disable no-case-declarations */
 import {
   ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, REHYDRATE_CART,
 } from '../actions/cart';
 
-const cart = (state = [], action) => {
-  const newState = [...state];
+const cart = (state = { items: [] }, action) => {
+  const newState = { ...state };
+  const lastUpdated = Date.now();
+
   switch (action.type) {
     case ADD_ITEM:
-      newState.push({
+      newState.lastUpdated = lastUpdated;
+      newState.items = [...state.items];
+      newState.items.push({
         productId: action.productId,
         quantity: action.quantity,
       });
       return newState;
     case UPDATE_ITEM:
-      const foundIndex = newState.findIndex((item) => item.productId === action.productId);
+      newState.lastUpdated = lastUpdated;
+      const foundIndex = newState.items.findIndex((item) => item.productId === action.productId);
       if (foundIndex !== -1) {
-        newState[foundIndex].quantity = action.quantity;
+        newState.items = [...state.items];
+        newState.items[foundIndex].quantity = action.quantity;
+        return newState;
       }
-      return [...newState];
+      return state;
     case DELETE_ITEM:
-      const indexOfElement = newState.findIndex((item) => item.productId === action.productId);
+      newState.lastUpdated = lastUpdated;
+      const indexOfElement = newState.items.findIndex(
+        (item) => item.productId === action.productId,
+      );
       if (indexOfElement !== -1) {
-        newState.splice(indexOfElement, 1);
+        newState.items = [...newState.items];
+        newState.items.splice(indexOfElement, 1);
+        return newState;
       }
-      return [...newState];
+      return state;
     case REHYDRATE_CART:
-      return [...action.cart];
+      return { ...action.cart };
     default:
       return state;
   }

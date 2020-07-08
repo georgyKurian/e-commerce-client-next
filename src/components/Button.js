@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 function Button({ className, children, ...rest }) {
   return (
     // eslint-disable-next-line react/button-has-type
-    <button className={` rounded h-10 text-base w-32 ${className}`} {...rest}>
+    <button className={`mx-auto rounded-lg h-10 text-base w-32 ${className}`} {...rest}>
       {children}
     </button>
   );
@@ -12,7 +12,10 @@ function Button({ className, children, ...rest }) {
 
 Button.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+  ]).isRequired,
 };
 
 Button.defaultProps = {

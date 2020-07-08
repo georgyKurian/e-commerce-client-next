@@ -13,9 +13,9 @@ class CategoryPage extends React.Component {
   }
 
   render() {
-    const { items } = this.props;
-    const productList = items.map(
-      (productData) => new Product(productData),
+    const { productMap, productIdList } = this.props;
+    const productList = productIdList.map(
+      (productId) => new Product(productMap[productId]),
     );
     return (
       <MyLayout title="Cateory">
@@ -26,8 +26,17 @@ class CategoryPage extends React.Component {
 }
 
 CategoryPage.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  productMap: PropTypes.objectOf(PropTypes.shape({
+    _id: PropTypes.string.required,
+    name: PropTypes.string.required,
+    price: PropTypes.number.required,
+    images: PropTypes.number.required,
+  })).isRequired,
+  productIdList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 
-export default connect((state) => state.products)(CategoryPage);
+export default connect((state) => ({
+  productMap: state.products.getId,
+  productIdList: state.products.getAllIds,
+}))(CategoryPage);

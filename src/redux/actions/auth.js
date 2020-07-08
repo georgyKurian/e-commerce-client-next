@@ -49,7 +49,9 @@ export function auth(token) {
   return (dispatch) => {
     dispatch(addToken(token));
     dispatch(requestUserDetails());
-    return getCurrentUser(token).then((userData) => dispatch(receiveUserDetails(userData)));
+    return getCurrentUser(token).then((userData) => {
+      if (userData) dispatch(receiveUserDetails(userData));
+    });
   };
 }
 
@@ -72,7 +74,7 @@ export function authRehydrate() {
     const authLocal = localStorage.get('auth');
     if (authLocal && authLocal.token) {
       dispatch(addToken(authLocal.token));
-      return dispatch(receiveUserDetails(authLocal.user.data));
+      return dispatch(receiveUserDetails(authLocal.user));
     }
   };
 }

@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { PrimaryButton, SecondaryButton } from '../Button';
+import { SecondaryButton } from '../Button';
 import FeaturedTag from './FeaturedTag';
 import Rating from './Rating';
 import { addToCart } from '../../redux/actions/cart';
+import AddSvgIcon from '../../../public/add.svg';
 
 class ProducrCard extends Component {
   constructor(props) {
@@ -42,9 +43,9 @@ class ProducrCard extends Component {
     } = this.props;
     return (
       <div
-        className="flex flex-col relative flex-wrap justify-between rounded bg-themeGray-200 p-2 overflow-hidden"
+        className="relative flex flex-col flex-wrap justify-between overflow-hidden border border-transparent rounded hover:border-gray-200"
       >
-        <div className="relative rounded overflow-hidden h-24 lg:h-36">
+        <div className="relative overflow-hidden rounded">
           <Link href="/products/[id]" as={`/products/${id}`}>
             <a>
               <img
@@ -53,31 +54,27 @@ class ProducrCard extends Component {
                 onMouseEnter={this.handleMouseOver}
                 onMouseLeave={this.handleMouseLeave}
               />
+              {isFeatured && <FeaturedTag className="absolute top-0 right-0 mx-1" />}
             </a>
           </Link>
-          {isFeatured && <FeaturedTag className="absolute top-0 right-0 mx-1" />}
+          <button title="Add to Bag" type="button" className="absolute bottom-0 right-0 float-right w-8 h-8 p-1 m-2 text-base border border-white rounded opacity-75 hover:opacity-100" onClick={this.handleAddToBag}>
+            <AddSvgIcon className="mx-auto text-white fill-current" />
+          </button>
         </div>
-        <div className="flex flex-col justify-center items-center">
-          <Link href="/products/[id]" as={`/products/${id}`}>
-            <a className="text-blue-700">{name}</a>
-          </Link>
-          <Rating
-            rating={avgRating}
-            reviewCount={reviewCount}
-          />
-          <span className="text-orange-600 font-medium text-xl">
+        <div className="flex justify-between px-2">
+          <div>
+            <Link href="/products/[id]" as={`/products/${id}`}>
+              <a className="text-gray-700">{name}</a>
+            </Link>
+            <Rating
+              rating={avgRating}
+              reviewCount={reviewCount}
+            />
+          </div>
+          <span className="font-medium text-gray-800">
             {price}
           </span>
         </div>
-        <div className="hidden md:block w-full text-center self-end">
-          <SecondaryButton className="w-3/4 mx-auto self-end">
-            View Details
-          </SecondaryButton>
-          <PrimaryButton className="w-3/4 mx-auto self-end m-1" onClick={this.handleAddToBag}>
-            Add to Bag
-          </PrimaryButton>
-        </div>
-
         {withRemoveButton && (
           <SecondaryButton onClick={onRemove}>
             Remove

@@ -4,7 +4,16 @@ export const ADD_ITEM = 'ADD_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const UPDATE_ITEM = 'UPDATE_ITEM';
 export const REMOVE_ALL = 'REMOVE_ALL';
+
 export const REHYDRATE_CART = 'REHYDRATE_CART';
+
+/*
+ {
+    items:[],
+    cartTotal,
+    lastUpdated
+ }
+ */
 
 function addItem(productId, quantity) {
   return {
@@ -46,11 +55,11 @@ function saveCartToLocalStorage(cart) {
 export function addToCart(productId, quantity = 1) {
   return (dispatch, getState) => {
     const { cart } = getState();
-    const foundIndex = cart.findIndex((item) => item.productId === productId);
+    const foundIndex = cart.items.findIndex((item) => item.productId === productId);
     if (foundIndex === -1) {
       dispatch(addItem(productId, quantity));
     } else {
-      dispatch(updateItem(productId, (cart[foundIndex].quantity + quantity)));
+      dispatch(updateItem(productId, (cart.items[foundIndex].quantity + quantity)));
     }
     const { cart: newCart } = getState();
     saveCartToLocalStorage(newCart);
@@ -78,13 +87,15 @@ export function updateCartQuantity(productId, quantity) {
     saveCartToLocalStorage(newCart);
   };
 }
+
+
 /**
  * Thunk action creator
  */
 export function rehydrateCart() {
   return (dispatch) => {
     const cart = localStorage.get('cart');
-    if (cart) {
+    if (cart?.items?.length) {
       dispatch(rehydrateCartAction(cart));
     }
   };

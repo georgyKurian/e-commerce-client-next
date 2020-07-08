@@ -30,32 +30,32 @@ export default class CheckoutForm extends Component {
           />
           <TextInput
             label="Country"
-            name="shippingAddress.country"
-            value={this.props.values.shippingAddress.country || ''}
+            name="billingAddress.country"
+            value={this.props.values.billingAddress.country || ''}
             onChange={this.props.handleChange}
           />
           <TextInput
             label="City"
-            name="shippingAddress.city"
-            value={this.props.values.shippingAddress.city || ''}
+            name="billingAddress.city"
+            value={this.props.values.billingAddress.city || ''}
             onChange={this.props.handleChange}
           />
           <TextInput
             label="Address Line 1"
-            name="shippingAddress.addressLine1"
-            value={this.props.values.shippingAddress.addressLine1 || ''}
+            name="billingAddress.addressLine1"
+            value={this.props.values.billingAddress.addressLine1 || ''}
             onChange={this.props.handleChange}
           />
           <TextInput
             label="Address Line 2"
-            name="shippingAddress.addressLine2"
-            value={this.props.values.shippingAddress.addressLine2 || ''}
+            name="billingAddress.addressLine2"
+            value={this.props.values.billingAddress.addressLine2 || ''}
             onChange={this.props.handleChange}
           />
           <TextInput
             label="Postal Code"
-            name="shippingAddress.postalCode"
-            value={this.props.values.shippingAddress.postalCode || ''}
+            name="billingAddress.postalCode"
+            value={this.props.values.billingAddress.postalCode || ''}
             onChange={this.props.handleChange}
           />
           <PrimaryButton disabled={this.props.isLoading}>

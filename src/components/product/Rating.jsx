@@ -34,7 +34,7 @@ const Rating = ({ rating, reviewCount }) => {
 
   return (
     <>
-      <div className="text-sm flex items-center">
+      <div className="flex items-center text-sm">
         <svg
           className="star-source"
           height="15"
@@ -57,11 +57,7 @@ const Rating = ({ rating, reviewCount }) => {
           </defs>
           {stars}
         </svg>
-        <span>
-          (
-          {reviewCount}
-          )
-        </span>
+        <span>{`(${reviewCount})`}</span>
       </div>
     </>
   );

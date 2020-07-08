@@ -1,28 +1,38 @@
-import Product from './Product';
+import dayjs from 'dayjs';
+import OrderItem from './OrderItem';
 
 export default class Order {
   /**
    * @param  {string} id
    * @param  {string} customer
+   * @param  {string} status
+   * @param  {number} totalAmount
    * @param  {Array} products
    * @param  {Array} contact
-   * @param  {Array} shippingAddress
+   * @param  {Array} billingAddress
    * @param  {number} createdAt
    */
   constructor({
     _id,
     customer,
+    status,
+    totalAmount,
     products,
     contact,
-    shippingAddress,
+    billingAddress,
     created_at: createdAt,
   }) {
     this.id = _id;
     this.customer = customer;
+    this.status = status;
+    this.totalAmount = totalAmount;
     this.createdAt = createdAt;
-    this.products = products.map((product) => new Product(product));
+    this.products = products.map((product) => {
+      const productObject = new OrderItem(product);
+      return productObject;
+    });
     this.contact = contact;
-    this.shippingAddress = shippingAddress;
+    this.billingAddress = billingAddress;
   }
 
   /**
@@ -36,13 +46,34 @@ export default class Order {
   getCustomer = () => this.customer;
 
   /**
+   * @return {string}
+   */
+  getStatus = () => this.status;
+
+  /**
+   * @return {string}
+   */
+  getStatusColor = () => {
+    switch (this.status) {
+      case 'completed':
+        return 'green-400';
+      case 'pending':
+        return 'blue-400';
+      case 'cancelled':
+        return 'red-400';
+      default:
+        return 'gray-400';
+    }
+  };
+
+  /**
    * @return {number}
    */
   getTimestamp = () => this.createdAt;
 
-  getDate = () => {
-    const date = new Date(parseInt(this.createdAt, 10));
-    return date.toDateString();
+  getDate = (format = 'MMMM D, YYYY') => {
+    const date = dayjs(parseInt(this.createdAt, 10));
+    return date.format(format);
   };
 
   /**
@@ -58,17 +89,17 @@ export default class Order {
   /**
    * @return {string}
    */
-  getShippingAddress = () => this.shippingAddress;
+  getBillingAddress = () => this.billingAddress;
 
   /**
    * @return {number}
    */
-  getTotalPrice = () => this.products.reduce((sum, product) => sum + product.getPrice(), 0);
+  getTotalPrice = () => this.totalAmount;
 
   /**
    * @return {string}
    */
-  getFormattedTotalPrice = () => `$${this.getTotalPrice() / 100}`;
+  getFormattedTotalPrice = () => `$${(this.totalAmount / 100).toFixed(2)}`;
 
   /**
    * @return  {{_id: string, customer: string, timestamp: string, products: Array<Products>}}

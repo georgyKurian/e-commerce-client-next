@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function ({ children, onSubmit }) {
-  return (
-    <form className="flex justify-center" onSubmit={onSubmit}>
-      {children}
-    </form>
-  );
-}
+const Form = (({ children, ...rest }) => (
+  <form {...rest}>
+    {children}
+  </form>
+));
+
+export default Form;

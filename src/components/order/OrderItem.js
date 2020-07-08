@@ -1,43 +1,45 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Component } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { addToCart } from '../../redux/actions/cart';
 
-class OrderItem extends Component {
-  handleAddToBag = async () => {
-    const { id, dispatch } = this.props;
-    dispatch(addToCart(id));
-  }
-
-  render() {
-    const {
-      id, name, price, quantity, subtotal,
-    } = this.props;
-    return (
-      <tr
-        className="bg-themeGray-200 p-2 border-t border-b border-gray-400"
-      >
-        <td className="px-5">
-          <Link href="/products/[id]" as={`/products/${id}`}>
-            <a className="text-blue-700">{name}</a>
-          </Link>
-        </td>
-        <td className="text-orange-600 font-medium text-xl px-5">{price}</td>
-        <td className="px-5">{`Qty : ${quantity}`}</td>
-        <td className="px-5">{`${subtotal}`}</td>
-      </tr>
-    );
-  }
-}
+const OrderItem = ({
+  id, name, images, price, quantity,
+}) => (
+  <tr
+    className="p-2 border-t border-b border-gray-400"
+  >
+    <td className="p-1">
+      <img src={images[0]} alt={name} className="w-12 h-12 rounded" />
+    </td>
+    <td className="pl-1 pr-5">
+      <div>
+        <Link href="/products/[id]" as={`/products/${id}`}>
+          <a>
+            {name}
+          </a>
+        </Link>
+        {quantity > 1
+            && (
+            <span className="text-gray-600">
+              &nbsp;(
+              {'x'}
+              {quantity}
+              )
+            </span>
+            )}
+      </div>
+      <div className="text-red-800">{price}</div>
+    </td>
+  </tr>
+);
 
 OrderItem.propTypes = {
   id: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
-  subtotal: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
 };
 
 OrderItem.defaultProps = {

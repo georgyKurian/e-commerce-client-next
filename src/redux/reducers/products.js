@@ -1,24 +1,45 @@
+import { combineReducers } from 'redux';
 import { REQUEST_PRODUCTS, RECEIVE_PRODUCTS } from '../actions/products';
 
-const products = (state = {}, action) => {
+const productState = (state = { }, action) => {
+  const newState = { ...state };
   switch (action.type) {
     case REQUEST_PRODUCTS:
-      return {
-        ...state,
-        isFetching: true,
-        didInvalidate: false,
-      };
+      newState.isFetching = true;
+      return newState;
     case RECEIVE_PRODUCTS:
-      return {
-        ...state,
-        isFetching: false,
-        didInvalidate: false,
-        lastFetched: Date.now(),
-        items: action.productDataList,
-      };
+      newState.isFetching = false;
+      newState.lastFetched = Date.now();
+      return newState;
     default:
       return state;
   }
 };
 
-export default products;
+const getId = (state = { }, action) => {
+  switch (action.type) {
+    case RECEIVE_PRODUCTS:
+      const newProductArray = { ...state };
+      action.productDataList.forEach((product) => {
+        newProductArray[product._id] = { ...product };
+      });
+      return newProductArray;
+    default:
+      return state;
+  }
+};
+
+const getAllIds = (state = [], action) => {
+  switch (action.type) {
+    case RECEIVE_PRODUCTS:
+      const newProductArray = [...state];
+      action.productDataList.forEach((product) => {
+        newProductArray.push(product._id);
+      });
+      return newProductArray;
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({ ...productState, getId, getAllIds });

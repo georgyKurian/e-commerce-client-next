@@ -4,7 +4,7 @@ import Link from 'next/link';
 const cssClasses = {};
 const currentYear = new Date().getFullYear();
 const Footer = () => (
-  <footer className="bg-themeGray-200 text-themeGray-600 text-xs h-32 -mt-32 py-5">
+  <footer className="h-32 py-5 -mt-32 text-xs outer-wrap bg-themeGray-200 text-themeGray-600">
     <div className="inner-wrap">
       <div>
         <Link href="/">
@@ -14,7 +14,7 @@ const Footer = () => (
           <a className={cssClasses}>F2</a>
         </Link>
       </div>
-      <div className="w-full border-t border-themeGray-500 pt-1">
+      <div className="w-full pt-1 border-t border-themeGray-500">
         <span className="block text-themeGray-500">
           Copyright ©
           {' '}
