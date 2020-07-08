@@ -11,7 +11,11 @@ h3 {
 }
 
 a {
-  @apply text-blue-600 underline;
+  @apply text-blue-700 no-underline;
+}
+
+a:hover {
+  @apply underline;
 }
 
 @screen lg {

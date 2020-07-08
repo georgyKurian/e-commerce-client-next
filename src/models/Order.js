@@ -1,9 +1,12 @@
-import Product from './Product';
+import dayjs from 'dayjs';
+import OrderItem from './OrderItem';
 
 export default class Order {
   /**
    * @param  {string} id
    * @param  {string} customer
+   * @param  {string} status
+   * @param  {number} totalAmount
    * @param  {Array} products
    * @param  {Array} contact
    * @param  {Array} billingAddress
@@ -13,6 +16,7 @@ export default class Order {
     _id,
     customer,
     status,
+    totalAmount,
     products,
     contact,
     billingAddress,
@@ -21,8 +25,12 @@ export default class Order {
     this.id = _id;
     this.customer = customer;
     this.status = status;
+    this.totalAmount = totalAmount;
     this.createdAt = createdAt;
-    this.products = products.map((product) => new Product(product));
+    this.products = products.map((product) => {
+      const productObject = new OrderItem(product);
+      return productObject;
+    });
     this.contact = contact;
     this.billingAddress = billingAddress;
   }
@@ -47,12 +55,14 @@ export default class Order {
    */
   getStatusColor = () => {
     switch (this.status) {
-      case 'confirmed':
-        return 'green-300';
+      case 'completed':
+        return 'green-400';
       case 'pending':
-        return 'blue-300';
+        return 'blue-400';
+      case 'cancelled':
+        return 'red-400';
       default:
-        return 'gray-300';
+        return 'gray-400';
     }
   };
 
@@ -61,9 +71,9 @@ export default class Order {
    */
   getTimestamp = () => this.createdAt;
 
-  getDate = () => {
-    const date = new Date(parseInt(this.createdAt, 10));
-    return date.toDateString();
+  getDate = (format = 'MMMM D, YYYY') => {
+    const date = dayjs(parseInt(this.createdAt, 10));
+    return date.format(format);
   };
 
   /**
@@ -84,12 +94,12 @@ export default class Order {
   /**
    * @return {number}
    */
-  getTotalPrice = () => this.products.reduce((sum, product) => sum + product.getPrice(), 0);
+  getTotalPrice = () => this.totalAmount;
 
   /**
    * @return {string}
    */
-  getFormattedTotalPrice = () => `$${(this.getTotalPrice() / 100).toFixed(2)}`;
+  getFormattedTotalPrice = () => `$${(this.totalAmount / 100).toFixed(2)}`;
 
   /**
    * @return  {{_id: string, customer: string, timestamp: string, products: Array<Products>}}
