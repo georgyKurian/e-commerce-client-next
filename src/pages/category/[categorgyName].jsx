@@ -35,7 +35,6 @@ CategoryPage.propTypes = {
   productIdList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-
 export default connect((state) => ({
   productMap: state.products.getId,
   productIdList: state.products.getAllIds,

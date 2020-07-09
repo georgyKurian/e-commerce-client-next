@@ -10,7 +10,7 @@ const fullStar = { ...star, fill: '#FFB600' };
 const halfStar = { ...star, fill: "url('#halfGradient')" };
 const emptyStar = { ...star, fill: 'none' };
 
-const Rating = ({ rating, reviewCount }) => {
+const Rating = ({ rating, reviewCount, className }) => {
   const xCords = [0, 36, 72, 108, 144];
   const stars = [];
   let i = 10;
@@ -34,7 +34,7 @@ const Rating = ({ rating, reviewCount }) => {
 
   return (
     <>
-      <div className="flex items-center text-sm">
+      <div className={`inline-block text-sm ${className}`}>
         <svg
           className="star-source"
           height="15"
@@ -57,15 +57,22 @@ const Rating = ({ rating, reviewCount }) => {
           </defs>
           {stars}
         </svg>
-        <span>{`(${reviewCount})`}</span>
+        {
+        reviewCount !== undefined && <span>{`(${reviewCount})`}</span>
+        }
       </div>
     </>
   );
 };
 
 Rating.propTypes = {
+  className: PropTypes.string,
   rating: PropTypes.number.isRequired,
   reviewCount: PropTypes.number.isRequired,
+};
+
+Rating.defaultProps = {
+  className: '',
 };
 
 export default Rating;

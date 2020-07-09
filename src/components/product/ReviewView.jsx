@@ -5,12 +5,16 @@ import Rating from './Rating';
 
 export default function ReviewView({ review }) {
   return (
-    <div className="ReviewView">
-      <h2 className="text-sm font-semibold">
+    <div className="mb-5 ReviewView">
+      <span className="block text-sm font-semibold">
+        ICON:
+        {review.getcustomerName()}
+      </span>
+      <Rating rating={review.getRating()} className="mr-2" />
+      <span className="text-sm font-semibold">
         {review.getTitle()}
-      </h2>
+      </span>
       <p className="text-sm">{review.getComment()}</p>
-      <Rating rating={review.getRating()} />
     </div>
   );
 }

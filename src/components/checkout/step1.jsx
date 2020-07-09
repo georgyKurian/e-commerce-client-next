@@ -28,7 +28,7 @@ const Step1 = ({ onSubmit, billingAddress }) => {
 
 Step1.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  billingAddress: PropTypes.shapeOf({
+  billingAddress: PropTypes.shape({
     addressLine1: PropTypes.string,
     addressLine2: PropTypes.string,
     city: PropTypes.string,

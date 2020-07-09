@@ -51,7 +51,7 @@ const ProductCard = ({
       <div className="flex justify-between px-2">
         <div>
           <Link href="/products/[id]" as={`/products/${id}`}>
-            <a className="text-gray-700">{name}</a>
+            <a className="block text-gray-700">{name}</a>
           </Link>
           <Rating
             rating={avgRating}

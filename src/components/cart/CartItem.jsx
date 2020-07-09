@@ -82,13 +82,14 @@ class CartItem extends Component {
         </div>
         <div className="flex flex-col items-center justify-center my-3 lg:my-0">
           <form action="">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label className="text-sm text-gray-600">
               Qty :
               <Quantity className="w-10 h-10 text-right rounded" value={quantity} onQuantityChange={this.handleQuantityChange} />
             </label>
           </form>
         </div>
-        <div className="flex flex-col items-center justify-center hidden lg:block">
+        <div className="flex-col items-center justify-center hidden lg:block">
           <span className="text-sm text-gray-600">Total :</span>
           <span className="w-10 h-10 text-right">{total}</span>
         </div>
