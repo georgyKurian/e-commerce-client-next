@@ -6,7 +6,7 @@ import Rating from './Rating';
 export default function ReviewView({ review }) {
   return (
     <div className="ReviewView">
-      <h2 className="font-semibold text-sm">
+      <h2 className="text-sm font-semibold">
         {review.getTitle()}
       </h2>
       <p className="text-sm">{review.getComment()}</p>

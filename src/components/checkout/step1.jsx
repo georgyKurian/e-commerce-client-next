@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 import AddressFields from './AddressFields';
 import { PrimaryButton } from '../Button';
 import Form from '../Form';
@@ -23,6 +24,18 @@ const Step1 = ({ onSubmit, billingAddress }) => {
       </div>
     </div>
   );
+};
+
+Step1.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  billingAddress: PropTypes.shapeOf({
+    addressLine1: PropTypes.string,
+    addressLine2: PropTypes.string,
+    city: PropTypes.string,
+    province: PropTypes.string,
+    country: PropTypes.string,
+    postalCode: PropTypes.string,
+  }).isRequired,
 };
 
 export default Step1;

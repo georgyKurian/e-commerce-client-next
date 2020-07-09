@@ -25,6 +25,7 @@ BaseInput.displayName = 'BaseInput';
 
 BaseInput.propTypes = {
   name: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   className: PropTypes.string,
   label: PropTypes.string,
   error: PropTypes.string,
@@ -35,6 +36,7 @@ BaseInput.defaultProps = {
   label: '',
   className: '',
   error: '',
+  value: '',
 };
 
 export default BaseInput;
