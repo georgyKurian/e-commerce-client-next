@@ -1,4 +1,3 @@
-
 import {
   useEffect, useState, useMemo,
 } from 'react';
@@ -13,10 +12,9 @@ import StripePayment from '../components/checkout/StripePayment';
 import Step1 from '../components/checkout/step1';
 import Cart from '../models/Cart';
 
-
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe('pk_test_RfZ1PvFjLuWOvHitWXLyQuHg00t9NwKTCK');
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
 const CheckoutPage = (() => {
   const [isFetchProducts, setIsFetchProducts] = useState(false);
@@ -58,7 +56,6 @@ const CheckoutPage = (() => {
     setCurrentStep(2);
   };
 
-
   if (items.length > 0) {
     return (
       <MyLayout title="Cart">
@@ -76,7 +73,7 @@ const CheckoutPage = (() => {
           && (
           <Step1
             onSubmit={handleStep1Submit}
-            billingAddress={checkout.billingAddress}
+            billingAddress={checkout.order?.billingAddress}
           />
           )}
 
@@ -108,6 +105,5 @@ const CheckoutPage = (() => {
     </MyLayout>
   );
 });
-
 
 export default CheckoutPage;
