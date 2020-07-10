@@ -3,17 +3,17 @@ export default class Review {
    * @param  {string} _id
    * @param  {string} name
    * @param  {string} comment
-   * @param  {string} customerName
+   * @param  {object} user
    * @param  {number} rating
    * @param  {string} updatedAt
    */
   constructor({
-    _id, title, comment, customerName, rating, updatedAt,
+    _id, title, comment, user, rating, updatedAt,
   }) {
     this.id = _id;
     this.title = title;
     this.comment = comment;
-    this.customerName = customerName;
+    this.username = user?.username;
     this.rating = rating;
     this.updatedAt = updatedAt;
   }
@@ -36,7 +36,7 @@ export default class Review {
   /**
    * @return {string}
    */
-  getcustomerName = () => this.customerName;
+  getcustomerName = () => this.username;
 
   /**
    * @return {number}

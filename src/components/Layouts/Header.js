@@ -6,7 +6,6 @@ import { useState } from 'react';
 import HamburgerIcon from '../../images/hamburger-icon.svg';
 import ShoppingCart from '../../images/shopping_cart.svg';
 
-
 const cssClasses = 'text-center py-4 px-4 text-sm text-themeGray-300 inline-block hover:text-white';
 
 const Header = ({ itemsInCart }) => {

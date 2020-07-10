@@ -19,6 +19,7 @@ module.exports = withCSS(
     env: {
       isProd,
       REACT_APP_API_URL: isProd ? 'https://e-commerce-serve.herokuapp.com' : 'http://localhost:8085',
+      STRIPE_PUBLIC_KEY: 'pk_test_RfZ1PvFjLuWOvHitWXLyQuHg00t9NwKTCK',
     },
   }),
 );

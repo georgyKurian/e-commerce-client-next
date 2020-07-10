@@ -146,7 +146,6 @@ AddressFields.propTypes = {
   ),
 };
 
-
 AddressFields.defaultProps = {
   address: {
     addressLine1: '',

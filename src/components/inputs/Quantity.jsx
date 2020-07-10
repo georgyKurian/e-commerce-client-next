@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import BaseInput from './BaseInput';
 
-const quantitySelect = (({ value, onQuantityChange }) => {
+const quantitySelect = (({
+  name, value, onQuantityChange, ...otherProps
+}) => {
   function handleDropdownChange(event) {
     const newQuantity = Number.parseInt(event.target.value, 10);
     onQuantityChange(newQuantity);
@@ -13,17 +14,34 @@ const quantitySelect = (({ value, onQuantityChange }) => {
       options.push(<option key={index} value={index}>{index}</option>);
     }
     return (
-      <select onChange={handleDropdownChange} value={value}>
+      <select onChange={handleDropdownChange} value={value} {...otherProps}>
         {options}
         <option value="10+">10+</option>
       </select>
     );
   }
-  return <BaseInput {...value} type="number" value={value} onChange={handleDropdownChange} />;
+  return (
+    <>
+      <input
+        name={name}
+        className="px-4 py-6 pb-1 border border-gray-500 rounded-lg"
+        defaultValue={value}
+        type="number"
+        onChange={handleDropdownChange}
+        {...otherProps}
+      />
+    </>
+  );
 });
+
 quantitySelect.propTypes = {
+  name: PropTypes.string,
   value: PropTypes.number.isRequired,
   onQuantityChange: PropTypes.func.isRequired,
+};
+
+quantitySelect.defaultProps = {
+  name: '',
 };
 
 export default quantitySelect;

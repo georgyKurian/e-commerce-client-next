@@ -30,7 +30,6 @@ const CARD_OPTIONS = {
   hidePostalCode: false,
 };
 
-
 const StripePayment = ({ clientSecret }) => {
   const router = useRouter();
   const stripe = useStripe();
@@ -107,7 +106,7 @@ const StripePayment = ({ clientSecret }) => {
           color="#fff"
           loading={isLoading}
         />
-&nbsp;Pay
+        {' Pay'}
       </PrimaryButton>
     </Form>
   );

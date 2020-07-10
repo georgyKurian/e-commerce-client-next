@@ -5,8 +5,7 @@ import ReviewView from './ReviewView';
 
 export default function ReviewList({ reviews }) {
   return (
-    <div className="flex flex-row items-ceter flex-wrap my-3">
-      <h2 className="font-bold">Customer reviews</h2>
+    <div className="flex flex-row flex-wrap my-3 items-ceter">
       {reviews.map((review) => (
         <div className="w-full" key={review.getId()}>
           <ReviewView review={review} />

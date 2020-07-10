@@ -8,6 +8,7 @@ import Review from '../../models/Review';
 import ReviewList from '../../components/product/ReviewList';
 import { fetchProductDetails } from '../../redux/actions/productDetails';
 import { fetchReviews } from '../../redux/actions/reviews';
+import Rating from '../../components/product/Rating';
 
 class ProductPage extends React.Component {
   static async getInitialProps({ store, query }) {
@@ -26,7 +27,14 @@ class ProductPage extends React.Component {
     return (
       <MyLayout title={product.getName()}>
         <ProductView product={product} />
-        <ReviewList reviews={reviewsList} />
+        <hr />
+        <div className="pb-2 border-b md:pr-8 md:w-1/3 md:float-left md:border-0">
+          <h2 className="text-2xl">Customer reviews</h2>
+          <Rating rating={50} />
+        </div>
+        <div className="md:pl-8 md:w-2/3 md:float-left">
+          <ReviewList reviews={reviewsList} />
+        </div>
       </MyLayout>
     );
   }

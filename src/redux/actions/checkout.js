@@ -1,6 +1,8 @@
 import localStorage from 'store2';
 import {
-  createOrder as createOrderAPI, updateOrderItems as updateOrderItemsAPI, updateOrderAddress, updateOrderStatus,
+  createOrder as createOrderAPI,
+  updateOrderItems as updateOrderItemsAPI,
+  updateOrderAddress, updateOrderStatus,
 } from '../../api/Order';
 
 export const CREATE_ORDER = 'CREATE_ORDER';
@@ -37,7 +39,6 @@ function updateOrder(order, lastSync) {
   };
 }
 
-
 function clearOrder(orderId) {
   return {
     type: CLEAR_ORDER,
@@ -59,7 +60,6 @@ function syncingStopped(orderId = null) {
   };
 }
 
-
 function rehydrateCheckoutAction(checkout) {
   return {
     type: REHYDRATE_CHECKOUT,
@@ -70,7 +70,6 @@ function rehydrateCheckoutAction(checkout) {
 function saveCheckoutToLocalStorage(cart) {
   localStorage.set('checkout', cart, true);
 }
-
 
 const createCheckoutOrder = (dispatch, getState, items) => {
   const startTime = Date.now();
@@ -105,7 +104,6 @@ const updateCheckoutOrder = (dispatch, getState, orderId, items) => {
       saveCheckoutToLocalStorage(newCheckout);
     });
 };
-
 
 /**
  * Thunk action creator
@@ -176,7 +174,6 @@ export function checkoutComplete() {
     }
   };
 }
-
 
 /**
  * Thunk action creator
