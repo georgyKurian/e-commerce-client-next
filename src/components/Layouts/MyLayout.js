@@ -15,7 +15,7 @@ const MyLayout = ({ children, title, isPaddingTop }) => {
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
       </Head>
       <Header />
-      <main className={`w-full mt-16 mb-40 content lg:mt-16 xl:mt-16 ${mainCss}`} style={{ minHeight: '90vh' }}>{children}</main>
+      <main className={`w-full mt-16 mb-32 content lg:mt-16 xl:mt-16 ${mainCss}`} style={{ minHeight: '90vh' }}>{children}</main>
       <Footer />
     </>
   );
