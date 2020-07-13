@@ -25,8 +25,8 @@ class ProductPage extends React.Component {
       (reviewData) => new Review(reviewData),
     );
     return (
-      <MyLayout title={product.getName()}>
-        <ProductView product={product} reviewsList={reviewsList} rating={50}/>        
+      <MyLayout title={product.getName()} isPaddingTop={false}>
+        <ProductView product={product} reviewsList={reviewsList} rating={50} />
       </MyLayout>
     );
   }

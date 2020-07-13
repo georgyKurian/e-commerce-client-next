@@ -21,7 +21,7 @@ export default class Product {
     name,
     modelNumber,
     productDescription,
-    price,    
+    price,
     category,
     color,
     gender,
@@ -30,7 +30,7 @@ export default class Product {
     images,
     avgRating,
     reviewCount,
-    
+
   }) {
     this.id = _id;
     this.adidasId = adidasId;
@@ -82,7 +82,6 @@ export default class Product {
    */
   getSubtotal = (quantity) => this.price * quantity;
 
-
   /**
    * @return {boolean}
    */
@@ -120,19 +119,19 @@ export default class Product {
    * }}
    */
   getData = () => ({
-    _id : this.id,
-    adidasId : this.adidasId,
-    name : this.name,
-    modelNumber : this.modelNumber,
-    productDescription : this.productDescription,
-    price : this.price,
-    category : this.category,
-    color : this.color,
-    gender : this.gender,
-    sport : this.sport,
-    productType : this.productType,
-    images : this.images,
-    avgRating : this.avgRating,
-    reviewCount : this.reviewCount,
+    _id: this.id,
+    adidasId: this.adidasId,
+    name: this.name,
+    modelNumber: this.modelNumber,
+    productDescription: this.productDescription,
+    price: this.price,
+    category: this.category,
+    color: this.color,
+    gender: this.gender,
+    sport: this.sport,
+    productType: this.productType,
+    images: this.images,
+    avgRating: this.avgRating,
+    reviewCount: this.reviewCount,
   });
 }
