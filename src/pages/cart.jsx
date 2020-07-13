@@ -14,7 +14,6 @@ const CartPage = (() => {
   const productIdList = useSelector((state) => state.products.getAllIds);
   const dispatch = useDispatch();
 
-
   const cartObject = useMemo(
     () => new Cart(cartItems, productList, productIdList),
     [cartItems, productList, productIdList],
@@ -91,7 +90,11 @@ const CartPage = (() => {
 
   return (
     <MyLayout title="Cart">
-      <p>Your cart is empty. Add some awesome products!</p>
+      <div className="inner-wrap">
+        <div className="flex justify-center p-6 mx-auto bg-gray-200 border border-gray-300 rounded xl:w-2/3">
+          <p>Your cart is empty. Add some awesome products!</p>
+        </div>
+      </div>
     </MyLayout>
   );
 });

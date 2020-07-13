@@ -1,46 +1,53 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import login from '../api/Login';
 import { PrimaryButton } from '../components/Button';
 import Form from '../components/Form';
 import TextInput from '../components/inputs/TextInput';
 import MyLayout from '../components/Layouts/MyLayout';
 
-export default class Account extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '', loading: false, success: false, error: undefined,
-    };
-  }
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginResult, setLoginResult] = useState({
+    isSuccess: false,
+    errorMessage: undefined,
+    token: undefined,
+  });
 
-  handleEmailChange = (e) => this.setState({ email: e.target.value });
+  const handleEmailChange = (e) => setEmail(e.target.value);
 
-  handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    this.setState({ loading: true });
+    setIsLoading(true);
 
-    login(this.state.email).then(({ error, token }) => {
+    login(email).then(({ error, token }) => {
+      setIsLoading(false);
       if (error) {
-        this.setState({ loading: false, success: false, error });
+        setLoginResult({
+          isSuccess: false,
+          errorMessage: error,
+          token: undefined,
+        });
       } else {
-        this.setState({ loading: false, success: true, token });
+        setLoginResult({
+          isSuccess: true,
+          errorMessage: undefined,
+          token,
+        });
       }
     });
   };
 
-  render() {
-    const {
-      email, loading, success, error, token,
-    } = this.state;
-    return (
-      <MyLayout title="Login">
-        <>
+  return (
+    <MyLayout title="Login">
+      <div className="flex items-center mx-auto inner-wrap">
+        <div className="mx-auto lg:w-1/2">
           <h1>Login or Register</h1>
-          {success ? (
+          {loginResult.isSuccess ? (
             <p className="px-6 py-6 bg-gray-200 border border-gray-300 rounded-lg">
               Click on
               {' '}
-              <a className="text-blue-500" href={`auth/${token}`}>Auth Link</a>
+              <a className="text-blue-500" href={`auth/${loginResult.token}`}>Auth Link</a>
               {' '}
               to login!
             </p>
@@ -50,23 +57,25 @@ export default class Account extends Component {
                 If you do not have an account, a new one will be setup for you
                 automatically.
               </p>
-              <Form onSubmit={this.handleSubmit} className="flex">
+              <Form onSubmit={handleSubmit} className="flex flex-col items-center md:flex-row">
                 <TextInput
                   name="email"
                   label="Email Address"
                   placeholder="e.g. anna.ryan@gmail.com"
                   value={email}
-                  onChange={this.handleEmailChange}
+                  onChange={handleEmailChange}
                 />
-                <PrimaryButton disabled={loading}>Login</PrimaryButton>
-                {error && (
-                  <p style={{ color: 'crimson' }}>{error}</p>
+                <PrimaryButton disabled={isLoading}>Login</PrimaryButton>
+                {loginResult.error && (
+                  <p style={{ color: 'crimson' }}>{loginResult.errorMessage}</p>
                 )}
               </Form>
             </>
           )}
-        </>
-      </MyLayout>
-    );
-  }
-}
+        </div>
+      </div>
+    </MyLayout>
+  );
+};
+
+export default Login;

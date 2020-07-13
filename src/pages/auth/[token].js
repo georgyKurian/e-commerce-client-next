@@ -21,7 +21,11 @@ class Auth extends Component {
   render() {
     return (
       <MyLayout>
-        Please wait while we fetch your data...
+        <div className="inner-wrap">
+          <div className="flex justify-center p-6 mx-auto bg-gray-200 border border-gray-300 rounded xl:w-2/3">
+            Please wait while we fetch your data...
+          </div>
+        </div>
       </MyLayout>
     );
   }
