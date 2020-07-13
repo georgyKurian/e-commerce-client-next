@@ -4,7 +4,7 @@ import ProductCard from './ProductCard';
 import Product from '../../models/Product';
 
 const ProductList = ({ products }) => (
-  <div className="flex flex-row flex-wrap my-3 items-ceter">
+  <div className="inner-wrap flex flex-row flex-wrap my-3 items-ceter">
     {products.map((product) => (
       <div
         className="flex w-1/2 p-1 xl:p-6 md:w-1/2 lg:w-1/3 xl:w-1/3"

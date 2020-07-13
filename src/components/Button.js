@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 function Button({ className, children, ...rest }) {
   return (
     // eslint-disable-next-line react/button-has-type
-    <button className={`mx-auto rounded-lg h-10 text-base w-32 ${className}`} {...rest}>
+    <button className={`mx-auto text-sm font-semibold py-3 px-8 ${className}`} {...rest}>
       {children}
     </button>
   );
@@ -24,7 +24,7 @@ Button.defaultProps = {
 
 export function PrimaryButton({ className, ...rest }) {
   return (
-    <Button className={`bg-blue-400 text-white ${className}`} {...rest} />
+    <Button className={`bg-black uppercase text-white ${className}`} {...rest} />
   );
 }
 

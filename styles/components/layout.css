@@ -8,6 +8,10 @@ body > div:first-child{
   @apply w-10/12 mx-auto;
 }
 
+.section {
+  @apply mb-8;
+}
+
 footer {
   position: relative;
   bottom: 0;
@@ -24,4 +28,7 @@ footer {
 }
 
 @screen xl {
+  .section {
+    @apply mb-32;
+  }
 }

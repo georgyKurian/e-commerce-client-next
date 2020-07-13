@@ -4,7 +4,7 @@ import OrderCard from './OrderCard';
 import Order from '../../models/Order';
 
 const OrderList = ({ orders }) => (
-  <div>
+  <div className="inner-wrap">
     {orders.length > 0 ? (
       orders.map((order) => (
         <OrderCard key={order.getId()} order={order} />

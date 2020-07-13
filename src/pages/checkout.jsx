@@ -59,7 +59,7 @@ const CheckoutPage = (() => {
   if (items.length > 0) {
     return (
       <MyLayout title="Cart">
-        <>
+        <div className="inner-wrap">
           <div className="w-full">
             <div className="flex justify-between w-full px-4 py-4 border-b border-gray-200 items-ceter">
               <span className="inline-block text-2xl">Checkout</span>
@@ -94,7 +94,7 @@ const CheckoutPage = (() => {
             )}
           </div>
           )}
-        </>
+        </div>
       </MyLayout>
     );
   }

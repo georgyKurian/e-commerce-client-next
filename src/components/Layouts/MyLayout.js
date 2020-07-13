@@ -10,9 +10,10 @@ const MyLayout = ({ children, title }) => (
       <title>{`E | ${title}`}</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"></link>
     </Head>
     <Header />
-    <main className="pt-12 pb-40 overflow-y-hidden content inner-wrap lg:pt-32" style={{ minHeight: '100vh' }}>{children}</main>
+    <main className="pt-16 pb-40 content w-full lg:pt-16 xl:pt-16" style={{ minHeight: '100vh' }}>{children}</main>
     <Footer />
   </>
 );

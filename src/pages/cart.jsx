@@ -67,7 +67,7 @@ const CartPage = (() => {
   if (cartItems.length > 0) {
     return (
       <MyLayout title="Cart">
-        <>
+        <div className="inner-wrap">
           <div className="mb-2 bg-gray-200 lg:w-4/12 lg:float-right">
             <div className="flex flex-col items-center justify-around  w-full p-2 lg:px-4 lg:py-6">
               <span className="font-semibold">{`Cart Total ( ${(totalQuantity === 1 ? 'item' : 'items')})`}</span>
@@ -84,7 +84,7 @@ const CartPage = (() => {
               {cartItemsComponents}
             </div>
           </div>
-        </>
+        </div>
       </MyLayout>
     );
   }

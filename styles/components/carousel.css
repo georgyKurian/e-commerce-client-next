@@ -1,0 +1,43 @@
+@import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+.carousel .slide{
+    height:600px;
+    background-color: #EDEFF0;
+}
+
+.carousel .control-arrow, 
+.carousel.carousel-slider .control-arrow{
+    top:50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    @apply bg-white flex items-center border border-black border-solid;
+}
+
+.carousel.carousel-slider .control-arrow:hover{
+    @apply bg-white;
+}
+
+.carousel .control-arrow.control-prev{
+    left:2%;
+}
+
+.carousel .control-arrow.control-next{
+    right:2%;
+}
+
+.carousel .control-arrow.control-prev:before{
+    border:0;
+    background-image: url("/keyboard_backspace.svg");
+    @apply w-8 h-8 m-2;
+}
+
+.carousel .control-arrow.control-next:before{
+    border:0;
+    background-image: url("/keyboard_backspace.svg");
+    transform: scaleX(-1);
+    @apply w-8 h-8 m-2;
+}
+
+.carousel .thumbs{
+    @apply flex justify-center;
+}

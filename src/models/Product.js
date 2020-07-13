@@ -1,30 +1,49 @@
 export default class Product {
   /**
    * @param  {string} id
+   * @param  {string} adidasId
    * @param  {string} name
+   * @param  {string} modelNumber
+   * @param  {object} productDescription
    * @param  {number} price
-   * @param  {boolean} isFeatured
+   * @param  {string} category
+   * @param  {string} color
+   * @param  {string} gender
+   * @param  {Array.<string>} sport
+   * @param  {Array.<string>} productType
    * @param  {Array.<string>} images
-   * @param  {Array.<string>} categories
    * @param  {string} avgRating
    * @param  {string} reviewCount
    */
   constructor({
     _id,
+    adidasId,
     name,
-    price,
-    isFeatured,
+    modelNumber,
+    productDescription,
+    price,    
+    category,
+    color,
+    gender,
+    sport,
+    productType,
     images,
-    categories,
     avgRating,
     reviewCount,
+    
   }) {
     this.id = _id;
+    this.adidasId = adidasId;
     this.name = name;
+    this.modelNumber = modelNumber;
+    this.productDescription = productDescription;
     this.price = price;
-    this.isFeatured = isFeatured;
+    this.category = category;
+    this.color = color;
+    this.gender = gender;
+    this.sport = sport;
+    this.productType = productType;
     this.images = images;
-    this.categories = categories;
     this.avgRating = avgRating;
     this.reviewCount = reviewCount;
   }
@@ -101,14 +120,19 @@ export default class Product {
    * }}
    */
   getData = () => ({
-    _id: this.id,
-    name: this.name,
-    price: this.price,
-    isFeatured: this.isFeatured,
-    formattedPrice: this.getFormattedPrice(),
-    images: this.images,
-    categories: this.categories,
-    avgRating: this.avgRating,
-    reviewCount: this.reviewCount,
+    _id : this.id,
+    adidasId : this.adidasId,
+    name : this.name,
+    modelNumber : this.modelNumber,
+    productDescription : this.productDescription,
+    price : this.price,
+    category : this.category,
+    color : this.color,
+    gender : this.gender,
+    sport : this.sport,
+    productType : this.productType,
+    images : this.images,
+    avgRating : this.avgRating,
+    reviewCount : this.reviewCount,
   });
 }
