@@ -57,11 +57,27 @@ const ProductView = ({ product, reviewsList }) => {
             <h4 className="w-full text-3xl font-semibold uppercase">Ratings & reviews</h4>
 
             <div className="pb-2 border-b md:pr-5 md:w-1/3 md:float-left md:border-0">
-              <div className="flex items-center px-8 py-2 bg-green-500">
+              <div className="flex items-center px-8 py-2 mb-5 bg-green-400">
                 <div className="mr-2 text-6xl font-semibold">5.0</div>
                 <div className="ml-2">
                   <Rating rating={50} />
-                  <span className="block text-base">{`${5} reviews`}</span>
+                  <div>
+                    <span className="font-semibold">{5}</span>
+                    <span> Reviews</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="">
+                <h5 className="mb-2 uppercase">Rating breakdown</h5>
+                <div className="flex items-center mb-2">
+                  <button className="p-px text-sm underline uppercase hover:bg-black hover:text-white" type="button">5 Stars</button>
+                  <div className="flex-1 px-4">
+                    <div className="w-full h-1 bg-gray-300">
+                      <div className="w-full h-1 bg-green-400" />
+                    </div>
+                  </div>
+                  <span className="text-xs" type="button">4588</span>
                 </div>
               </div>
             </div>

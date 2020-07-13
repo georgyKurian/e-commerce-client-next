@@ -2,11 +2,11 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 
 const star = {
-  stroke: '#a0a0a0',
+  stroke: '#000000',
   strokeWidth: 1,
 };
 
-const fullStar = { ...star, fill: '#FFB600' };
+const fullStar = { ...star, fill: '#000000' };
 const halfStar = { ...star, fill: "url('#halfGradient')" };
 const emptyStar = { ...star, fill: 'none' };
 
@@ -51,7 +51,7 @@ const Rating = ({ rating, reviewCount, className }) => {
               />
             </g>
             <linearGradient id="halfGradient">
-              <stop stopOpacity="1" offset="50%" stopColor="#FFB600" />
+              <stop stopOpacity="1" offset="50%" stopColor="#000000" />
               <stop stopOpacity="0" offset="50%" />
             </linearGradient>
           </defs>
