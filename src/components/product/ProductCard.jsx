@@ -7,13 +7,14 @@ import FeaturedTag from './FeaturedTag';
 import Rating from './Rating';
 import { addToCart } from '../../redux/actions/cart';
 import AddSvgIcon from '../../../public/add.svg';
+import Product from '../../models/Product';
 
 const ProductCard = ({
-  id, name, images, isFeatured, avgRating, price, reviewCount,
+  id, name, images, category, avgRating, price, reviewCount,
 }) => {
   const [currentImage, setCurrentImage] = useState(images[0]);
   const dispatch = useDispatch();
-
+  const isFeatured = false;
   const handleMouseOver = () => {
     if (images.length > 1) {
       setCurrentImage(images[1]);
@@ -30,7 +31,7 @@ const ProductCard = ({
 
   return (
     <div
-      className="relative flex flex-col flex-wrap justify-between overflow-hidden border border-transparent rounded hover:border-gray-200"
+      className="relative flex flex-col flex-wrap justify-between overflow-hidden border border-transparent hover:border-black"
     >
       <div className="relative overflow-hidden rounded">
         <Link href="/products/[id]" as={`/products/${id}`}>
@@ -48,17 +49,17 @@ const ProductCard = ({
           <AddSvgIcon className="mx-auto text-white fill-current" />
         </button>
       </div>
-      <div className="flex justify-between px-2">
+      <div className="flex justify-between p-3 h-32">
         <div>
+          <div className="text-xs mb-2 text-gray-600">{category}</div>
           <Link href="/products/[id]" as={`/products/${id}`}>
-            <a className="block text-gray-700">{name}</a>
+            <a className="block text-sm uppercase text-gray-600">{name}</a>
           </Link>
-          <Rating
-            rating={avgRating}
-            reviewCount={reviewCount}
-          />
+          <span className="block text-sm uppercase text-gray-600">
+            {price}
+          </span>
         </div>
-        <span className="font-medium text-gray-800">
+        <span className="hidden font-medium text-gray-800">
           {price}
         </span>
       </div>
@@ -70,7 +71,7 @@ ProductCard.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  isFeatured: PropTypes.bool.isRequired,
+  category: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(PropTypes.string),
   avgRating: PropTypes.number.isRequired,
   reviewCount: PropTypes.number.isRequired,

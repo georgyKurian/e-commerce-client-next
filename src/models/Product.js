@@ -95,7 +95,7 @@ export default class Product {
   /**
    * @return {string[]}
    */
-  getCategories = () => this.categories;
+  getCategory = () => this.category;
 
   /**
    * @return {string}

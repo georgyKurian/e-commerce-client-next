@@ -5,7 +5,7 @@ body > div:first-child{
 }
 
 .inner-wrap {
-  @apply w-10/12 mx-auto;
+  @apply w-full mx-auto;
 }
 
 .section {
@@ -18,16 +18,23 @@ footer {
   width: 100%;
 }
 
+
 @screen md {
+  .inner-wrap {
+    @apply px-4;
+  }
 }
 
 @screen lg {
   .inner-wrap {
-    width: 1070px;
+    width:1280px;
   }
 }
 
 @screen xl {
+  .inner-wrap {
+    width:1600px;
+  }
   .section {
     @apply mb-32;
   }
