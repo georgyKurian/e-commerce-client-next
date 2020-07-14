@@ -5,7 +5,6 @@ import OrderList from '../components/order/OrderList';
 import Order from '../models/Order';
 import { getUserOrders } from '../api/Order';
 
-
 class Orders extends React.Component {
   static async getInitialProps() {
     const orderDataList = await getUserOrders();

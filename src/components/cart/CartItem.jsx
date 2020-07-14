@@ -4,8 +4,8 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { removeFromCart, updateCartQuantity } from '../../redux/actions/cart';
-import Rating from '../product/Rating';
 import Quantity from '../inputs/Quantity';
+import CloseIconSvg from '../../../public/close.svg';
 
 class CartItem extends Component {
   constructor(props) {
@@ -47,56 +47,52 @@ class CartItem extends Component {
     } = this.props;
     return (
       <div
-        className="relative flex flex-wrap items-center justify-between p-2 mb-2 rounded bg-themeGray-200"
+        className="relative flex mb-6 border-black lg:border lg:mb-6"
       >
-        <div className="flex w-full lg:w-3/5">
-          <div className="relative w-24 h-16 overflow-hidden rounded">
-            <Link href="/products/[id]" as={`/products/${id}`}>
-              <a>
-                <img
-                  src={image}
-                  alt="Product"
-                  onMouseEnter={this.handleMouseOver}
-                  onMouseLeave={this.handleMouseLeave}
-                  className="object-cover h-full"
-                />
-              </a>
-            </Link>
-          </div>
-          <div className="flex flex-col items-start flex-grow pl-2 lg:flex-row lg:justify-between lg:items-center">
-            <div className="flex flex-col justify-center flex-grow">
-              <Link href="/products/[id]" as={`/products/${id}`}>
-                <a className="leading-none text-blue-700">{name}</a>
-              </Link>
-              <Rating
-                rating={avgRating}
-                reviewCount={reviewCount}
+        <div className="flex w-5/12 lg:w-1/3">
+          <Link href="/products/[id]" as={`/products/${id}`}>
+            <a className="relative block w-full" style={{ 'padding-top': '100%' }}>
+              <img
+                src={image}
+                alt="Product"
+                onMouseEnter={this.handleMouseOver}
+                onMouseLeave={this.handleMouseLeave}
+                className="absolute top-0 object-cover h-full"
               />
+            </a>
+          </Link>
+        </div>
+
+        <div className="flex flex-col justify-between flex-1 ml-4 lg:ml-8">
+          <div className="flex">
+            <div className="flex items-start flex-grow pb-2 pr-6 lg:py-5 lg:flex-row lg:justify-between lg:items-start">
+              <div className="flex flex-col justify-center flex-grow">
+                <Link href="/products/[id]" as={`/products/${id}`}>
+                  <a className="leading-tight text-gray-700">{name}</a>
+                </Link>
+              </div>
+              <div className="hidden leading-tight lg:block">
+                {total}
+              </div>
             </div>
-            <div>
-              <span className="text-xl font-medium text-orange-600">
-                {price}
-              </span>
+            <div className="flex-none -mt-4 -mr-4 md:m-0">
+              <button type="button" className="p-4 mx-auto text-black cursor-pointer" aria-label="Removes this product from the cart" onClick={this.handleRemoveItem}>
+                <CloseIconSvg className="w-6 opacity-50 hover:opacity-75" />
+              </button>
             </div>
           </div>
-        </div>
-        <div className="flex flex-col items-center justify-center my-3 lg:my-0">
-          <form action="">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label className="text-sm text-gray-600">
-              Qty :
-              <Quantity className="w-10 h-10 text-right rounded" value={quantity} onQuantityChange={this.handleQuantityChange} />
-            </label>
-          </form>
-        </div>
-        <div className="flex-col items-center justify-center hidden lg:block">
-          <span className="text-sm text-gray-600">Total :</span>
-          <span className="w-10 h-10 text-right">{total}</span>
-        </div>
-        <div className="flex items-center text-center">
-          <button type="button" className="mx-auto text-red-600 cursor-pointer" aria-label="Removes this product from the cart" onClick={this.handleRemoveItem}>
-            <img src="/delete-24px.svg" alt="Remove" title="Remove from cart" className="opacity-50 hover:opacity-75" />
-          </button>
+          <div className="flex items-center justify-between my-5 text-center">
+            <div className="leading-tight lg:hidden">
+              {total}
+            </div>
+            <form action="">
+              {/* eslint-disable-n dext-line jsx-a11y/label-has-associated-control */}
+              <label className="text-sm text-gray-600">
+                Qty :
+                <Quantity className="w-10 h-10 text-right rounded" value={quantity} onQuantityChange={this.handleQuantityChange} />
+              </label>
+            </form>
+          </div>
         </div>
       </div>
     );

@@ -60,16 +60,17 @@ const CheckoutPage = (() => {
     return (
       <MyLayout title="Cart">
         <div className="inner-wrap">
-          <div className="w-full">
-            <div className="flex justify-between w-full px-4 py-4 border-b border-gray-200 items-ceter">
-              <span className="inline-block text-2xl">Checkout</span>
-              <div className="flex items-end inline-block">
-                <span className="font-semibold">{`Show Order Summary: $${cartObject.getTotalAmount() / 100} (${cartObject.getTotalQuantity()} items)`}</span>
+          <div className=" mx-auto lg:w-8/12">
+            <div className="w-full">
+              <div className="flex justify-between w-full px-4 py-4 border-b border-gray-200 items-ceter">
+                <span className="inline-block text-2xl">Checkout</span>
+                <div className="flex items-end">
+                  <span className="font-semibold">{`Show Order Summary: $${cartObject.getTotalAmount() / 100} (${cartObject.getTotalQuantity()} items)`}</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {currentStep === 1
+            {currentStep === 1
           && (
           <Step1
             onSubmit={handleStep1Submit}
@@ -77,7 +78,7 @@ const CheckoutPage = (() => {
           />
           )}
 
-          {currentStep === 2
+            {currentStep === 2
           && (
           <div className="block p-2 mb-2 overflow-hidden bg-gray-200 lg:px-4 lg:py-6">
             {checkout?.paymentIntentSecret ? (
@@ -94,6 +95,7 @@ const CheckoutPage = (() => {
             )}
           </div>
           )}
+          </div>
         </div>
       </MyLayout>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import Link from 'next/link';
 
 function Button({ className, children, ...rest }) {
   return (
@@ -22,11 +23,28 @@ Button.defaultProps = {
   className: '',
 };
 
-export function PrimaryButton({ className, ...rest }) {
+export function PrimaryLink({ className, children, ...rest }) {
   return (
-    <Button className={`bg-black uppercase text-white ${className}`} {...rest} />
+    <Link href="/checkout">
+      <a className={`flex justify-between w-full px-5 py-3 text-sm tracking-widest text-white uppercase bg-black hover:no-underline hover:text-themeGray-500 ${className}`} {...rest}><span>{children}</span></a>
+    </Link>
   );
 }
+
+export function PrimaryButton({ className, ...rest }) {
+  return (
+    <Button className={`bg-black uppercase text-sm tracking-widest text-left text-white ${className}`} {...rest} />
+  );
+}
+
+PrimaryLink.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
+};
+
+PrimaryLink.defaultProps = {
+  className: '',
+};
 
 PrimaryButton.propTypes = {
   className: PropTypes.string,
