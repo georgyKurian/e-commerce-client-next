@@ -47,11 +47,11 @@ class CartItem extends Component {
     } = this.props;
     return (
       <div
-        className="relative flex mb-6 border-black lg:border lg:mb-6"
+        className="relative flex mb-6 border-gray-600 lg:border lg:mb-6"
       >
         <div className="flex w-5/12 lg:w-1/3">
           <Link href="/products/[id]" as={`/products/${id}`}>
-            <a className="relative block w-full" style={{ 'padding-top': '100%' }}>
+            <a className="relative block w-full" style={{ paddingTop: '100%' }}>
               <img
                 src={image}
                 alt="Product"
@@ -65,7 +65,7 @@ class CartItem extends Component {
 
         <div className="flex flex-col justify-between flex-1 ml-4 lg:ml-8">
           <div className="flex">
-            <div className="flex items-start flex-grow pb-2 pr-6 lg:py-5 lg:flex-row lg:justify-between lg:items-start">
+            <div className="flex items-start flex-grow pb-2 pr-6 lg:pr-0 lg:py-5 lg:flex-row lg:justify-between lg:items-start">
               <div className="flex flex-col justify-center flex-grow">
                 <Link href="/products/[id]" as={`/products/${id}`}>
                   <a className="leading-tight text-gray-700">{name}</a>
@@ -76,8 +76,8 @@ class CartItem extends Component {
               </div>
             </div>
             <div className="flex-none -mt-4 -mr-4 md:m-0">
-              <button type="button" className="p-4 mx-auto text-black cursor-pointer" aria-label="Removes this product from the cart" onClick={this.handleRemoveItem}>
-                <CloseIconSvg className="w-6 opacity-50 hover:opacity-75" />
+              <button type="button" className="p-5 mx-auto text-black cursor-pointer" aria-label="Removes this product from the cart" onClick={this.handleRemoveItem}>
+                <CloseIconSvg className="w-4 h-4 hover:opacity-50" />
               </button>
             </div>
           </div>
