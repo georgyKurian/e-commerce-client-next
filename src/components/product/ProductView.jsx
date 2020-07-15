@@ -34,7 +34,7 @@ const ProductView = ({ product, reviewsList }) => {
           </ul>
         </nav>
 
-        <div className="px-24 inner-wrap">
+        <div className="px-24">
           <section className="flex items-center overflow-hidden section">
             <div className="w-1/2 pr-4">
               <h5 className="text-3xl font-semibold uppercase">{product?.productDescription?.title}</h5>
@@ -58,11 +58,11 @@ const ProductView = ({ product, reviewsList }) => {
 
             <div className="pb-2 border-b md:pr-5 md:w-1/3 md:float-left md:border-0">
               <div className="flex items-center px-8 py-2 mb-5 bg-green-400">
-                <div className="mr-2 text-6xl font-semibold">5.0</div>
+                <div className="mr-2 text-6xl font-semibold">{product.getAvgRatingFormatted()}</div>
                 <div className="ml-2">
-                  <Rating rating={50} />
+                  <Rating rating={product.getAvgRating()} />
                   <div>
-                    <span className="font-semibold">{5}</span>
+                    <span className="font-semibold">{product.getReviewCount()}</span>
                     <span> Reviews</span>
                   </div>
                 </div>
@@ -87,7 +87,6 @@ const ProductView = ({ product, reviewsList }) => {
             </div>
           </section>
         </div>
-
       </div>
 
       <section className="flex-1 border-l border-themeGray-default md:p-6">
