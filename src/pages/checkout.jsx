@@ -14,7 +14,7 @@ import Cart from '../models/Cart';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const CheckoutPage = (() => {
   const [isFetchProducts, setIsFetchProducts] = useState(false);

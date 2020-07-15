@@ -3,12 +3,12 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { connect, useSelector } from 'react-redux';
 import { useState } from 'react';
-import HamburgerIcon from '../../images/hamburger-icon.svg';
-import ShoppingCart from '../../images/shopping_cart.svg';
+import HamburgerIcon from '../../images/icons/hamburger-icon.svg';
+import ShoppingCart from '../../images/icons/shopping_cart.svg';
 
 const cssClasses = 'text-center py-4 px-4 text-sm text-themeGray-300 inline-block hover:text-white';
 
-const Header = ({ itemsInCart }) => {
+const Header = ({ children, itemsInCart }) => {
   const [isButtonToggled, setButtonToggled] = useState(false);
   const user = useSelector((state) => state.auth?.user);
 
@@ -86,15 +86,18 @@ const Header = ({ itemsInCart }) => {
         </div>
         <button className="text-gray-400 lg:hidden" type="button" aria-label="Open mobile menu"><HamburgerIcon className="fill-current" /></button>
       </div>
+      {children}
     </header>
   );
 };
 
 Header.propTypes = {
+  children: PropTypes.element,
   itemsInCart: PropTypes.number,
 };
 
 Header.defaultProps = {
+  children:null,
   itemsInCart: 0,
 };
 
