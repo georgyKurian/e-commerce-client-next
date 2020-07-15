@@ -1,10 +1,10 @@
 module.exports = {
   theme: {
     screens: {
-      'sm': '640px',
-      'md': '960px',
-      'lg': '1280px',
-      'xl': '1600px',
+      sm: '640px',
+      md: '960px',
+      lg: '1280px',
+      xl: '1600px',
     },
     container: {
       center: true,
@@ -18,7 +18,7 @@ module.exports = {
     extend: {
       colors: {
         themeGray: {
-          'default':'EDEFF0',
+          default: 'EDEFF0',
           100: '#f5f5f5',
           200: '#f2f2f2',
           300: '#c0c0c0',

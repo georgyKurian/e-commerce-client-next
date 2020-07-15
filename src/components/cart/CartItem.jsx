@@ -77,7 +77,7 @@ class CartItem extends Component {
             </div>
             <div className="flex-none -mt-4 -mr-4 md:m-0">
               <button type="button" className="p-5 mx-auto text-black cursor-pointer" aria-label="Removes this product from the cart" onClick={this.handleRemoveItem}>
-                <CloseIconSvg className="w-4 h-4 hover:opacity-50" />
+                <CloseIconSvg role="img" className="w-4 h-4 hover:opacity-50" />
               </button>
             </div>
           </div>

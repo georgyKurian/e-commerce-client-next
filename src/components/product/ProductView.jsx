@@ -19,7 +19,7 @@ const ProductView = ({ product, reviewsList }) => {
   };
 
   return (
-    <div className="flex flex-wrap ProductView">
+    <article className="flex flex-wrap ProductView">
       <div className="overflow-hidden md:w-3/4">
         <section>
           <ImageCarosule
@@ -28,11 +28,11 @@ const ProductView = ({ product, reviewsList }) => {
           />
         </section>
 
-        <nav className="h-16 mb-16 border-t border-b">
+        <aside className="h-16 mb-16 border-t border-b">
           <ul className="flex items-center justify-center h-full inner-wrap">
             <li>test</li>
           </ul>
-        </nav>
+        </aside>
 
         <div className="px-8 xl:px-40">
           <section className="flex flex-wrap items-center overflow-hidden section">
@@ -57,7 +57,7 @@ const ProductView = ({ product, reviewsList }) => {
             <h4 className="w-full text-3xl font-semibold uppercase">Ratings & reviews</h4>
 
             <div className="pb-2 border-b md:pr-5 md:w-1/3 md:float-left md:border-0">
-              <div className="flex items-center px-8 py-2 mb-5 bg-green-400">
+              <section className="flex items-center px-8 py-2 mb-5 bg-green-400">
                 <div className="mr-2 text-6xl font-semibold">{product.getAvgRatingFormatted()}</div>
                 <div className="ml-2">
                   <Rating rating={product.getAvgRating()} />
@@ -66,9 +66,9 @@ const ProductView = ({ product, reviewsList }) => {
                     <span> Reviews</span>
                   </div>
                 </div>
-              </div>
+              </section>
 
-              <div className="">
+              <section className="">
                 <h5 className="mb-2 uppercase">Rating breakdown</h5>
                 <div className="flex items-center mb-2">
                   <button className="p-px text-sm underline uppercase hover:bg-black hover:text-white" type="button">5 Stars</button>
@@ -79,12 +79,12 @@ const ProductView = ({ product, reviewsList }) => {
                   </div>
                   <span className="text-xs" type="button">4588</span>
                 </div>
-              </div>
+              </section>
             </div>
 
-            <div className="md:pl-5 md:w-2/3 md:float-left">
+            <section className="md:pl-5 md:w-2/3 md:float-left">
               <ReviewList reviews={reviewsList} />
-            </div>
+            </section>
           </section>
         </div>
       </div>
@@ -99,7 +99,7 @@ const ProductView = ({ product, reviewsList }) => {
           </div>
         </div>
       </section>
-    </div>
+    </article>
 
   );
 };

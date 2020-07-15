@@ -4,13 +4,11 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import FeaturedTag from './FeaturedTag';
-import Rating from './Rating';
 import { addToCart } from '../../redux/actions/cart';
 import AddSvgIcon from '../../../public/add.svg';
-import Product from '../../models/Product';
 
 const ProductCard = ({
-  id, name, images, category, avgRating, price, reviewCount,
+  id, name, images, category, price,
 }) => {
   const [currentImage, setCurrentImage] = useState(images[0]);
   const dispatch = useDispatch();
@@ -35,7 +33,7 @@ const ProductCard = ({
     >
       <div className="relative overflow-hidden rounded">
         <Link href="/products/[id]" as={`/products/${id}`}>
-          <a>
+          <a title={name}>
             <img
               src={currentImage}
               alt="Product"
@@ -45,17 +43,17 @@ const ProductCard = ({
             {isFeatured && <FeaturedTag className="absolute top-0 right-0 mx-1" />}
           </a>
         </Link>
-        <button title="Add to Bag" type="button" className="absolute bottom-0 right-0 float-right w-8 h-8 p-1 m-2 text-base border border-white rounded opacity-75 hover:opacity-100" onClick={handleAddToBag}>
-          <AddSvgIcon className="mx-auto text-white fill-current" />
+        <button title="Add to Bag" type="button" className="absolute bottom-0 right-0 float-right p-1 m-2 text-base border border-white rounded opacity-75 hover:opacity-100" onClick={handleAddToBag}>
+          <AddSvgIcon className="w-8 h-8 mx-auto text-white fill-current" />
         </button>
       </div>
-      <div className="flex justify-between p-3 h-32">
+      <div className="flex justify-between h-32 p-3">
         <div>
-          <div className="text-xs mb-2 text-gray-600">{category}</div>
+          <div className="mb-2 text-xs text-gray-600">{category}</div>
           <Link href="/products/[id]" as={`/products/${id}`}>
-            <a className="block text-sm uppercase text-gray-600">{name}</a>
+            <a className="block text-sm text-gray-600 uppercase">{name}</a>
           </Link>
-          <span className="block text-sm uppercase text-gray-600">
+          <span className="block text-sm text-gray-600 uppercase">
             {price}
           </span>
         </div>
@@ -73,8 +71,6 @@ ProductCard.propTypes = {
   price: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(PropTypes.string),
-  avgRating: PropTypes.number.isRequired,
-  reviewCount: PropTypes.number.isRequired,
 };
 
 ProductCard.defaultProps = {
