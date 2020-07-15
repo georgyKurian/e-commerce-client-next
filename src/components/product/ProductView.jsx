@@ -34,9 +34,9 @@ const ProductView = ({ product, reviewsList }) => {
           </ul>
         </nav>
 
-        <div className="px-24">
-          <section className="flex items-center overflow-hidden section">
-            <div className="w-1/2 pr-4">
+        <div className="px-8 xl:px-40">
+          <section className="flex flex-wrap items-center overflow-hidden section">
+            <div className="md:w-1/2 pr-4">
               <h5 className="text-3xl font-semibold uppercase">{product?.productDescription?.title}</h5>
               <h5 className="text-2xl italic font-light leading-tight uppercase">{product?.productDescription?.subtitle}</h5>
               <p>{product?.productDescription?.text}</p>
