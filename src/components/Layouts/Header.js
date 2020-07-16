@@ -88,7 +88,7 @@ const Header = ({ children, isFixed, itemsInCart }) => {
         <button className="text-gray-400 lg:hidden" type="button" aria-label="Open mobile menu"><HamburgerIcon className="fill-current" /></button>
       </div>
       </div>
-      <div class={ (isFixed) ? 'w-full mt-16 lg:mt-16 xl:mt-16':''}></div>
+      <div className={ (isFixed) ? 'w-full mt-16 lg:mt-16 xl:mt-16':''}></div>
       {children}
     </header>    
   );
