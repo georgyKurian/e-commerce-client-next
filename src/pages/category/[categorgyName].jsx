@@ -5,7 +5,6 @@ import MyLayout from '../../components/Layouts/MyLayout';
 import ProductList from '../../components/product/ProductList';
 import Product from '../../models/Product';
 import { fetchProducts } from '../../redux/actions/products';
-import '../../../styles/main.css';
 
 class CategoryPage extends React.Component {
   static async getInitialProps({ store, query }) {
