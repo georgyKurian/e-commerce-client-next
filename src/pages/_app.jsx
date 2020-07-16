@@ -19,6 +19,11 @@ Router.events.on('routeChangeStart', () => {
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
+export function reportWebVitals(metric) {
+  console.log(metric)
+}
+
+
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     if (!ctx.isServer) {
