@@ -8,7 +8,7 @@ import ShoppingCart from '../../images/icons/shopping_cart.svg';
 
 const cssClasses = 'text-center py-4 px-4 text-sm text-themeGray-300 inline-block hover:text-white';
 
-const Header = ({ children, itemsInCart }) => {
+const Header = ({ children, isFixed, itemsInCart }) => {
   const [isButtonToggled, setButtonToggled] = useState(false);
   const user = useSelector((state) => state.auth?.user);
 
@@ -17,7 +17,8 @@ const Header = ({ children, itemsInCart }) => {
   }
 
   return (
-    <header className="fixed top-0 z-10 w-full outer-wrap bg-themeGray-700">
+    <header className="w-full">
+      <div className={`${isFixed ? 'fixed top-0 z-10':''} w-full outer-wrap bg-themeGray-700`}>        
       <div className="flex flex-wrap items-center justify-center inner-wrap">
         <nav className="hidden text-white lg:block NavigationBar" aria-label="Desktop Navigation">
           <Link href="/">
@@ -86,8 +87,10 @@ const Header = ({ children, itemsInCart }) => {
         </div>
         <button className="text-gray-400 lg:hidden" type="button" aria-label="Open mobile menu"><HamburgerIcon className="fill-current" /></button>
       </div>
+      </div>
+      <div class={ (isFixed) ? 'w-full mt-16 lg:mt-16 xl:mt-16':''}></div>
       {children}
-    </header>
+    </header>    
   );
 };
 

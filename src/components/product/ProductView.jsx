@@ -89,8 +89,8 @@ const ProductView = ({ product, reviewsList }) => {
         </div>
       </div>
 
-      <section className="flex-1 border-l border-themeGray-default md:p-6">
-        <div className="sticky top-0">
+      <section className="flex-1 border-l border-themeGray-default">
+        <div className="sticky top-0 md:p-6">
           <h1>{product.getName()}</h1>
           <div className="mb-4 text-lg font-semibold">{product.getFormattedPrice()}</div>
           <div>
