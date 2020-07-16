@@ -27,8 +27,8 @@ const Header = ({ children, isFixed, itemsInCart }) => {
           <Link href="/shop">
             <a className={cssClasses}>Shop</a>
           </Link>
-          <Link href="/category/[categoryName]" as="/category/mobile">
-            <a className={cssClasses}>#mobile</a>
+          <Link href="/category/[categoryName]" as="/category/shoes">
+            <a className={cssClasses}>#Shoes</a>
           </Link>
           {user?.isAdmin && (
           <>
