@@ -43,7 +43,7 @@ module.exports = {
     },
   },
   variants: {
-    borderWidth: ['responsive', 'hover', 'focus'],
+    borderWidth: ['responsive', 'hover', 'focus', 'last'],
   },
   plugins: [],
 };

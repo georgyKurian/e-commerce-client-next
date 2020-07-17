@@ -1,7 +1,17 @@
 .top-menu {
   @apply flex items-center uppercase;
+
   & > div {
-    @apply border-b-2 border-white;
+    @apply mt-px border-b-2 border-white;
+
+    & > a {
+      @apply text-center py-3 px-4 text-sm text-themeGray-700  tracking-widest inline-block font-semibold;
+
+      &:hover {
+        @apply no-underline text-black;
+      }
+    }
+
     &:hover {
       @apply border-black;
     }
