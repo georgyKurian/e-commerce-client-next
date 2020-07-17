@@ -36,7 +36,7 @@ const ProductView = ({ product, reviewsList }) => {
 
         <div className="px-8 xl:px-40">
           <section className="flex flex-wrap items-center overflow-hidden section">
-            <div className="md:w-1/2 pr-4">
+            <div className="pr-4 md:w-1/2">
               <h5 className="text-3xl font-semibold uppercase">{product?.productDescription?.title}</h5>
               <h5 className="text-2xl italic font-light leading-tight uppercase">{product?.productDescription?.subtitle}</h5>
               <p>{product?.productDescription?.text}</p>
@@ -109,6 +109,7 @@ ProductView.propTypes = {
 };
 
 const Features = ({ featureList }) => {
+  if (!Array.isArray(featureList)) { return null; }
   const midSize = Math.floor(featureList.length / 2);
   const featureElements = [[], []];
 
@@ -127,6 +128,14 @@ const Features = ({ featureList }) => {
       </ul>
     </>
   );
+};
+
+Features.propTypes = {
+  featureList: PropTypes.arrayOf(PropTypes.string),
+};
+
+Features.defaultProps = {
+  featureList: null,
 };
 
 export default ProductView;

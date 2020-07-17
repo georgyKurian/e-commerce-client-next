@@ -1,10 +1,10 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
+import React from 'react';
 
 const cssClasses = {};
 const currentYear = new Date().getFullYear();
 const Footer = () => (
-  <footer className="h-32 py-5 -mt-32 text-xs outer-wrap bg-themeGray-200 text-themeGray-600">
+  <footer className="h-32 py-5 text-xs outer-wrap bg-themeGray-200 text-themeGray-600">
     <div className="inner-wrap">
       <div>
         <Link href="/">

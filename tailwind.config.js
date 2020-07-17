@@ -5,11 +5,11 @@ module.exports = {
         './src/components/**/*',
         './src/pages/**/*',
         './src/models/**/*',
-      ],      
+      ],
       options: {
         whitelist: ['bg-red-500', 'px-4'],
         whitelistPatternsChildren: [/carousel/, /html/],
-      }
+      },
     },
     screens: {
       sm: '640px',
@@ -42,6 +42,8 @@ module.exports = {
       },
     },
   },
-  variants: {},
+  variants: {
+    borderWidth: ['responsive', 'hover', 'focus'],
+  },
   plugins: [],
 };
