@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import MyLayout from '../components/Layouts/MyLayout';
 import CartItem from '../components/cart/CartItem';
 import { fetchProductsIfNeeded } from '../redux/actions/products';

@@ -12,7 +12,6 @@ import { authRehydrate } from '../redux/actions/auth';
 import { rehydrateCart } from '../redux/actions/cart';
 import { rehydrateCheckout } from '../redux/actions/checkout';
 
-
 Router.events.on('routeChangeStart', () => {
   NProgress.start();
 });
@@ -20,9 +19,8 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 export function reportWebVitals(metric) {
-  console.log(metric)
+  console.log(metric);
 }
-
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
