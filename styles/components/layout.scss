@@ -1,6 +1,6 @@
 html,
 body,
-body > div:first-child{
+body > div:first-child {
   min-height: 100vh;
 }
 
@@ -18,7 +18,6 @@ footer {
   width: 100%;
 }
 
-
 @screen md {
   .inner-wrap {
     @apply px-4;
@@ -27,13 +26,13 @@ footer {
 
 @screen lg {
   .inner-wrap {
-    width:1280px;
+    width: 1280px;
   }
 }
 
 @screen xl {
   .inner-wrap {
-    width:1600px;
+    width: 1600px;
   }
   .section {
     @apply mb-32;

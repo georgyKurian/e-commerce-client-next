@@ -1,0 +1,9 @@
+.top-menu {
+  @apply flex items-center uppercase;
+  & > div {
+    @apply border-b-2 border-white;
+    &:hover {
+      @apply border-black;
+    }
+  }
+}

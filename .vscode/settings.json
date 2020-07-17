@@ -11,4 +11,9 @@
     "typescript",
     "typescriptreact",
   ],
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint": true,
+
 }

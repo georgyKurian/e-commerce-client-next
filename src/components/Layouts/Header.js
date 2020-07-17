@@ -6,7 +6,7 @@ import { connect, useSelector } from 'react-redux';
 import HamburgerIcon from '../../images/icons/hamburger-icon.svg';
 import ShoppingCart from '../../images/icons/shopping_cart.svg';
 
-const cssClasses = 'text-center py-4 px-4 text-sm text-themeGray-700 hover:no-underline tracking-widest inline-block font-semibold hover:text-black hover:border-b-2 border-black';
+const cssClasses = 'text-center py-4 px-4 text-sm text-themeGray-700 hover:no-underline tracking-widest inline-block font-semibold hover:text-black';
 
 const Header = ({ children, isFixed, itemsInCart }) => {
   const [isButtonToggled, setButtonToggled] = useState(false);
@@ -20,7 +20,7 @@ const Header = ({ children, isFixed, itemsInCart }) => {
     <header className="w-full">
       <div className={`${isFixed ? 'fixed top-0 z-10' : ''} w-full  border-b border-gray-400 outer-wrap bg-white`}>
         <div className="flex flex-wrap items-center justify-center inner-wrap">
-          <nav className="hidden uppercase lg:block top-menu" aria-label="Shop Navigation">
+          <nav className="top-menu" aria-label="Shop Navigation">
             <div>
               <Link href="/">
                 <a className={cssClasses}>Home</a>
@@ -51,7 +51,7 @@ const Header = ({ children, isFixed, itemsInCart }) => {
             </>
             )}
           </nav>
-          <nav className="uppercase">
+          <nav className="top-menu">
             {user?.isLoggedIn ? (
               <>
 
