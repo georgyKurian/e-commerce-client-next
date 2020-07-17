@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

@@ -88,7 +88,6 @@ export function updateCartQuantity(productId, quantity) {
   };
 }
 
-
 /**
  * Thunk action creator
  */

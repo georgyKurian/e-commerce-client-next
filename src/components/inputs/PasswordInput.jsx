@@ -1,4 +1,3 @@
-import React from 'react';
 import BaseInput from './BaseInput';
 
 const PasswordInput = (props) => <BaseInput {...props} type="password" />;

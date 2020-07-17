@@ -1,8 +1,8 @@
-import React from "react";
+import { useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { connect, useSelector } from 'react-redux';
-import { useState } from 'react';
+
 import HamburgerIcon from '../../images/icons/hamburger-icon.svg';
 import ShoppingCart from '../../images/icons/shopping_cart.svg';
 
@@ -18,7 +18,7 @@ const Header = ({ children, isFixed, itemsInCart }) => {
 
   return (
     <header className="w-full">
-      <div className={`${isFixed ? 'fixed top-0 z-10':''} w-full  border-b border-gray-400 outer-wrap bg-white`}>        
+      <div className={`${isFixed ? 'fixed top-0 z-10' : ''} w-full  border-b border-gray-400 outer-wrap bg-white`}>
         <div className="flex flex-wrap items-center justify-center inner-wrap">
           <nav className="hidden uppercase lg:block top-menu" aria-label="Shop Navigation">
             <div>
@@ -26,27 +26,27 @@ const Header = ({ children, isFixed, itemsInCart }) => {
                 <a className={cssClasses}>Home</a>
               </Link>
             </div>
-            <div>          
-            <Link href="/shop">
-              <a className={cssClasses}>Shop</a>
-            </Link>
+            <div>
+              <Link href="/shop">
+                <a className={cssClasses}>Shop</a>
+              </Link>
             </div>
             <div>
-            <Link href="/category/[categoryName]" as="/category/shoes">
-              <a className={cssClasses}>Shoes</a>
-            </Link>
-            </div>          
+              <Link href="/category/[categoryName]" as="/category/shoes">
+                <a className={cssClasses}>Shoes</a>
+              </Link>
+            </div>
             {user?.isAdmin && (
             <>
               <div>
-              <Link href="/admin/users">
-                <a className={cssClasses}>Users</a>
-              </Link>
+                <Link href="/admin/users">
+                  <a className={cssClasses}>Users</a>
+                </Link>
               </div>
-            <div>
-              <Link href="/admin/products">
-                <a className={cssClasses}>Products</a>
-              </Link>
+              <div>
+                <Link href="/admin/products">
+                  <a className={cssClasses}>Products</a>
+                </Link>
               </div>
             </>
             )}
@@ -86,27 +86,27 @@ const Header = ({ children, isFixed, itemsInCart }) => {
           </div>
           <button className="text-gray-400 lg:hidden" type="button" aria-label="Open mobile menu"><HamburgerIcon className="fill-current" /></button>
           {itemsInCart >= 0 ? (
-              <Link href="/cart">
-                <a className={cssClasses}>
-                  <div className="relative">
-                    <ShoppingCart className="inline w-6 h-6 fill-current" />
-                    {' '}
-                    {itemsInCart > 0 ?  (
-                      <div className="absolute inset-y-0 right-0">
-                        <div className="w-5 h-5 -mr-2 text-center text-white bg-red-700 rounded-full leading-5">
-                          {itemsInCart}
-                        </div>
+            <Link href="/cart">
+              <a className={cssClasses}>
+                <div className="relative">
+                  <ShoppingCart className="inline w-6 h-6 fill-current" />
+                  {' '}
+                  {itemsInCart > 0 ? (
+                    <div className="absolute inset-y-0 right-0">
+                      <div className="w-5 h-5 -mr-2 text-center text-white bg-red-700 rounded-full leading-5">
+                        {itemsInCart}
                       </div>
-                    ) : ''}
-                  </div>
-                </a>
-              </Link>
-            ) : null}
+                    </div>
+                  ) : ''}
+                </div>
+              </a>
+            </Link>
+          ) : null}
         </div>
       </div>
-      <div className={ (isFixed) ? 'w-full mt-16 lg:mt-16 xl:mt-16':''}></div>
+      <div className={(isFixed) ? 'w-full mt-16 lg:mt-16 xl:mt-16' : ''} />
       {children}
-    </header>    
+    </header>
   );
 };
 
@@ -117,7 +117,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  children:null,
+  children: null,
   itemsInCart: 0,
   isFixed: true,
 };

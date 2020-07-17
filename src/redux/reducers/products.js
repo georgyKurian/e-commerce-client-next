@@ -18,12 +18,13 @@ const productState = (state = { }, action) => {
 
 const getId = (state = { }, action) => {
   switch (action.type) {
-    case RECEIVE_PRODUCTS:
+    case RECEIVE_PRODUCTS: {
       const newProductArray = { ...state };
       action.productDataList.forEach((product) => {
         newProductArray[product._id] = { ...product };
       });
       return newProductArray;
+    }
     default:
       return state;
   }
@@ -31,12 +32,13 @@ const getId = (state = { }, action) => {
 
 const getAllIds = (state = [], action) => {
   switch (action.type) {
-    case RECEIVE_PRODUCTS:
+    case RECEIVE_PRODUCTS: {
       const newProductArray = [...state];
       action.productDataList.forEach((product) => {
         newProductArray.push(product._id);
       });
       return newProductArray;
+    }
     default:
       return state;
   }

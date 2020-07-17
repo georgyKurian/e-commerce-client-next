@@ -20,8 +20,9 @@ function receiveReviews(reviewsDataList) {
  * Thunk action creator
  */
 export function fetchReviews(productId) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(requestReviews());
-    return getReviews(productId).then((reviewsDataList) => dispatch(receiveReviews(reviewsDataList)));
+    return getReviews(productId)
+      .then((reviewsDataList) => dispatch(receiveReviews(reviewsDataList)));
   };
 }

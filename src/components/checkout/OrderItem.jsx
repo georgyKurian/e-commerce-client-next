@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -10,7 +9,7 @@ const OrderItem = ({
   <div className="table-row">
     <div className="table-cell">
       <Link href="/products/[id]" as={`/products/${id}`}>
-        <a className="text-blue-700 leading-none">{name}</a>
+        <a className="leading-none text-blue-700">{name}</a>
       </Link>
     </div>
     <div className="table-cell">
@@ -19,7 +18,7 @@ const OrderItem = ({
       </span>
     </div>
     <div className="table-cell">
-      <span className="text-gray-600 text-sm">
+      <span className="text-sm text-gray-600">
         X&nbsp;
         {quantity}
       </span>
@@ -37,6 +36,5 @@ OrderItem.propTypes = {
   quantity: PropTypes.number.isRequired,
   total: PropTypes.string.isRequired,
 };
-
 
 export default connect()(OrderItem);

@@ -11,7 +11,6 @@ const makeConfiguredStore = (reducer, initialState) => createStore(
   ),
 );
 
-
 export default (initialState = {}, { isServer }) => {
   if (isServer) {
     return makeConfiguredStore(reducers, initialState);

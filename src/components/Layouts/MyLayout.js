@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import Footer from './Footer';
 
-const MyLayout = ({ headerContent, children, title, isPaddingTop, isNavFixed=true }) => {
+const MyLayout = ({
+  headerContent, children, title, isPaddingTop, isNavFixed = true,
+}) => {
   const mainCss = (isPaddingTop) ? 'pt-4 md:pt-6 lg:pt-8 xl:pt-12' : '';
   return (
     <>
@@ -32,8 +34,8 @@ MyLayout.propTypes = {
 };
 
 MyLayout.defaultProps = {
-  headerContent:null,
-  isNavFixed:true,
+  headerContent: null,
+  isNavFixed: true,
   children: '',
   title: '',
   isPaddingTop: true,

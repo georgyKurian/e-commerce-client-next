@@ -17,7 +17,7 @@ export default function ImageCarousel({ className, images }) {
   return (
     <Carousel {...settings}>
       {images.map((image) => (
-        <img src={image} alt="Product" className="h-full w-full object-contain"/>        
+        <img src={image} key={image} alt="Product" className="object-contain w-full h-full" />
       ))}
     </Carousel>
   );

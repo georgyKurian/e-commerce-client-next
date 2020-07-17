@@ -41,5 +41,6 @@ export function fetchProductsIfNeeded(categories) {
     if (shouldFetchProducts(getState())) {
       return dispatch(fetchProducts(categories));
     }
+    return null;
   });
 }

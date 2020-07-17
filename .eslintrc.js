@@ -25,6 +25,8 @@ module.exports = {
     'react',
   ],
   rules: {
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    'jsx-a11y/anchor-is-valid': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/destructuring-assignment': [1, 'always', { ignoreClassFields: true }],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],

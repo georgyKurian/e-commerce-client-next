@@ -9,7 +9,7 @@ const initialState = {
   order: {},
 };
 
-const checkout = (state = { ...initialState }, {
+const Checkout = (state = { ...initialState }, {
   type, paymentIntentSecret, lastSync, checkout, ...order
 }) => {
   const newState = { ...state };
@@ -45,4 +45,4 @@ const checkout = (state = { ...initialState }, {
   }
 };
 
-export default checkout;
+export default Checkout;

@@ -6,22 +6,21 @@ const defaultOption = {
 };
 
 export default (url, { headers, ...otherOptions }) => fetch(
-    baseURL + url,
-    { ...defaultOption, headers: ({ ...defaultHeader, ...headers }), ...otherOptions },
-  )
+  baseURL + url,
+  { ...defaultOption, headers: ({ ...defaultHeader, ...headers }), ...otherOptions },
+)
   .then((r) => {
     if (r.ok) return r.json();
     return [];
   })
   .catch((err) => {
-    console.log(err);
+    console.error(err);
   });
-
 
 export const getResponse = (url, { headers, ...otherOptions }) => fetch(
   baseURL + url,
   { ...defaultOption, headers: ({ ...defaultHeader, ...headers }), ...otherOptions },
 )
   .catch((err) => {
-    console.log(err);
+    console.error(err);
   });

@@ -41,7 +41,6 @@ function deleteUserDetails() {
   };
 }
 
-
 /**
  * Thunk action creator
  */

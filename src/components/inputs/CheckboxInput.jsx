@@ -1,4 +1,3 @@
-import React from 'react';
 import BaseInput from './BaseInput';
 
 const CheckboxInput = (props) => <BaseInput {...props} type="checkbox" />;
