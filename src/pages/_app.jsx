@@ -7,7 +7,7 @@ import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
 import initStore from '../redux/stores';
-import '../../styles/main.css';
+import '../../styles/main.scss';
 import { authRehydrate } from '../redux/actions/auth';
 import { rehydrateCart } from '../redux/actions/cart';
 import { rehydrateCheckout } from '../redux/actions/checkout';
