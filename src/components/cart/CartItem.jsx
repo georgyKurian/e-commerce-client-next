@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Component } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -43,7 +42,7 @@ class CartItem extends Component {
   render() {
     const { image } = this.state;
     const {
-      id, name, avgRating, price, reviewCount, quantity, total,
+      id, name, price, quantity, total,
     } = this.props;
     return (
       <div
