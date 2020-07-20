@@ -1,39 +1,32 @@
 import { getProducts } from '../../api/Product';
 
-export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
-export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
+export const ADD_PRODUCTS = 'ADD_PRODUCTS';
 
-function requestProducts() {
+function addProductsAction(productDataList) {
   return {
-    type: REQUEST_PRODUCTS,
-  };
-}
-
-function receiveProducts(productDataList) {
-  return {
-    type: RECEIVE_PRODUCTS,
+    type: ADD_PRODUCTS,
     productDataList,
   };
 }
 
 function shouldFetchProducts(state) {
   const { products } = state;
-  if (!(products) || (products.getAllIds.length === 0 && !products.isFetching)) {
+  if (!(products) || (products.getAllIds.length === 0)) {
     return true;
   }
   return products.didInvalidate;
 }
 
+export function addProducts(productDataList) {
+  return (dispatch) => dispatch(addProductsAction(productDataList));
+}
 /**
  * Thunk action creator
  */
 export function fetchProducts(categories) {
-  return (dispatch) => {
-    dispatch(requestProducts());
-    return getProducts(categories).then(
-      (productDataList) => dispatch(receiveProducts(productDataList)),
-    );
-  };
+  return (dispatch) => getProducts(categories).then(
+    (productDataList) => dispatch(addProducts(productDataList)),
+  );
 }
 
 export function fetchProductsIfNeeded(categories) {

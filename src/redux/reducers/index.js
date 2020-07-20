@@ -5,6 +5,7 @@ import productDetails from './productDetails';
 import products from './products';
 import reviews from './reviews';
 import cart from './cart';
+import productsPage from './productsPage';
 
 export default combineReducers({
   auth,
@@ -13,4 +14,5 @@ export default combineReducers({
   products,
   productDetails,
   reviews,
+  productsPage,
 });
