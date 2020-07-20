@@ -4,8 +4,8 @@ import React, {
 } from 'react';
 import { fetchProductsIfNeeded } from '../redux/actions/productsPage';
 import MyLayout from '../components/Layouts/MyLayout';
-import ProductList from '../components/product/ProductList';
 import Product from '../models/Product';
+import ProductCard from '../components/product/ProductCard';
 
 const Shop = () => {
   const pageReducer = (state, action) => {
@@ -67,7 +67,27 @@ const Shop = () => {
   return (
     <MyLayout title="Shop">
       <>
-        <ProductList products={productList} />
+        <div className="flex flex-row flex-wrap inner-wrap section items-ceter">
+          {productList.map((product) => (
+            <div
+              className="flex w-1/2 p-1 xl:p-px md:w-1/2 lg:w-1/3 xl:w-1/4"
+              key={product.getId()}
+            >
+              <ProductCard
+                key={product.getId()}
+                product={product}
+                id={product.getId()}
+                name={product.getName()}
+                category={product.getCategory()}
+                images={product.getImages()}
+                price={product.getFormattedPrice()}
+                isFeatured={product.getIsFeatured()}
+                avgRating={product.getAvgRating()}
+                reviewCount={product.getReviewCount()}
+              />
+            </div>
+          ))}
+        </div>
         {isFetching && (<div className="flex justify-center p-6 mx-auto bg-gray-200 border border-gray-300 rounded"><p>Loading...</p></div>)}
         <div ref={bottomBoundaryRef} />
       </>
