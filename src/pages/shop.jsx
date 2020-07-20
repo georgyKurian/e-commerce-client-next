@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, {
-  useEffect, useReducer, useCallback, useRef,
+  useEffect, useReducer, useCallback, useRef, useMemo,
 } from 'react';
 import { fetchProductsIfNeeded } from '../redux/actions/productsPage';
 import MyLayout from '../components/Layouts/MyLayout';
@@ -20,10 +20,8 @@ const Shop = () => {
   const [pager, pagerDispatch] = useReducer(pageReducer, { page: 0 });
 
   const { getId: productMap } = useSelector((state) => state.products);
-  const { isFetching } = useSelector((state) => state.productsPage);
-  const { products: productIdList = [] } = useSelector(
-    (state) => state.productsPage.pages[pager.page] || { products: [] },
-  );
+  const { isFetching, pages } = useSelector((state) => state.productsPage);
+
   const bottomBoundaryRef = useRef(null);
   const reduxDispatch = useDispatch();
 
@@ -51,9 +49,16 @@ const Shop = () => {
     }
   }, [scrollObserver, bottomBoundaryRef]);
 
-  const productList = productIdList.map(
-    (productId) => new Product(productMap[productId]),
-  );
+  const productList = useMemo(() => {
+    const newList = [];
+    if (!pages) { return newList; }
+    for (let i = 0; i < pager.page; i += 1) {
+      pages[i].products.forEach((productId) => {
+        newList.push(new Product(productMap[productId]));
+      });
+    }
+    return newList;
+  }, [pages, productMap]);
 
   return (
     <MyLayout title="Shop">
