@@ -51,20 +51,26 @@ const Shop = () => {
 
   const productList = useMemo(() => {
     const newList = [];
-    if (!pages) { return newList; }
+    if (!pages || Object.entries(pages).length === 0) {
+      return newList;
+    }
     for (let i = 0; i < pager.page; i += 1) {
-      pages[i].products.forEach((productId) => {
-        newList.push(new Product(productMap[productId]));
-      });
+      if (pages[i]) {
+        pages[i].products.forEach((productId) => {
+          newList.push(new Product(productMap[productId]));
+        });
+      }
     }
     return newList;
   }, [pages, productMap]);
 
   return (
     <MyLayout title="Shop">
-      <ProductList products={productList} />
-      {isFetching && (<div>Loading...</div>)}
-      <div ref={bottomBoundaryRef} />
+      <>
+        <ProductList products={productList} />
+        {isFetching && (<div className="flex justify-center p-6 mx-auto bg-gray-200 border border-gray-300 rounded"><p>Loading...</p></div>)}
+        <div ref={bottomBoundaryRef} />
+      </>
     </MyLayout>
   );
 };
