@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { fetchProductsIfNeeded } from '../../redux/actions/products';
 import MyLayout from '../../components/Layouts/MyLayout';
-import ProductList from '../../components/product/ProductList';
 import Product from '../../models/Product';
-
+import ProductCard from '../../components/product/ProductCard';
 
 class Products extends React.Component {
   static async getInitialProps({ store }) {
@@ -19,7 +18,7 @@ class Products extends React.Component {
     );
     return (
       <MyLayout>
-        <ProductList products={productList} />
+        {productList.map(((product) => <ProductCard key={product.getId()} product />))}
       </MyLayout>
     );
   }

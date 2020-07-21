@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MyLayout from '../../components/Layouts/MyLayout';
-import ProductList from '../../components/product/ProductList';
 import Product from '../../models/Product';
 import { fetchProducts } from '../../redux/actions/products';
+import ProductCard from '../../components/product/ProductCard';
 
 class CategoryPage extends React.Component {
   static async getInitialProps({ store, query }) {
@@ -18,7 +18,7 @@ class CategoryPage extends React.Component {
     );
     return (
       <MyLayout title="Cateory">
-        <ProductList products={productList} />
+        {productList.map(((product) => <ProductCard key={product.getId()} product />))}
       </MyLayout>
     );
   }
