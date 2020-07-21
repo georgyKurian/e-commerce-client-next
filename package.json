@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "description": "Next.js front end for the e-commerce site",
   "main": "index.js",
+  "cacheDirectories": [".next/cache"],
   "scripts": {
     "dev": "next",
     "build": "next build",
