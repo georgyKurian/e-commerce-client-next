@@ -7,13 +7,16 @@ import { addToCart } from '../../redux/actions/cart';
 import AddSvgIcon from '../../../public/add.svg';
 import Product from '../../models/Product';
 
-const ProductCard = ({
-  product, id, name, category, price,
-}) => {
+const ProductCard = ({ product }) => {
   const images = product.getImages();
   const [currentImage, setCurrentImage] = useState(images[0]);
   const dispatch = useDispatch();
   const isFeatured = false;
+
+  const id = product.getId();
+  const name = product.getName();
+  const category = product.getCategory();
+  const price = product.getFormattedPrice();
 
   const handleMouseOver = () => {
     if (images.length > 1) {
@@ -32,12 +35,13 @@ const ProductCard = ({
   if (product) {
     return (
       <div
-        className="relative flex flex-col flex-wrap justify-between overflow-hidden border border-transparent hover:border-black"
+        className="relative flex flex-col flex-wrap justify-between flex-1 overflow-hidden border border-transparent hover:border-black"
       >
-        <div className="relative overflow-hidden rounded">
+        <div className="relative w-full overflow-hidden bg-gray-200 rounded" style={{ paddingTop: '100%' }}>
           <Link href="/products/[id]" as={`/products/${id}`}>
             <a title={name}>
               <img
+                className="absolute inset-0 w-full"
                 src={currentImage}
                 alt="Product"
                 onMouseEnter={handleMouseOver}
@@ -85,15 +89,10 @@ const ProductCard = ({
 
 ProductCard.propTypes = {
   product: PropTypes.instanceOf(Product),
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
 };
 
 ProductCard.defaultProps = {
   product: null,
-  images: [],
 };
 
 export default ProductCard;

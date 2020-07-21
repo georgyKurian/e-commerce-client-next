@@ -76,14 +76,6 @@ const Shop = () => {
               <ProductCard
                 key={product.getId()}
                 product={product}
-                id={product.getId()}
-                name={product.getName()}
-                category={product.getCategory()}
-                images={product.getImages()}
-                price={product.getFormattedPrice()}
-                isFeatured={product.getIsFeatured()}
-                avgRating={product.getAvgRating()}
-                reviewCount={product.getReviewCount()}
               />
             </div>
           ))}
