@@ -25,7 +25,7 @@ const Header = ({ children, isFixed, itemsInCart }) => {
   return (
     <header className="relative w-full">
       <div className={`${isFixed ? 'fixed top-0 z-10' : ''} w-full px-5 xl:px-10 border-b border-gray-400 outer-wrap bg-white`}>
-        <div className="flex justify-end w-full">
+        <div className="justify-end hidden w-full lg:flex">
           <ul className="flex text-xs">
             {linkDataList.map((linkData) => (
               <li key={linkData}>
@@ -36,6 +36,11 @@ const Header = ({ children, isFixed, itemsInCart }) => {
             ))}
           </ul>
         </div>
+
+        <button className="w-8 h-8 text-gray-400 lg:hidden" type="button" aria-label="Open mobile menu">
+          <HamburgerIcon className="fill-current" />
+        </button>
+
         <div className="flex flex-wrap items-center justify-between">
           <div>
             <div className="absolute inset-y-0 flex items-center">
@@ -44,7 +49,7 @@ const Header = ({ children, isFixed, itemsInCart }) => {
             </div>
           </div>
 
-          <div className="flex ">
+          <div className="flex">
             <nav className="top-menu" aria-label="Shop Navigation">
               <div>
                 <Link href="/">
@@ -52,13 +57,8 @@ const Header = ({ children, isFixed, itemsInCart }) => {
                 </Link>
               </div>
               <div>
-                <Link href="/shop">
-                  <a>Shop</a>
-                </Link>
-              </div>
-              <div>
                 <Link href="/category/[categoryName]" as="/category/shoes">
-                  <a>Shoes</a>
+                  <a>#Shoes</a>
                 </Link>
               </div>
               {user?.isAdmin && (
@@ -75,11 +75,8 @@ const Header = ({ children, isFixed, itemsInCart }) => {
                 </div>
               </>
               )}
-            </nav>
-            <nav className="top-menu">
               {user?.isLoggedIn ? (
                 <>
-
                   <div>
                     <Link href="/orders">
                       <a>Orders</a>
@@ -93,12 +90,13 @@ const Header = ({ children, isFixed, itemsInCart }) => {
                   </div>
                 </>
               ) : (
-                <Link href="/login">
-                  <a>Login</a>
-                </Link>
+                <div>
+                  <Link href="/login">
+                    <a>Login</a>
+                  </Link>
+                </div>
               )}
             </nav>
-            <button className="text-gray-400 lg:hidden" type="button" aria-label="Open mobile menu"><HamburgerIcon className="fill-current" /></button>
           </div>
           <div className="flex justify-between">
             <div className="relative flex items-center my-2">
@@ -107,10 +105,9 @@ const Header = ({ children, isFixed, itemsInCart }) => {
                   <input aria-label="search" className="h-8 pl-3 pr-8 text-gray-700 rounded-full" type="text" placeholder="To be implemented!" />
                   <button className="absolute right-0 px-2 py-2 mx-1 text-white" type="submit"><img src="/search-icon.svg" alt="Search Icon" /></button>
                 </>
-              )
-                : (
-                  <button type="button" onClick={handleSearchToggleClick}><img src="/search-icon.svg" alt="Search Icon" /></button>
-                )}
+              ) : (
+                <button type="button" onClick={handleSearchToggleClick}><img src="/search-icon.svg" alt="Search Icon" /></button>
+              )}
             </div>
             {itemsInCart >= 0 ? (
               <Link href="/cart">
