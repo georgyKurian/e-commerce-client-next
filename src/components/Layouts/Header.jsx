@@ -21,6 +21,8 @@ const Header = ({
 }) => {
   const [isButtonToggled, setButtonToggled] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isMenuClosing, setMenuClosing] = useState(false);
+
   const user = useSelector((state) => state.auth?.user);
 
   function handleSearchToggleClick() {
@@ -33,14 +35,19 @@ const Header = ({
   }
 
   function handleMenuCloseButtonClick() {
-    setMenuOpen(false);
+    setMenuClosing(true);
+    setTimeout(() => {
+      setMenuOpen(false);
+      setMenuClosing(false);
+    }, 1000);
+
     pageWrapperElement.current.classList.remove('fixed');
   }
 
   return (
     <header>
 
-      {isMenuOpen && <MobileMenu {...user} onClose={handleMenuCloseButtonClick} />}
+      {isMenuOpen && <MobileMenu {...user} isMenuClosing={isMenuClosing} onClose={handleMenuCloseButtonClick} />}
 
       <div className={`${isFixed ? 'fixed top-0 z-10' : ''} w-full xl:px-10 border-b border-gray-400 outer-wrap bg-white`}>
         <div className="relative">

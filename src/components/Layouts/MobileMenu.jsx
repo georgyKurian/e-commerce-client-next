@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-const MobileMenu = ({ isAdmin, isLoggedIn, onClose }) => (
-  <section className="mobile-fly-in-menu">
+const MobileMenu = ({
+  isAdmin, isLoggedIn, onClose, isMenuClosing,
+}) => (
+  <section className={`mobile-fly-in-menu ${isMenuClosing ? 'close' : ''}`}>
     <header className="relative flex items-center justify-center h-16 px-5">
       <span>LOGO</span>
       <button type="button" onClick={onClose} className="absolute right-0 p-2 mr-1">X</button>
@@ -61,6 +63,7 @@ MobileMenu.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  isMenuClosing: PropTypes.bool.isRequired.isRequired,
 };
 
 export default MobileMenu;

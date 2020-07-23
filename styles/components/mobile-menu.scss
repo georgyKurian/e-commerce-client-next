@@ -1,5 +1,33 @@
+@keyframes slide-in-left-anim {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slide-out-left-anim {
+  0% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  99% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
 .mobile-fly-in-menu {
   @apply absolute inset-0 z-50 bg-white;
+
+  animation: slide-in-left-anim 0.4s cubic-bezier(0.4, 0, 0.2, 1)  0.18s both;
 
   header {
     @apply flex justify-center border-b border-gray-400;
@@ -15,5 +43,10 @@
         @apply block py-3 text-black uppercase;
       }
     }
+  }
+
+  &.close {
+    animation: slide-out-left-anim 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.18s both;
+    opacity: 0;
   }
 }
