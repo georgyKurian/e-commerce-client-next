@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
+import PropTypes, { element } from 'prop-types';
 import { connect, useSelector } from 'react-redux';
 
 import HamburgerIcon from '../../images/icons/hamburger-icon.svg';
 import ShoppingBag from '../../images/icons/shopping-bag.svg';
 import SearchIcon from '../../images/icons/search-icon.svg';
+import MobileMenu from './MobileMenu';
 
 const linkDataList = [
   'help',
@@ -15,16 +16,32 @@ const linkDataList = [
   'creators club',
 ];
 
-const Header = ({ children, isFixed, itemsInCart }) => {
+const Header = ({
+  children, isFixed, itemsInCart, pageWrapperElement,
+}) => {
   const [isButtonToggled, setButtonToggled] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState(false);
   const user = useSelector((state) => state.auth?.user);
 
   function handleSearchToggleClick() {
     setButtonToggled(true);
   }
 
+  function handleMenuOpenButtonClick() {
+    setMenuOpen(true);
+    pageWrapperElement.current.classList.add('fixed');
+  }
+
+  function handleMenuCloseButtonClick() {
+    setMenuOpen(false);
+    pageWrapperElement.current.classList.remove('fixed');
+  }
+
   return (
     <header>
+
+      {isMenuOpen && <MobileMenu {...user} onClose={handleMenuCloseButtonClick} />}
+
       <div className={`${isFixed ? 'fixed top-0 z-10' : ''} w-full xl:px-10 border-b border-gray-400 outer-wrap bg-white`}>
         <div className="relative">
           <div className="justify-end hidden w-full lg:flex">
@@ -41,8 +58,8 @@ const Header = ({ children, isFixed, itemsInCart }) => {
 
           <div className="flex flex-wrap items-center justify-between">
             <div className="flex-1">
-              <button className="overflow-hidden text-gray-800 lg:hidden" type="button" aria-label="Open mobile menu">
-                <HamburgerIcon className="w-16 h-12 p-3 stroke-current" />
+              <button className="overflow-hidden text-gray-800 lg:hidden" type="button" aria-label="Open mobile menu" onClick={handleMenuOpenButtonClick}>
+                <HamburgerIcon role="img" aria-label="Open Menu" className="w-16 h-12 p-3 stroke-current" />
               </button>
             </div>
             <div>
@@ -102,7 +119,7 @@ const Header = ({ children, isFixed, itemsInCart }) => {
               </nav>
             </div>
             <div className="flex justify-end flex-1">
-              <div className="relative flex items-center my-2">
+              <div className="relative flex items-center">
                 {isButtonToggled ? (
                   <>
                     <input aria-label="search" className="h-8 pl-3 pr-8 text-gray-700 rounded-full" type="text" placeholder="To be implemented!" />
@@ -110,7 +127,7 @@ const Header = ({ children, isFixed, itemsInCart }) => {
                   </>
                 ) : (
                   <button type="button" className="p-2 mr-2" onClick={handleSearchToggleClick}>
-                    <SearchIcon className="w-5 h-5" role="presentation" />
+                    <SearchIcon role="img" aria-label="Search Icon" className="w-5 h-5" />
                   </button>
                 )}
               </div>
@@ -118,14 +135,16 @@ const Header = ({ children, isFixed, itemsInCart }) => {
                 <Link href="/cart">
                   <a className="flex items-center mr-5">
                     <div className="relative">
-                      <ShoppingBag className="inline w-8 h-8 p-1 text-gray-700 fill-current" />
-                      {' '}
                       {itemsInCart > 0 ? (
-                        <div className="absolute inset-y-0 right-0">
-                          <div className="flex items-center justify-center w-4 h-4 -mr-1 text-xs text-center text-white bg-red-700 rounded-full leading-5">
-                            {itemsInCart}
+                        <>
+                          <ShoppingBag role="img" aria-label="Shopping Bag" className="inline w-8 h-8 p-1 text-gray-700 fill-current" />
+                          {' '}
+                          <div className="absolute inset-y-0 right-0">
+                            <div className="flex items-center justify-center w-4 h-4 -mr-1 text-xs text-center text-white bg-red-700 rounded-full leading-5">
+                              {itemsInCart}
+                            </div>
                           </div>
-                        </div>
+                        </>
                       ) : ''}
                     </div>
                   </a>
@@ -145,6 +164,10 @@ Header.propTypes = {
   children: PropTypes.element,
   itemsInCart: PropTypes.number,
   isFixed: PropTypes.bool,
+  pageWrapperElement: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(element) }),
+  ]).isRequired,
 };
 
 Header.defaultProps = {

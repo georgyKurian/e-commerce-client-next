@@ -1,0 +1,19 @@
+.mobile-fly-in-menu {
+  @apply absolute inset-0 z-50 bg-white;
+
+  header {
+    @apply flex justify-center border-b border-gray-400;
+  }
+
+  nav {
+    @apply w-full flex flex-col px-5 py-3;
+
+    div {
+      @apply flex-1;
+
+      a {
+        @apply block py-3 text-black uppercase;
+      }
+    }
+  }
+}
