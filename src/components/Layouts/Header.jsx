@@ -46,7 +46,7 @@ const Header = ({ children, isFixed, itemsInCart }) => {
               </button>
             </div>
             <div>
-              <div className="inset-0 flex items-center lg:absolute">
+              <div className="inset-y-0 left-0 flex items-center lg:absolute">
                 <span className="text-lg lg:text-5xl">LOGO</span>
                 <span className="sr-only">Company Name</span>
               </div>
