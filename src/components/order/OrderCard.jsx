@@ -19,7 +19,7 @@ const OrderCard = ({ order }) => (
         <div className="capitalize">
           <span
             className={`px-1 rounded text-white bg-${order.getStatusColor()}`}
-            style={{ 'padding-top': '1px', 'padding-bottom': '3px' }}
+            style={{ paddingTop: '1px', paddingBottom: '3px' }}
           >
             {order.getStatus()}
           </span>
