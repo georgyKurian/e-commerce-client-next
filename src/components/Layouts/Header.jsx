@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import PropTypes, { element } from 'prop-types';
 import { connect, useSelector } from 'react-redux';
@@ -19,11 +19,21 @@ const linkDataList = [
 const Header = ({
   children, isFixed, itemsInCart, pageWrapperElement,
 }) => {
+  const [scrollY, setScrollY] = useState({ offset: 0, isGoingUp: false });
   const [isButtonToggled, setButtonToggled] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isMenuClosing, setMenuClosing] = useState(false);
 
   const user = useSelector((state) => state.auth?.user);
+
+  function handleScroll() {
+    const currentScrollPos = window.pageYOffset;
+    if (scrollY.offset > currentScrollPos) {
+      setScrollY({ offset: currentScrollPos, isGoingUp: true });
+    } else {
+      setScrollY({ offset: currentScrollPos, isGoingUp: false });
+    }
+  }
 
   function handleSearchToggleClick() {
     setButtonToggled(true);
@@ -44,6 +54,11 @@ const Header = ({
     pageWrapperElement.current.classList.remove('fixed');
   }
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
+
   return (
     <header>
       {isMenuOpen
@@ -54,7 +69,7 @@ const Header = ({
         onClose={handleMenuCloseButtonClick}
       />
       )}
-      <div className={`${isFixed ? 'fixed top-0 z-10' : ''} w-full xl:px-10 border-b border-gray-400 outer-wrap bg-white`}>
+      <div className={`${isFixed ? 'fixed top-0 z-10' : ''} top-menu-bar ${!scrollY.isGoingUp ? 'hide' : ''} w-full xl:px-10 border-b border-gray-400 outer-wrap bg-white`}>
         <div className="">
           <nav className="justify-end hidden w-full lg:flex" aria-label="Secondary Navigation">
             <ul className="flex text-xs">
