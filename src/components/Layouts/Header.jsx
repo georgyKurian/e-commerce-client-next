@@ -146,17 +146,18 @@ const Header = ({
               </nav>
             </div>
             <div className="flex justify-end flex-1">
-              <div className="relative flex items-center">
-                {isButtonToggled ? (
-                  <>
-                    <input aria-label="search" className="h-8 pl-3 pr-8 text-gray-700 rounded-full" type="text" placeholder="To be implemented!" />
-                    <button className="absolute right-0 px-2 py-2 mx-1 text-white" type="submit"><img src="/search-icon.svg" alt="Search Icon" /></button>
-                  </>
-                ) : (
-                  <button type="button" className="p-2 mr-2" onClick={handleSearchToggleClick}>
-                    <SearchIcon role="img" aria-hidden="true" className="w-5 h-5" />
-                  </button>
-                )}
+              <div className="flex items-center">
+                <div className="relative hidden mr-5 lg:block">
+                  <form>
+                    <>
+                      <input aria-label="Search " className="h-8 pl-3 pr-8 text-sm text-gray-700 bg-gray-100 border border-gray-300 rounded-sm" type="text" placeholder="To be implemented!" />
+                      <button className="absolute right-0 px-2 py-2 mx-1 text-white" type="submit"><img src="/search-icon.svg" alt="Search Icon" /></button>
+                    </>
+                  </form>
+                </div>
+                <button type="button" className="p-2 mr-2 lg:hidden" onClick={handleSearchToggleClick}>
+                  <SearchIcon role="img" aria-hidden="true" className="w-5 h-5" />
+                </button>
               </div>
               {itemsInCart >= 0 ? (
                 <Link href="/cart">
