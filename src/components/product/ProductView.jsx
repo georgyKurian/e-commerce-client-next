@@ -28,11 +28,11 @@ const ProductView = ({ product, reviewsList }) => {
           />
         </section>
 
-        <aside className="h-16 mb-16 border-t border-b">
+        <nav className="h-16 mb-16 border-t border-b">
           <ul className="flex items-center justify-center h-full inner-wrap">
             <li>test</li>
           </ul>
-        </aside>
+        </nav>
 
         <div className="px-8 xl:px-40">
           <section className="flex flex-wrap items-center overflow-hidden section">
