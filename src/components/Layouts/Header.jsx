@@ -46,12 +46,17 @@ const Header = ({
 
   return (
     <header>
-
-      {isMenuOpen && <MobileMenu {...user} isMenuClosing={isMenuClosing} onClose={handleMenuCloseButtonClick} />}
-
+      {isMenuOpen
+      && (
+      <MobileMenu
+        {...user}
+        isMenuClosing={isMenuClosing}
+        onClose={handleMenuCloseButtonClick}
+      />
+      )}
       <div className={`${isFixed ? 'fixed top-0 z-10' : ''} w-full xl:px-10 border-b border-gray-400 outer-wrap bg-white`}>
-        <div className="relative">
-          <div className="justify-end hidden w-full lg:flex">
+        <div className="">
+          <nav className="justify-end hidden w-full lg:flex" aria-label="Secondary Navigation">
             <ul className="flex text-xs">
               {linkDataList.map((linkData) => (
                 <li key={linkData}>
@@ -61,14 +66,14 @@ const Header = ({
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           <div className="flex flex-wrap items-center justify-between">
-            <div className="flex-1">
-              <button className="overflow-hidden text-gray-800 lg:hidden" type="button" aria-label="Open mobile menu" onClick={handleMenuOpenButtonClick}>
-                <HamburgerIcon role="img" aria-label="Open Menu" className="w-16 h-12 p-3 stroke-current" />
+            <nav className="flex-1">
+              <button aria-label="Open the menu" aria-expanded={isMenuOpen} aria-controls="mobile-menu" className="overflow-hidden text-gray-800 lg:hidden" type="button" onClick={handleMenuOpenButtonClick}>
+                <HamburgerIcon aria-hidden="true" className="w-16 h-12 p-3 stroke-current" />
               </button>
-            </div>
+            </nav>
             <div>
               <div className="inset-y-0 left-0 flex items-center lg:absolute">
                 <span className="text-lg lg:text-5xl">LOGO</span>

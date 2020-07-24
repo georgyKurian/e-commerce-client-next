@@ -27,26 +27,26 @@
 .mobile-fly-in-menu {
   @apply absolute inset-0 z-50 bg-white;
 
-  animation: slide-in-left-anim 0.4s cubic-bezier(0.4, 0, 0.2, 1)  0.18s both;
+  animation: slide-in-left-anim 0.3s cubic-bezier(0.4, 0, 0.2, 1)  0.18s both;
 
   header {
     @apply flex justify-center border-b border-gray-400;
   }
 
-  nav {
-    @apply w-full flex flex-col px-5 py-3;
+  ul {
+    @apply w-full flex flex-col py-3;
 
-    div {
+    li {
       @apply flex-1;
 
       a {
-        @apply block py-3 text-black uppercase;
+        @apply block px-5 py-3 text-black uppercase;
       }
     }
   }
 
   &.close {
-    animation: slide-out-left-anim 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.18s both;
+    animation: slide-out-left-anim 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.18s both;
     opacity: 0;
   }
 }

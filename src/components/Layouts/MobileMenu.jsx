@@ -1,62 +1,63 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { useRef, useEffect } from 'react';
 
 const MobileMenu = ({
   isAdmin, isLoggedIn, onClose, isMenuClosing,
 }) => (
-  <section className={`mobile-fly-in-menu ${isMenuClosing ? 'close' : ''}`}>
-    <header className="relative flex items-center justify-center h-16 px-5">
+  <nav id="mobile-menu" className={`mobile-fly-in-menu ${isMenuClosing ? 'close' : ''}`}>
+    <div className="relative flex items-center justify-center h-16 px-5">
       <span>LOGO</span>
       <button type="button" onClick={onClose} className="absolute right-0 p-2 mr-1">X</button>
-    </header>
-    <nav aria-label="Shop Navigation">
-      <div>
+    </div>
+    <ul className="flex flex-col">
+      <li>
         <Link href="/">
           <a className="">Home</a>
         </Link>
-      </div>
-      <div>
+      </li>
+      <li>
         <Link href="/category/[categoryName]" as="/category/shoes">
           <a>#Shoes</a>
         </Link>
-      </div>
+      </li>
       {isAdmin && (
         <>
-          <div>
+          <li>
             <Link href="/admin/users">
               <a>Users</a>
             </Link>
-          </div>
-          <div>
+          </li>
+          <li>
             <Link href="/admin/products">
               <a>Products</a>
             </Link>
-          </div>
+          </li>
         </>
       )}
       {isLoggedIn ? (
         <>
-          <div>
+          <li>
             <Link href="/orders">
               <a>Orders</a>
             </Link>
-          </div>
+          </li>
 
-          <div>
+          <li>
             <Link href="/logout">
               <a>Logout</a>
             </Link>
-          </div>
+          </li>
         </>
       ) : (
-        <div>
+        <li>
           <Link href="/login">
             <a>Login</a>
           </Link>
-        </div>
+        </li>
       )}
-    </nav>
-  </section>
+    </ul>
+  </nav>
 );
 
 MobileMenu.propTypes = {
