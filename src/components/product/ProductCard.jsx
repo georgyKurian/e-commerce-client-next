@@ -36,16 +36,24 @@ const ProductCard = ({ product }) => {
     return (
       <div
         className="relative flex flex-col flex-wrap justify-between flex-1 overflow-hidden border border-transparent hover:border-black"
+        onMouseEnter={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
       >
         <div className="relative w-full overflow-hidden bg-gray-200 rounded" style={{ paddingTop: '100%' }}>
           <Link href="/products/[id]" as={`/products/${id}`}>
-            <a title={name}>
+            <a
+              title={name}
+            >
               <img
-                className="absolute inset-0 w-full"
-                src={currentImage}
+                className={`absolute inset-0 w-full ${currentImage !== images[0] ? 'hidden' : null}`}
+                src={images[0]}
                 alt="Product"
-                onMouseEnter={handleMouseOver}
-                onMouseLeave={handleMouseLeave}
+              />
+              <img
+                loading="lazy"
+                className={`absolute inset-0 w-full ${currentImage !== images[1] ? 'hidden' : null}`}
+                src={images[1]}
+                alt="Product"
               />
               {isFeatured && <FeaturedTag className="absolute top-0 right-0 mx-1" />}
             </a>
