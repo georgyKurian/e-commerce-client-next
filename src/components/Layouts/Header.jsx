@@ -159,25 +159,25 @@ const Header = ({
                   <SearchIcon role="img" aria-hidden="true" className="w-5 h-5" />
                 </button>
               </div>
-              {itemsInCart >= 0 ? (
-                <Link href="/cart">
-                  <a className="flex items-center mr-5">
-                    <div className="relative">
-                      {itemsInCart > 0 ? (
-                        <>
-                          <ShoppingBag role="img" aria-label="Shopping Bag" className="inline w-8 h-8 p-1 text-gray-700 fill-current" />
-                          {' '}
-                          <div className="absolute inset-y-0 right-0">
-                            <div className="flex items-center justify-center w-4 h-4 -mr-1 text-xs text-center text-white bg-red-700 rounded-full leading-5">
-                              {itemsInCart}
-                            </div>
+
+              <Link href="/cart">
+                <a className="flex items-center mr-5">
+                  <div className="relative">
+                    <ShoppingBag role="img" aria-label="Shopping Bag" className="inline w-8 h-8 p-1 text-gray-700 fill-current" />
+                    {itemsInCart >= 1 ? (
+                      <>
+                        {' '}
+                        <div className="absolute inset-y-0 right-0">
+                          <div className="flex items-center justify-center w-4 h-4 -mr-1 text-xs text-center text-white bg-red-700 rounded-full leading-5">
+                            {itemsInCart}
                           </div>
-                        </>
-                      ) : ''}
-                    </div>
-                  </a>
-                </Link>
-              ) : null}
+                        </div>
+                      </>
+                    ) : null }
+                  </div>
+                </a>
+              </Link>
+
             </div>
           </div>
         </div>
