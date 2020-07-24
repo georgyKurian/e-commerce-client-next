@@ -64,14 +64,14 @@ export function fetchProducts(categories, pageNumber) {
         dispatch(addPage(pageNumber, productIdList, lastSync));
       })
       .finally(() => {
-        dispatch(stopFetching);
+        dispatch(stopFetching());
       });
   };
 }
 
 export function fetchProductsIfNeeded(categories = null, pageNumber = 0) {
   return ((dispatch, getState) => {
-    const { productsPage: pages } = getState();
+    const { productsPage: { pages } } = getState();
     if (!pages[pageNumber]) {
       return dispatch(fetchProducts(categories, pageNumber));
     }

@@ -40,7 +40,6 @@ const Shop = () => {
         threshold: 0,
       });
     }).observe(node);
-    pagerDispatch({ action: 'ADVANCE_PAGE' });
   }, [pagerDispatch]);
 
   useEffect(() => {
@@ -54,7 +53,7 @@ const Shop = () => {
     if (!pages || Object.entries(pages).length === 0) {
       return newList;
     }
-    for (let i = 0; i < pager.page; i += 1) {
+    for (let i = 0; i <= pager.page; i += 1) {
       if (pages[i]) {
         pages[i].products.forEach((productId) => {
           newList.push(new Product(productMap[productId]));
@@ -62,7 +61,7 @@ const Shop = () => {
       }
     }
     return newList;
-  }, [pages, productMap]);
+  }, [pages, productMap, pager.page]);
 
   return (
     <MyLayout title="Shop">
