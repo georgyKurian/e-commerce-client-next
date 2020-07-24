@@ -19,7 +19,7 @@ const linkDataList = [
 const Header = ({
   children, isFixed, itemsInCart, pageWrapperElement,
 }) => {
-  const [scrollY, setScrollY] = useState({ offset: 0, isGoingUp: false });
+  const [scrollY, setScrollY] = useState({ offset: 0, isGoingUp: true });
   const [isButtonToggled, setButtonToggled] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isMenuClosing, setMenuClosing] = useState(false);
@@ -154,7 +154,7 @@ const Header = ({
                   </>
                 ) : (
                   <button type="button" className="p-2 mr-2" onClick={handleSearchToggleClick}>
-                    <SearchIcon role="img" aria-label="Search Icon" className="w-5 h-5" />
+                    <SearchIcon role="img" aria-hidden="true" className="w-5 h-5" />
                   </button>
                 )}
               </div>
