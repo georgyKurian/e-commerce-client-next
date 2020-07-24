@@ -4,24 +4,29 @@ import { useRef, useEffect } from 'react';
 
 const MobileMenu = ({
   isAdmin, isLoggedIn, onClose, isMenuClosing,
-}) => (
-  <nav id="mobile-menu" className={`mobile-fly-in-menu ${isMenuClosing ? 'close' : ''}`}>
-    <div className="relative flex items-center justify-center h-16 px-5">
-      <span>LOGO</span>
-      <button type="button" onClick={onClose} className="absolute right-0 p-2 mr-1">X</button>
-    </div>
-    <ul className="flex flex-col">
-      <li>
-        <Link href="/">
-          <a className="">Home</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/category/[categoryName]" as="/category/shoes">
-          <a>#Shoes</a>
-        </Link>
-      </li>
-      {isAdmin && (
+}) => {
+  const firstLink = useRef(null);
+  useEffect(() => {
+    firstLink.current.focus();
+  }, [firstLink]);
+  return (
+    <nav id="mobile-menu" className={`mobile-fly-in-menu ${isMenuClosing ? 'close' : ''}`}>
+      <div className="relative flex items-center justify-center h-16 px-5">
+        <span>LOGO</span>
+        <button type="button" ref={firstLink} onClick={onClose} className="absolute right-0 p-2 mr-1">X</button>
+      </div>
+      <ul className="flex flex-col">
+        <li>
+          <Link href="/">
+            <a className="">Home</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/category/[categoryName]" as="/category/shoes">
+            <a>#Shoes</a>
+          </Link>
+        </li>
+        {isAdmin && (
         <>
           <li>
             <Link href="/admin/users">
@@ -34,31 +39,32 @@ const MobileMenu = ({
             </Link>
           </li>
         </>
-      )}
-      {isLoggedIn ? (
-        <>
-          <li>
-            <Link href="/orders">
-              <a>Orders</a>
-            </Link>
-          </li>
+        )}
+        {isLoggedIn ? (
+          <>
+            <li>
+              <Link href="/orders">
+                <a>Orders</a>
+              </Link>
+            </li>
 
+            <li>
+              <Link href="/logout">
+                <a>Logout</a>
+              </Link>
+            </li>
+          </>
+        ) : (
           <li>
-            <Link href="/logout">
-              <a>Logout</a>
+            <Link href="/login">
+              <a>Login</a>
             </Link>
           </li>
-        </>
-      ) : (
-        <li>
-          <Link href="/login">
-            <a>Login</a>
-          </Link>
-        </li>
-      )}
-    </ul>
-  </nav>
-);
+        )}
+      </ul>
+    </nav>
+  );
+};
 
 MobileMenu.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
