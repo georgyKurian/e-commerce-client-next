@@ -10,6 +10,7 @@ import Product from '../../models/Product';
 const ProductCard = ({ product }) => {
   const images = product.getImages();
   const [currentImage, setCurrentImage] = useState(images[0]);
+  const [isHover, setHover] = useState(false);
   const dispatch = useDispatch();
   const isFeatured = false;
 
@@ -19,6 +20,7 @@ const ProductCard = ({ product }) => {
   const price = product.getFormattedPrice();
 
   const handleMouseOver = () => {
+    setHover(true);
     if (images.length > 1) {
       setCurrentImage(images[1]);
     }
@@ -26,6 +28,7 @@ const ProductCard = ({ product }) => {
 
   const handleMouseLeave = () => {
     setCurrentImage(images[0]);
+    setHover(false);
   };
 
   const handleAddToBag = async () => {
@@ -34,10 +37,12 @@ const ProductCard = ({ product }) => {
 
   if (product) {
     return (
-      <div
-        className="relative flex flex-col flex-wrap justify-between flex-1 overflow-hidden border border-transparent hover:border-black"
+      <article
+        className={`productCard ${isHover && 'is-active'}`}
         onMouseEnter={handleMouseOver}
         onMouseLeave={handleMouseLeave}
+        onFocus={handleMouseOver}
+        onBlur={handleMouseLeave}
       >
         <div className="relative w-full overflow-hidden bg-gray-200 rounded" style={{ paddingTop: '100%' }}>
           <Link href="/products/[id]" as={`/products/${id}`}>
@@ -45,15 +50,18 @@ const ProductCard = ({ product }) => {
               title={name}
             >
               <img
-                className={`absolute inset-0 w-full ${currentImage !== images[0] ? 'hidden' : null}`}
+                className={`absolute inset-0 w-full ${currentImage !== images[0] && 'hidden'}`}
                 src={images[0]}
                 alt="Product"
               />
               <img
                 loading="lazy"
-                className={`absolute inset-0 w-full ${currentImage !== images[1] ? 'hidden' : null}`}
+                className={`absolute inset-0 w-full ${currentImage !== images[1] && 'hidden'}`}
                 src={images[1]}
                 alt="Product"
+              />
+              <div
+                className="absolute inset-0 bg-green-400 image-overlay "
               />
               {isFeatured && <FeaturedTag className="absolute top-0 right-0 mx-1" />}
             </a>
@@ -62,21 +70,24 @@ const ProductCard = ({ product }) => {
             <AddSvgIcon className="w-8 h-8 mx-auto text-white fill-current" />
           </button>
         </div>
-        <div className="flex justify-between h-32 p-3">
-          <div>
-            <div className="mb-2 text-xs text-gray-600">{category}</div>
-            <Link href="/products/[id]" as={`/products/${id}`}>
-              <a className="block text-sm text-gray-600 uppercase">{name}</a>
-            </Link>
-            <span className="block text-sm text-gray-600 uppercase">
+        <div className="w-full h-32 p-3 " />
+        <div className="container-info">
+          <div className="flex justify-between h-32 p-3">
+            <div>
+              <div className="mb-2 text-xs text-gray-600">{category}</div>
+              <Link href="/products/[id]" as={`/products/${id}`}>
+                <a className="block text-sm text-gray-600 uppercase">{name}</a>
+              </Link>
+              <span className="block text-sm text-gray-600 uppercase">
+                {price}
+              </span>
+            </div>
+            <span className="hidden font-medium text-gray-800">
               {price}
             </span>
           </div>
-          <span className="hidden font-medium text-gray-800">
-            {price}
-          </span>
         </div>
-      </div>
+      </article>
     );
   }
 

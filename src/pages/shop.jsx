@@ -69,7 +69,7 @@ const Shop = () => {
         <div className="flex flex-row flex-wrap inner-wrap section items-ceter">
           {productList.map((product) => (
             <div
-              className="flex w-1/2 p-1 xl:p-px md:w-1/2 lg:w-1/3 xl:w-1/4"
+              className="flex w-1/2 p-2 xl:p-px md:w-1/2 lg:w-1/3 xl:w-1/4"
               key={product.getId()}
             >
               <ProductCard
