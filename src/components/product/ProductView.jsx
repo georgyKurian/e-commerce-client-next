@@ -9,6 +9,48 @@ import Quantity from '../inputs/Quantity';
 import Rating from './Rating';
 import ReviewList from './ReviewList';
 
+const colorList = [
+  {
+    code: '#6e8cd5',
+    name: 'Blue',
+  },
+  {
+    code: '#ffffff',
+    name: 'White',
+  },
+  {
+    code: '#000000',
+    name: 'Black',
+  },
+];
+
+const sizeList = [
+  {
+    name: 'x-sm',
+    isStock: true,
+  },
+  {
+    name: 'sm',
+    isStock: true,
+  },
+  {
+    name: 'm',
+    isStock: false,
+  },
+  {
+    name: 'l',
+    isStock: true,
+  },
+  {
+    name: 'xl',
+    isStock: true,
+  },
+  {
+    name: 'xxl',
+    isStock: true,
+  },
+];
+
 const ProductView = ({ product, ratingList, reviewsList }) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
@@ -22,12 +64,14 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
   for (let i = 50; i > 0; i -= 10) {
     let percentage = 0;
     let noOfReviews = 0;
+
     if (ratingList[i]) {
       percentage = ratingList[i].percentage;
       noOfReviews = ratingList[i].noOfReviews;
     }
+
     ratingElementList.push(
-      (<div className="flex items-center mb-2">
+      <div className="flex items-center mb-2">
         <button className="p-px text-sm underline uppercase hover:bg-black hover:text-white" type="button">
           {i / 10}
           {' Stars'}
@@ -38,14 +82,14 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
           </div>
         </div>
         <span className="text-xs" type="button">{noOfReviews}</span>
-       </div>),
+      </div>,
     );
   }
 
   return (
     <article className="flex flex-wrap ProductView">
       <div className="overflow-hidden md:w-3/4">
-        <section>
+        <section id="product-gallery">
           <ImageCarosule
             images={product.getImages()}
             className=""
@@ -53,13 +97,16 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
         </section>
 
         <nav className="h-16 mb-16 border-t border-b">
-          <ul className="flex items-center justify-center h-full inner-wrap">
-            <li>test</li>
+          <ul className="flex items-center justify-center h-full text-sm uppercase inner-wrap">
+            <li><a className="px-2 text-black" href="#product-gallery">Gallery</a></li>
+            <li><a className="px-2 text-black" href="#product-description">Description</a></li>
+            <li><a className="px-2 text-black" href="#product-features">Features</a></li>
+            <li><a className="px-2 text-black" href="#product-reviews">Reviews</a></li>
           </ul>
         </nav>
 
         <div className="px-8 xl:px-40">
-          <section className="flex flex-wrap items-center overflow-hidden section">
+          <section id="product-description" className="flex flex-wrap items-center overflow-hidden section">
             <div className="pr-4 md:w-1/2">
               <h5 className="text-3xl font-semibold uppercase">{product?.productDescription?.title}</h5>
               <h5 className="text-2xl italic font-light leading-tight uppercase">{product?.productDescription?.subtitle}</h5>
@@ -70,14 +117,14 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
             </div>
           </section>
 
-          <section className="overflow-hidden section">
+          <section id="product-features" className="overflow-hidden section">
             <h4 className="w-full text-3xl font-semibold uppercase">Specifications</h4>
             <div className="flex flex-wrap w-full">
               <Features featureList={product.productDescription.features} />
             </div>
           </section>
 
-          <section className="overflow-hidden section">
+          <section id="product-reviews" className="overflow-hidden section">
             <h4 className="w-full text-3xl font-semibold uppercase">Ratings & reviews</h4>
 
             <div className="pb-2 border-b md:pr-5 md:w-1/3 md:float-left md:border-0">
@@ -109,6 +156,25 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
         <div className="sticky top-0 md:p-6">
           <h1>{product.getName()}</h1>
           <div className="mb-4 text-lg font-semibold">{product.getFormattedPrice()}</div>
+          <div className="sizes">
+            <h4>Sizes</h4>
+            <ul className="mb-2 grid grid-cols-4 gap-0">
+              {sizeList.map((size) => (
+                <li key="size.name"><button type="button" className="w-full px-2 py-2 text-sm uppercase border ronded">{size.name}</button></li>
+              ))}
+            </ul>
+          </div>
+          <div className="colors">
+            <h4>Colors</h4>
+            <ul className="flex flex-wrap mb-2">
+              {colorList.map((colourData) => (
+                <li key="size.name" className="mb-2 mr-2">
+                  <button type="button" style={{ backgroundColor: colourData.code }} className="w-8 h-8 border rounded-full" />
+                  <span className="hidden">{colourData.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
           <div>
             <Quantity className="w-20 px-4 py-2 mr-2 border border-gray-500 appearance-none customDropDown" value={quantity} onQuantityChange={setQuantity} />
             <PrimaryButton onClick={addToCartHandle}>Add to Cart</PrimaryButton>
@@ -116,7 +182,6 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
         </div>
       </section>
     </article>
-
   );
 };
 
