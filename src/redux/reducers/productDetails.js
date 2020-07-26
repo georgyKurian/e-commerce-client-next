@@ -15,6 +15,7 @@ const productDetails = (state = {}, action) => {
         didInvalidate: false,
         lastFetched: Date.now(),
         data: action.productData,
+        reviewData: action.reviewData,
       };
     default:
       return state;

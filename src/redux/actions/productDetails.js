@@ -1,4 +1,5 @@
 import { getProductDetails } from '../../api/Product';
+import { getProductReviewSummary } from '../../api/Review';
 
 export const REQUEST_PRODUCT_DETAILS = 'REQUEST_PRODUCT_DETAILS';
 export const RECEIVE_PRODUCT_DETAILS = 'RECEIVE_PRODUCT_DETAILS';
@@ -9,10 +10,11 @@ function requestProductDetails() {
   };
 }
 
-function receiveProductDetails(productData) {
+function receiveProductDetails(productData, reviewData) {
   return {
     type: RECEIVE_PRODUCT_DETAILS,
     productData,
+    reviewData,
   };
 }
 
@@ -22,8 +24,11 @@ function receiveProductDetails(productData) {
 export function fetchProductDetails(productId) {
   return (dispatch) => {
     dispatch(requestProductDetails());
-    return getProductDetails(productId).then(
-      (productData) => dispatch(receiveProductDetails(productData)),
-    );
+    return Promise.all([
+      getProductDetails(productId),
+      getProductReviewSummary(productId),
+    ]).then(([productData, reviewData]) => {
+      dispatch(receiveProductDetails(productData, reviewData));
+    });
   };
 }

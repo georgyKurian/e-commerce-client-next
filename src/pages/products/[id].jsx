@@ -26,7 +26,11 @@ class ProductPage extends React.Component {
     );
     return (
       <MyLayout title={product.getName()} isPaddingTop={false} isNavFixed={false}>
-        <ProductView product={product} reviewsList={reviewsList} rating={50} />
+        <ProductView
+          product={product}
+          ratingList={productDetails.reviewData.ratingSummary}
+          reviewsList={reviewsList}
+        />
       </MyLayout>
     );
   }

@@ -4,6 +4,10 @@ export const getReviews = async (productId) => fetch(`/v1/reviews?productId=${pr
   method: 'GET',
 });
 
+export const getProductReviewSummary = async (productId) => fetch(`/v1/reviews/summary?productId=${productId}`, {
+  method: 'GET',
+});
+
 export const getReview = async (reviewId) => fetch(`/v1/reviews${reviewId ? `/${reviewId}` : ''}`, {
   method: 'GET',
 });

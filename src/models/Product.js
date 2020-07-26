@@ -101,7 +101,7 @@ export default class Product {
   /**
    * @return {string}
    */
-  getAvgRatingFormatted = () => (this.avgRating) / 10;
+  getAvgRatingFormatted = () => ((this.avgRating) / 10).toFixed(1);
 
   /**
    * @return {string}

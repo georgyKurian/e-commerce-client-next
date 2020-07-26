@@ -9,7 +9,7 @@ import Quantity from '../inputs/Quantity';
 import Rating from './Rating';
 import ReviewList from './ReviewList';
 
-const ProductView = ({ product, reviewsList }) => {
+const ProductView = ({ product, ratingList, reviewsList }) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
 
@@ -17,6 +17,30 @@ const ProductView = ({ product, reviewsList }) => {
     dispatch(addToCart(product.getId(), quantity));
     setQuantity(1);
   };
+
+  const ratingElementList = [];
+  for (let i = 50; i > 0; i -= 10) {
+    let percentage = 0;
+    let noOfReviews = 0;
+    if (ratingList[i]) {
+      percentage = ratingList[i].percentage;
+      noOfReviews = ratingList[i].noOfReviews;
+    }
+    ratingElementList.push(
+      (<div className="flex items-center mb-2">
+        <button className="p-px text-sm underline uppercase hover:bg-black hover:text-white" type="button">
+          {i / 10}
+          {' Stars'}
+        </button>
+        <div className="flex-1 px-4">
+          <div className="w-full h-1 bg-gray-300">
+            <div className="h-1 bg-green-400" style={{ width: `${percentage}%` }} />
+          </div>
+        </div>
+        <span className="text-xs" type="button">{noOfReviews}</span>
+       </div>),
+    );
+  }
 
   return (
     <article className="flex flex-wrap ProductView">
@@ -70,15 +94,7 @@ const ProductView = ({ product, reviewsList }) => {
 
               <section className="">
                 <h5 className="mb-2 uppercase">Rating breakdown</h5>
-                <div className="flex items-center mb-2">
-                  <button className="p-px text-sm underline uppercase hover:bg-black hover:text-white" type="button">5 Stars</button>
-                  <div className="flex-1 px-4">
-                    <div className="w-full h-1 bg-gray-300">
-                      <div className="w-full h-1 bg-green-400" />
-                    </div>
-                  </div>
-                  <span className="text-xs" type="button">4588</span>
-                </div>
+                {ratingElementList}
               </section>
             </div>
 
