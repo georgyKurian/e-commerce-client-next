@@ -126,9 +126,9 @@ const ProductCard = ({ product }) => {
           </button>
 
         </div>
-        <div className="w-full h-32 p-3 " />
+        <div className="w-full m-3 main-data-wrapper" />
         <div className="p-3 container-info">
-          <div className="flex justify-between h-32">
+          <div className="flex justify-between mb-3 main-data-wrapper">
             <div>
               <div className="mb-2 text-xs text-gray-600">{category}</div>
               <Link href="/products/[id]" as={`/products/${id}`}>

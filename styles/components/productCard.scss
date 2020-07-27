@@ -1,33 +1,51 @@
 .productCard {
   @apply relative flex flex-col flex-wrap justify-between flex-1 overflow-hidden border border-transparent;
+
   transition: all 200ms ease-out;
 
   .image-overlay,
   .actions {
     opacity: 0;
+    display: none;
     transition: all 200ms ease-out;
+  }
+
+  .main-data-wrapper {
+    height: 6rem;
   }
 
   .container-info {
     @apply absolute inset-x-0 bg-white;
+
     transition: all 200ms ease-out;
     top: 100%;
-    margin-top: -128px;
+    margin-top: -120px;
   }
 }
 
-.productCard.is-active {
-  box-shadow: 0 5px 31px -1px rgba(0, 0, 0, 0.15);
-
-  .image-overlay {
-    opacity: 0.7;
-  }
-  
-  .actions {
-    opacity: 1;
+@screen sm {
+  .productCard {
+    .image-overlay,
+    .actions {
+      display: block;
+    }
   }
 
-  .container-info {
-    margin-top: -208px;
+  .productCard.is-active {
+    box-shadow: 0 5px 31px -1px rgba(0, 0, 0, 0.15);
+
+    .image-overlay {
+      opacity: 0.7;
+    }
+
+    .actions {
+      opacity: 1;
+    }
+
+    .container-info {
+      margin-top: 0;
+      bottom: 0;
+      top:auto;
+    }
   }
 }

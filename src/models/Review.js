@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export default class Review {
   /**
    * @param  {string} _id
@@ -8,14 +10,14 @@ export default class Review {
    * @param  {string} updatedAt
    */
   constructor({
-    _id, title, comment, user, rating, updatedAt,
+    _id, title, comment, user, rating, created_at,
   }) {
     this.id = _id;
     this.title = title;
     this.comment = comment;
     this.username = user?.username;
     this.rating = rating;
-    this.updatedAt = updatedAt;
+    this.updatedAt = created_at;
   }
 
   /**
@@ -47,6 +49,14 @@ export default class Review {
    * @return {string}
    */
   getUpdatedAt = () => this.updatedAt;
+
+  /**
+   * @return {string}
+   */
+  getFormattedUpdatedAt = (format = 'MMMM D, YYYY') => {
+    const date = dayjs(parseInt(this.updatedAt, 10));
+    return date.format(format);
+  };
 
   /**
    * @return  {{_id: string, name: string, prie: number, images: Array<string>}}

@@ -160,7 +160,9 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
             <h4>Sizes</h4>
             <ul className="mb-2 grid grid-cols-4 gap-0">
               {sizeList.map((size) => (
-                <li key="size.name"><button type="button" className="w-full px-2 py-2 text-sm uppercase border ronded">{size.name}</button></li>
+                <li key="size.name">
+                  <button type="button" className="w-full px-2 py-2 text-sm uppercase border ronded hover:text-white hover:bg-black focus:text-white focus:bg-black">{size.name}</button>
+                </li>
               ))}
             </ul>
           </div>
@@ -169,8 +171,9 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
             <ul className="flex flex-wrap mb-2">
               {colorList.map((colourData) => (
                 <li key="size.name" className="mb-2 mr-2">
-                  <button type="button" style={{ backgroundColor: colourData.code }} className="w-8 h-8 border rounded-full" />
-                  <span className="hidden">{colourData.name}</span>
+                  <button type="button" title={colourData.name} style={{ backgroundColor: colourData.code }} className="w-8 h-8 border rounded-full">
+                    <span className="sr-only">{colourData.name}</span>
+                  </button>
                 </li>
               ))}
             </ul>
