@@ -53,11 +53,17 @@ const sizeList = [
 
 const ProductView = ({ product, ratingList, reviewsList }) => {
   const [quantity, setQuantity] = useState(1);
+  const [sizeSelected, setSize] = useState(null);
+
   const dispatch = useDispatch();
 
   const addToCartHandle = () => {
     dispatch(addToCart(product.getId(), quantity));
     setQuantity(1);
+  };
+
+  const handleSizeSelect = (sizeValue) => {
+    setSize(sizeValue);
   };
 
   const ratingElementList = [];
@@ -161,7 +167,7 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
             <ul className="mb-2 grid grid-cols-4 gap-0">
               {sizeList.map((size) => (
                 <li key="size.name">
-                  <button type="button" className="w-full px-2 py-2 text-sm uppercase border ronded hover:text-white hover:bg-black focus:text-white focus:bg-black">{size.name}</button>
+                  <button onClick={() => { handleSizeSelect(size.name); }} type="button" className="w-full px-2 py-2 text-sm uppercase border ronded hover:text-white hover:bg-black focus:text-white focus:bg-black">{size.name}</button>
                 </li>
               ))}
             </ul>

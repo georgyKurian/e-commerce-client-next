@@ -1,3 +1,7 @@
 ul.thumbs {
   @apply flex flex-wrap;
 }
+
+.sizes button.isActive {
+  @apply bg-black text-white;
+}
