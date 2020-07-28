@@ -23,8 +23,14 @@
   }
 }
 
+.productCard.is-active {
+  @apply border-black;
+}
+
 @screen sm {
   .productCard {
+    @apply border-0;
+
     .image-overlay,
     .actions {
       display: block;
@@ -45,7 +51,7 @@
     .container-info {
       margin-top: 0;
       bottom: 0;
-      top:auto;
+      top: auto;
     }
   }
 }
