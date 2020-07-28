@@ -24,11 +24,11 @@ const colorList = [
 
 const sizeList = [
   {
-    name: 'x-sm',
+    name: 'x-s',
     isStock: true,
   },
   {
-    name: 'sm',
+    name: 's',
     isStock: true,
   },
   {
@@ -40,11 +40,11 @@ const sizeList = [
     isStock: true,
   },
   {
-    name: 'xl',
+    name: 'x-l',
     isStock: true,
   },
   {
-    name: 'xxl',
+    name: 'xx-l',
     isStock: true,
   },
 ];

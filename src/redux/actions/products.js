@@ -37,3 +37,7 @@ export function fetchProductsIfNeeded(categories) {
     return null;
   });
 }
+
+export function fetchProductsByIds(productIdList) {
+  return ((dispatch) => dispatch(fetchProducts({ id: productIdList.join(',') })));
+}
