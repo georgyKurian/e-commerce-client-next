@@ -39,5 +39,5 @@ export function fetchProductsIfNeeded(categories) {
 }
 
 export function fetchProductsByIds(productIdList) {
-  return ((dispatch) => dispatch(fetchProducts({ id: productIdList.join(',') })));
+  return ((dispatch) => dispatch(fetchProducts({ ids: productIdList.join(',') })));
 }

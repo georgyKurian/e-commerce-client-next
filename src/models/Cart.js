@@ -41,5 +41,8 @@ export default class Cart {
   /**
    * @return {string}
    */
-  getFormattedTotalAmount = () => `$${(this.getTotalAmount / 100).toFixed(2)}`;
+  getFormattedTotalAmount = () => {
+    const amount = this.getTotalAmount() / 100;
+    return `${amount.toFixed(2)}`;
+  };
 }
