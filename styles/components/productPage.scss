@@ -1,0 +1,17 @@
+ul.thumbs {
+  @apply flex flex-wrap;
+}
+
+.sizes button.is-active {
+  @apply bg-black text-white;
+}
+
+.colors button {
+  @apply border-transparent;
+
+  &.is-active,
+  &:focus,
+  &:hover {
+    @apply border-themeGray-700;
+  }
+}

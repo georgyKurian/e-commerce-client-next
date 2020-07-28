@@ -5,17 +5,25 @@ const defaultHeader = { 'Content-Type': 'application/json' };
 const defaultOption = {
 };
 
-export default (url, { headers, ...otherOptions }) => fetch(
-  baseURL + url,
-  { ...defaultOption, headers: ({ ...defaultHeader, ...headers }), ...otherOptions },
-)
-  .then((r) => {
-    if (r.ok) return r.json();
-    return [];
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+export default (url, { headers, params, ...otherOptions }) => {
+  let qs = null;
+  if (params) {
+    qs = `?${Object.keys(params)
+      .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+      .join('&')}`;
+  }
+  return fetch(
+    baseURL + url + (qs || ''),
+    { ...defaultOption, headers: ({ ...defaultHeader, ...headers }), ...otherOptions },
+  )
+    .then((r) => {
+      if (r.ok) return r.json();
+      return [];
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
 
 export const getResponse = (url, { headers, ...otherOptions }) => fetch(
   baseURL + url,

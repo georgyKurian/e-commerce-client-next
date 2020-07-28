@@ -14,6 +14,7 @@ export default function ImageCarousel({ className, images }) {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
   return (
     <Carousel {...settings}>
       {images.map((image) => (

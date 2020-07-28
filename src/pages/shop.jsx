@@ -69,7 +69,7 @@ const Shop = () => {
         <div className="flex flex-row flex-wrap inner-wrap section items-ceter">
           {productList.map((product) => (
             <div
-              className="flex w-1/2 p-1 lg:p-2 md:w-1/2 lg:w-1/3 xl:w-1/4"
+              className="flex w-1/2 p-1 md:p-2 sm:w-1/3 md:w-1/4"
               key={product.getId()}
             >
               <ProductCard
@@ -79,7 +79,7 @@ const Shop = () => {
             </div>
           ))}
         </div>
-        {isFetching && (<div className="flex justify-center p-6 mx-auto bg-gray-200 border border-gray-300 rounded"><p>Loading...</p></div>)}
+        {isFetching && (<div className="flex justify-center p-6 mx-auto bg-gray-200 border border-gray-300 rounded inner-wrap"><p>Loading...</p></div>)}
         <div ref={bottomBoundaryRef} />
       </>
     </MyLayout>

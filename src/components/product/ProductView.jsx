@@ -26,11 +26,11 @@ const colorList = [
 
 const sizeList = [
   {
-    name: 'x-sm',
+    name: 'x-s',
     isStock: true,
   },
   {
-    name: 'sm',
+    name: 's',
     isStock: true,
   },
   {
@@ -42,22 +42,33 @@ const sizeList = [
     isStock: true,
   },
   {
-    name: 'xl',
+    name: 'x-l',
     isStock: true,
   },
   {
-    name: 'xxl',
+    name: 'xx-l',
     isStock: true,
   },
 ];
 
 const ProductView = ({ product, ratingList, reviewsList }) => {
   const [quantity, setQuantity] = useState(1);
+  const [sizeSelected, setSize] = useState(null);
+  const [colorSelected, setProductColor] = useState(null);
+
   const dispatch = useDispatch();
 
   const addToCartHandle = () => {
     dispatch(addToCart(product.getId(), quantity));
     setQuantity(1);
+  };
+
+  const handleSizeSelect = (sizeValue) => {
+    setSize(sizeValue);
+  };
+
+  const handleColorSelect = (colorValue) => {
+    setProductColor(colorValue);
   };
 
   const ratingElementList = [];
@@ -156,25 +167,34 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
         <div className="sticky top-0 md:p-6">
           <h1>{product.getName()}</h1>
           <div className="mb-4 text-lg font-semibold">{product.getFormattedPrice()}</div>
-          <div className="sizes">
-            <h4>Sizes</h4>
+          <section className="mb-4 sizes">
+            <h4 className="mb-2">Select Size</h4>
             <ul className="mb-2 grid grid-cols-4 gap-0">
               {sizeList.map((size) => (
-                <li key="size.name"><button type="button" className="w-full px-2 py-2 text-sm uppercase border ronded">{size.name}</button></li>
-              ))}
-            </ul>
-          </div>
-          <div className="colors">
-            <h4>Colors</h4>
-            <ul className="flex flex-wrap mb-2">
-              {colorList.map((colourData) => (
-                <li key="size.name" className="mb-2 mr-2">
-                  <button type="button" style={{ backgroundColor: colourData.code }} className="w-8 h-8 border rounded-full" />
-                  <span className="hidden">{colourData.name}</span>
+                <li key="size.name">
+                  <button onClick={() => { handleSizeSelect(size.name); }} type="button" className={`w-full px-2 py-2 text-sm uppercase border ronded hover:text-white hover:bg-black focus:text-white focus:bg-black ${sizeSelected === size.name ? 'is-active' : ''}`}>{size.name}</button>
                 </li>
               ))}
             </ul>
-          </div>
+          </section>
+          <section className="mb-4 colors">
+            <h4 className="mb-2">Select Color</h4>
+            <ul className="flex flex-wrap mb-2">
+              {colorList.map((colourdata) => (
+                <li key={colourdata.name} className="mb-2 mr-2">
+                  <button
+                    type="button"
+                    title={colourdata.name}
+                    className={`border-2 overflow-hidden rounded-full ${colorSelected === colourdata.name ? 'is-active' : ''}`}
+                    onClick={() => { handleColorSelect(colourdata.name); }}
+                  >
+                    <span className="block w-8 h-8 border-2 rounded-full" style={{ backgroundColor: colourdata.code }} />
+                    <span className="sr-only">{colourdata.name}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
           <div>
             <Quantity className="w-20 px-4 py-2 mr-2 border border-gray-500 appearance-none customDropDown" value={quantity} onQuantityChange={setQuantity} />
             <PrimaryButton onClick={addToCartHandle}>Add to Cart</PrimaryButton>
