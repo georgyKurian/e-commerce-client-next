@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useRef, useEffect } from 'react';
+import AddSvg from '../../images/icons/add.svg';
 
 const MobileMenu = ({
   isAdmin, isLoggedIn, onClose, isMenuClosing,
@@ -13,7 +14,9 @@ const MobileMenu = ({
     <nav id="mobile-menu" className={`mobile-fly-in-menu ${isMenuClosing ? 'close' : ''}`}>
       <div className="relative flex items-center justify-center h-16 px-5">
         <span>LOGO</span>
-        <button type="button" ref={firstLink} onClick={onClose} className="absolute right-0 p-2 mr-1">X</button>
+        <button type="button" ref={firstLink} onClick={onClose} className="absolute right-0 p-2 mr-1 text-gray-800 focus:text-gray-900 hover:text-gray-900">
+          <AddSvg className="w-6 h-6 stroke-current transform rotate-45" />
+        </button>
       </div>
       <ul className="flex flex-col">
         <li>

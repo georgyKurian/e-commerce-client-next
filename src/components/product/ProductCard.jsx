@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import FeaturedTag from './FeaturedTag';
 import { addToCart } from '../../redux/actions/cart';
-import AddSvgIcon from '../../../public/add.svg';
+import AddSvgIcon from '../../images/icons/add.svg';
 import Product from '../../models/Product';
 
 const colorList = [
