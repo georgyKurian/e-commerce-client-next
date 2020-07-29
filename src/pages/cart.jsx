@@ -2,15 +2,17 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MyLayout from '../components/Layouts/MyLayout';
 import CartItem from '../components/cart/CartItem';
-import { fetchProductsIfNeeded } from '../redux/actions/products';
+import { fetchProductsByIds } from '../redux/actions/products';
 import Cart from '../models/Cart';
 import { PrimaryLink } from '../components/Button';
 
 const CartPage = (() => {
-  const [isFetchProducts, setIsFetchProducts] = useState(false);
+  const [shouldFetchProducts, setShouldFetchProducts] = useState(false);
+  const [isFetchingProducts, setIsFetchingProducts] = useState(false);
   const cartItems = useSelector((state) => state.cart.items);
   const productList = useSelector((state) => state.products.getId);
   const productIdList = useSelector((state) => state.products.getAllIds);
+  const productsToFetch = [];
   const dispatch = useDispatch();
 
   const cartObject = useMemo(
@@ -18,15 +20,17 @@ const CartPage = (() => {
     [cartItems, productList, productIdList],
   );
 
-  const subTotal = cartObject.getTotalAmount();
+  const subTotal = cartObject.getFormattedTotalAmount();
   const totalQuantity = cartObject.getTotalQuantity();
 
   useEffect(() => {
-    if (isFetchProducts) {
-      dispatch(fetchProductsIfNeeded());
-      setIsFetchProducts(true);
+    if (shouldFetchProducts && !isFetchingProducts && productsToFetch.length > 0) {
+      setIsFetchingProducts(true);
+      dispatch(fetchProductsByIds(productsToFetch));
+      setShouldFetchProducts(true);
+      setIsFetchingProducts(false);
     }
-  });
+  }, [dispatch, productsToFetch, shouldFetchProducts, isFetchingProducts]);
 
   const cartItemsComponents = cartObject.getItems()
     .map((item) => {
@@ -45,8 +49,9 @@ const CartPage = (() => {
           />
         );
       }
-      if (!isFetchProducts) {
-        setIsFetchProducts(true);
+      productsToFetch.push(item.productId);
+      if (!shouldFetchProducts && !isFetchingProducts) {
+        setShouldFetchProducts(true);
       }
       return (
         <CartItem
@@ -72,7 +77,7 @@ const CartPage = (() => {
               <div>
                 <span className="uppercase">Total</span>
                 <span>{` [ ${totalQuantity} ${(totalQuantity === 1 ? 'item' : 'items')} ] `}</span>
-                <span className="ml-2 text-lg font-semibold">{`$${subTotal / 100}`}</span>
+                <span className="ml-2 text-lg font-semibold">{`$${subTotal}`}</span>
               </div>
               <hr className="mt-8 border-gray-600 lg:hidden" />
             </header>
@@ -91,7 +96,9 @@ const CartPage = (() => {
                   <tbody>
                     <tr>
                       <td className="pb-3">{`${totalQuantity} ${(totalQuantity === 1 ? 'item' : 'items')}`}</td>
-                      <td className="pb-3 text-right">{subTotal}</td>
+                      <td className="pb-3 text-right">
+                        {`c$ ${subTotal}`}
+                      </td>
                     </tr>
                     <tr>
                       <td className="pb-3 ">Delivery</td>
