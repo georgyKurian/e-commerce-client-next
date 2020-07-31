@@ -6,6 +6,7 @@ import { fetchProductsIfNeeded } from '../redux/actions/productsPage';
 import MyLayout from '../components/Layouts/MyLayout';
 import Product from '../models/Product';
 import ProductCard from '../components/product/ProductCard';
+import ProductsBar from '../components/product/ProductsBar';
 
 const Shop = () => {
   const pageReducer = (state, action) => {
@@ -66,6 +67,7 @@ const Shop = () => {
   return (
     <MyLayout title="Shop">
       <>
+        <ProductsBar />
         <div className="flex flex-row flex-wrap inner-wrap section items-ceter">
           {productList.map((product) => (
             <div

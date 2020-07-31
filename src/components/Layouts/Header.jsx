@@ -69,7 +69,7 @@ const Header = ({
         onClose={handleMenuCloseButtonClick}
       />
       )}
-      <div className={`${isFixed ? 'fixed top-0 z-10' : ''} top-menu-bar ${!scrollY.isGoingUp ? 'hide' : ''} w-full xl:px-10 border-b border-gray-400 outer-wrap bg-white`}>
+      <div className={`${isFixed ? 'fixed top-0 z-40' : ''} top-menu-bar ${!scrollY.isGoingUp ? 'hide' : ''} w-full xl:px-10 border-b border-gray-400 outer-wrap bg-white`}>
         <div className="">
           <nav className="justify-end hidden w-full lg:flex" aria-label="Secondary Navigation">
             <ul className="flex text-xs">
