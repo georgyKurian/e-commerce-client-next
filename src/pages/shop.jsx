@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import React, {
   useEffect, useReducer, useCallback, useRef, useMemo,
 } from 'react';
-import { fetchProductsIfNeeded } from '../redux/actions/productsPage';
+import { fetchProductsPage } from '../redux/actions/productsPage';
 import MyLayout from '../components/Layouts/MyLayout';
 import Product from '../models/Product';
 import ProductCard from '../components/product/ProductCard';
@@ -27,7 +27,7 @@ const Shop = () => {
   const reduxDispatch = useDispatch();
 
   useEffect(() => {
-    reduxDispatch(fetchProductsIfNeeded(null, pager.page));
+    reduxDispatch(fetchProductsPage(pager.page));
   }, [reduxDispatch, pager.page]);
 
   const scrollObserver = useCallback((node) => {

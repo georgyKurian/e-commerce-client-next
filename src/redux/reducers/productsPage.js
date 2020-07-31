@@ -1,16 +1,18 @@
-import { combineReducers } from 'redux';
 import {
   PRODUCTS_START_FETCHING,
   PRODUCTS_STOP_FETCHING,
   PRODUCTS_ADD_PAGE,
+  PRODUCTS_UPDATE_FILTER,
+  PRODUCTS_UPDATE_SORYBY,
 } from '../actions/productsPage';
 
 const productsPage = (state = {
   isFetching: false,
   isInvalid: false,
-  sortBy: null,
   isSortOrderAsc: true,
   pages: {},
+  filters: [],
+  sortBy: null,
 }, action) => {
   const newState = { ...state };
   switch (action.type) {
@@ -26,13 +28,15 @@ const productsPage = (state = {
         lastFetched: action.lastSync,
       };
       return newState;
-    default:
-      return state;
-  }
-};
-
-const filter = (state = {}, action) => {
-  switch (action) {
+    case PRODUCTS_UPDATE_FILTER:
+      newState.pages = [];
+      newState.filters = [...newState.filters];
+      newState.filters[action.filterCode] = action.filterValue;
+      return newState;
+    case PRODUCTS_UPDATE_SORYBY:
+      newState.pages = [];
+      newState.sortBy = action.sortBy;
+      return newState;
     default:
       return state;
   }

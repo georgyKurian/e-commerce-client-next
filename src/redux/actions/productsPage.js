@@ -6,6 +6,9 @@ export const PRODUCTS_STOP_FETCHING = 'PRODUCTS_STOP_FETCHING';
 
 export const PRODUCTS_ADD_PAGE = 'PRODUCTS_ADD_PAGE';
 
+export const PRODUCTS_UPDATE_FILTER = 'PRODUCTS_UPDATE_FILTER';
+export const PRODUCTS_UPDATE_SORYBY = 'PRODUCTS_UPDATE_SORYBY';
+
 /**
  * STATE SHAPE
  * {
@@ -27,6 +30,11 @@ export const PRODUCTS_ADD_PAGE = 'PRODUCTS_ADD_PAGE';
  *      lastFetch:154565989,
  *    },
  *  ]
+ *  filters:[
+ *    'size' => [8,9],
+ *    'gender' => [M],
+ *  ],
+ *  sortBy: 'price-low-to-high'
  */
 
 function startFetching() {
@@ -50,14 +58,29 @@ function addPage(pageNumber, productIdList, fetchTime) {
   };
 }
 
+function updateFilters(filterCode, filterValues) {
+  return {
+    type: PRODUCTS_UPDATE_FILTER,
+    filterCode,
+    filterValues,
+  };
+}
+
+function updateSortBy(sortByCode) {
+  return {
+    type: PRODUCTS_UPDATE_FILTER,
+    sortByCode,
+  };
+}
+
 /**
  * Thunk action creator
  */
-export function fetchProducts(categories, pageNumber) {
+function fetchPage(pageNumber) {
   return (dispatch) => {
     dispatch(startFetching());
     const lastSync = Date.now();
-    return getProducts(categories, pageNumber)
+    return getProducts(null, pageNumber)
       .then((productDataList) => {
         const productIdList = productDataList.map((productData) => productData._id);
         dispatch(addProducts(productDataList));
@@ -69,12 +92,26 @@ export function fetchProducts(categories, pageNumber) {
   };
 }
 
-export function fetchProductsIfNeeded(categories = null, pageNumber = 0) {
+export function fetchProductsPage(pageNumber = 0) {
   return ((dispatch, getState) => {
-    const { productsPage: { pages } } = getState();
+    const { productsPage: { pages, filter, sortBy } } = getState();
     if (!pages[pageNumber]) {
-      return dispatch(fetchProducts(categories, pageNumber));
+      return dispatch(fetchPage(pageNumber));
     }
     return null;
+  });
+}
+
+export function updateFilter(filterCode, filterValues) {
+  return ((dispatch) => {
+    dispatch(updateFilters(filterCode, filterValues));
+    dispatch(fetchProductsPage(0));
+  });
+}
+
+export function updateSorting(sortByCode) {
+  return ((dispatch) => {
+    dispatch(updateSortBy(sortByCode));
+    dispatch(fetchProductsPage(0));
   });
 }

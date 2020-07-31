@@ -117,12 +117,12 @@ const ProductCard = ({ product }) => {
           <button
             title="Add to Bag"
             type="button"
-            className="absolute flex items-center px-2 py-1 mx-auto text-base font-semibold text-white uppercase border-2 border-white rounded actions"
+            className="absolute flex items-center px-2 py-2 mx-auto text-base font-semibold text-white uppercase border-2 border-white rounded actions"
             onClick={handleAddToBag}
-            style={{ top: '40%', left: '50%', transform: 'translate(-50%,-50%)' }}
+            style={{ top: '40%', left: '50%', transform: 'translate(-50%, -50%)' }}
           >
             <span>Add to cart</span>
-            <AddSvgIcon className="w-8 h-8 mx-auto text-white fill-current" />
+            <AddSvgIcon className="w-5 h-5 ml-2 text-white fill-current stroke-current" strokeWidth="3" />
           </button>
 
         </div>
