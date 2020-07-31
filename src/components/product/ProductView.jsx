@@ -185,7 +185,7 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
                   <button
                     type="button"
                     title={colourdata.name}
-                    className={`border-2 overflow-hidden rounded-full ${colorSelected === colourdata.name ? 'is-active' : ''}`}
+                    className={`border-2 overflow-hidden rounded-full focus:outline-none ${colorSelected === colourdata.name ? 'is-active' : ''}`}
                     onClick={() => { handleColorSelect(colourdata.name); }}
                   >
                     <span className="block w-8 h-8 border-2 rounded-full" style={{ backgroundColor: colourdata.code }} />
