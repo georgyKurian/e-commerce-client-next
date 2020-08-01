@@ -9,6 +9,7 @@ export default (url, { headers, params, ...otherOptions }) => {
   let qs = null;
   if (params) {
     qs = `?${Object.keys(params)
+      .filter((key) => params[key])
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
       .join('&')}`;
   }

@@ -11,7 +11,7 @@ const ProductFilter = () => {
   return (
     <ul>
       <DropDown isRight buttonText="Gender">
-        <ul classNmae="">
+        <ul className="">
           <li>
             <button
               type="button"

@@ -7,7 +7,7 @@ export const PRODUCTS_STOP_FETCHING = 'PRODUCTS_STOP_FETCHING';
 export const PRODUCTS_ADD_PAGE = 'PRODUCTS_ADD_PAGE';
 
 export const PRODUCTS_UPDATE_FILTER = 'PRODUCTS_UPDATE_FILTER';
-export const PRODUCTS_UPDATE_SORYBY = 'PRODUCTS_UPDATE_SORYBY';
+export const PRODUCTS_UPDATE_SORT_BY = 'PRODUCTS_UPDATE_SORYBY';
 
 /**
  * STATE SHAPE
@@ -68,7 +68,7 @@ function updateFilters(filterCode, filterValues) {
 
 function updateSortBy(sortByCode) {
   return {
-    type: PRODUCTS_UPDATE_FILTER,
+    type: PRODUCTS_UPDATE_SORT_BY,
     sortByCode,
   };
 }
@@ -76,11 +76,11 @@ function updateSortBy(sortByCode) {
 /**
  * Thunk action creator
  */
-function fetchPage(pageNumber) {
+function fetchPage(pageNumber, filters, sortBy) {
   return (dispatch) => {
     dispatch(startFetching());
     const lastSync = Date.now();
-    return getProducts(null, pageNumber)
+    return getProducts(pageNumber, filters, sortBy)
       .then((productDataList) => {
         const productIdList = productDataList.map((productData) => productData._id);
         dispatch(addProducts(productDataList));
@@ -94,9 +94,9 @@ function fetchPage(pageNumber) {
 
 export function fetchProductsPage(pageNumber = 0) {
   return ((dispatch, getState) => {
-    const { productsPage: { pages, filter, sortBy } } = getState();
+    const { productsPage: { pages, filters, sortBy } } = getState();
     if (!pages[pageNumber]) {
-      return dispatch(fetchPage(pageNumber));
+      return dispatch(fetchPage(pageNumber, filters, sortBy));
     }
     return null;
   });

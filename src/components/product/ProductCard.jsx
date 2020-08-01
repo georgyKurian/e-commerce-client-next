@@ -146,10 +146,10 @@ const ProductCard = ({ product }) => {
             <section className="mb-1 colors">
               <h5 className="mb-0 text-sm text-black uppercase">COLORS</h5>
               <div className="flex flex-wrap">
-                {colorList.map((colorData) => (
-                  <div className="m-1" key={colorData.code}>
-                    <span className="block w-4 h-4 border rounded-full" title={colorData.name} style={{ backgroundColor: colorData.code }} />
-                    <span className="sr-only">{colorData.name}</span>
+                {colorList.map((colordata) => (
+                  <div className="m-1" key={colordata.code}>
+                    <span className="block w-4 h-4 border rounded-full" title={colordata.name} style={{ backgroundColor: colordata.code }} />
+                    <span className="sr-only">{colordata.name}</span>
                   </div>
                 ))}
               </div>

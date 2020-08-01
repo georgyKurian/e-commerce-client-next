@@ -3,13 +3,12 @@ import {
   PRODUCTS_STOP_FETCHING,
   PRODUCTS_ADD_PAGE,
   PRODUCTS_UPDATE_FILTER,
-  PRODUCTS_UPDATE_SORYBY,
+  PRODUCTS_UPDATE_SORT_BY,
 } from '../actions/productsPage';
 
 const productsPage = (state = {
   isFetching: false,
   isInvalid: false,
-  isSortOrderAsc: true,
   pages: {},
   filters: [],
   sortBy: null,
@@ -33,9 +32,9 @@ const productsPage = (state = {
       newState.filters = [...newState.filters];
       newState.filters[action.filterCode] = action.filterValue;
       return newState;
-    case PRODUCTS_UPDATE_SORYBY:
+    case PRODUCTS_UPDATE_SORT_BY:
       newState.pages = [];
-      newState.sortBy = action.sortBy;
+      newState.sortBy = action.sortByCode;
       return newState;
     default:
       return state;
