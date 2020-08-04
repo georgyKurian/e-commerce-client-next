@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import PropTypes, { element } from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect, useSelector } from 'react-redux';
 
 import HamburgerIcon from '../../images/icons/hamburger-icon.svg';
@@ -193,8 +193,10 @@ Header.propTypes = {
   itemsInCart: PropTypes.number,
   isFixed: PropTypes.bool,
   pageWrapperElement: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(element) }),
+    PropTypes.shape({
+      // eslint-disable-next-line react/forbid-prop-types
+      current: PropTypes.any,
+    }),
   ]).isRequired,
 };
 

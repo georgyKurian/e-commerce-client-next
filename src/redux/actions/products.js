@@ -20,6 +20,7 @@ function shouldFetchProducts(state) {
 export function addProducts(productDataList) {
   return (dispatch) => dispatch(addProductsAction(productDataList));
 }
+
 /**
  * Thunk action creator
  */
