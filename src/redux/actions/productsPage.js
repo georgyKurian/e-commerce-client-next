@@ -94,7 +94,11 @@ function fetchPage(pageNumber, filters, sortBy) {
 
 export function fetchProductsPage(pageNumber = 0) {
   return ((dispatch, getState) => {
-    const { productsPage: { pages, filters, sortBy } } = getState();
+    const {
+      productsPage: {
+        isFetching, pages, filters, sortBy,
+      },
+    } = getState();
     if (!pages[pageNumber]) {
       return dispatch(fetchPage(pageNumber, filters, sortBy));
     }
@@ -105,13 +109,11 @@ export function fetchProductsPage(pageNumber = 0) {
 export function updateFilter(filterCode, filterValues) {
   return ((dispatch) => {
     dispatch(updateFilters(filterCode, filterValues));
-    dispatch(fetchProductsPage(0));
   });
 }
 
 export function updateSorting(sortByCode) {
   return ((dispatch) => {
     dispatch(updateSortBy(sortByCode));
-    dispatch(fetchProductsPage(0));
   });
 }

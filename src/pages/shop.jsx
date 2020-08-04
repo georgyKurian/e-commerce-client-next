@@ -41,7 +41,7 @@ const Shop = () => {
   const scrollObserver = useCallback((node) => {
     new IntersectionObserver((entries) => {
       entries.forEach((eachEntry) => {
-        if (eachEntry.intersectionRatio > 0 && !isFetching) {
+        if (pages[0] && eachEntry.intersectionRatio > 0 && !isFetching) {
           pagerDispatch({ type: 'ADVANCE_PAGE' });
         }
       },

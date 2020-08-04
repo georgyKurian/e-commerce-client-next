@@ -36,7 +36,7 @@ const ProductSortBy = () => {
                 <li key={sort.name}>
                   <button
                     type="button"
-                    className={`px-4 py-2 text-left hover:bg-gray-200 ${sortBy?.value === sort.value ? 'font-semibold' : ''}`}
+                    className={`px-4 py-2 text-sm text-left font-normal text-gray-700 hover:text-gray-900 hover:bg-gray-200 ${sortBy?.value === sort.value ? 'font-semibold' : ''}`}
                     style={{ minWidth: '15rem' }}
                     onClick={() => handleSortByChange(sort.value)}
                   >

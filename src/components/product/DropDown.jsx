@@ -26,7 +26,7 @@ const DropDown = ({ isRight, buttonText, children }) => {
     <li className="relative py-1">
       <button
         type="button"
-        className={`relative flex items-center bg-white z-20 px-4 py-2 uppercase border border-transparent focus:outline-none ${isDropDownOpen ? 'border-black border-b-transparent' : 'hocus:border-black hover:border-black'}`}
+        className={`relative flex items-center bg-white px-4 py-2 uppercase border border-transparent focus:outline-none ${isDropDownOpen ? 'z-20 border-black border-b-transparent' : 'hocus:border-black hover:border-black'}`}
         onClick={handleDropDownOpen}
       >
         <span className="text-sm tracking-wider text-gray-700">{buttonText}</span>

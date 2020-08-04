@@ -10,7 +10,7 @@ const productsPage = (state = {
   isFetching: false,
   isInvalid: false,
   pages: {},
-  filters: [],
+  filters: {},
   sortBy: null,
 }, action) => {
   const newState = { ...state };
@@ -29,8 +29,8 @@ const productsPage = (state = {
       return newState;
     case PRODUCTS_UPDATE_FILTER:
       newState.pages = [];
-      newState.filters = [...newState.filters];
-      newState.filters[action.filterCode] = action.filterValue;
+      newState.filters = { ...newState.filters };
+      newState.filters[action.filterCode] = action.filterValues;
       return newState;
     case PRODUCTS_UPDATE_SORT_BY:
       newState.pages = [];
