@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import DropDown from './DropDown';
-import { updateFilter } from '../../redux/actions/productsPage';
+import { addFilter } from '../../redux/actions/productsPage';
 
 const ProductFilter = ({
   name, parameterName, type, multiSelect, options,
@@ -11,13 +11,7 @@ const ProductFilter = ({
   const dispatch = useDispatch();
 
   const handleFilterChange = (value) => {
-    let newValue = [];
-    if (multiSelect && currentValue) {
-      newValue = [...currentValue, value];
-    } else {
-      newValue = [value];
-    }
-    dispatch(updateFilter(parameterName, newValue));
+    dispatch(addFilter(parameterName, value, multiSelect));
   };
 
   const optionElements = options.map((option) => (

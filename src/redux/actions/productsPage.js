@@ -6,7 +6,10 @@ export const PRODUCTS_STOP_FETCHING = 'PRODUCTS_STOP_FETCHING';
 
 export const PRODUCTS_ADD_PAGE = 'PRODUCTS_ADD_PAGE';
 
-export const PRODUCTS_UPDATE_FILTER = 'PRODUCTS_UPDATE_FILTER';
+export const PRODUCTS_ADD_FILTER = 'PRODUCTS_ADD_FILTER';
+export const PRODUCTS_REMOVE_FILTER = 'PRODUCTS_REMOVE_FILTER';
+export const PRODUCTS_RESET_FILTER = 'PRODUCTS_RESET_FILTER';
+
 export const PRODUCTS_UPDATE_SORT_BY = 'PRODUCTS_UPDATE_SORYBY';
 
 /**
@@ -58,14 +61,6 @@ function addPage(pageNumber, productIdList, fetchTime) {
   };
 }
 
-function updateFilters(filterCode, filterValues) {
-  return {
-    type: PRODUCTS_UPDATE_FILTER,
-    filterCode,
-    filterValues,
-  };
-}
-
 function updateSortBy(sortByCode) {
   return {
     type: PRODUCTS_UPDATE_SORT_BY,
@@ -96,7 +91,7 @@ export function fetchProductsPage(pageNumber = 0) {
   return ((dispatch, getState) => {
     const {
       productsPage: {
-        isFetching, pages, filters, sortBy,
+        pages, filters, sortBy,
       },
     } = getState();
     if (!pages[pageNumber]) {
@@ -106,9 +101,24 @@ export function fetchProductsPage(pageNumber = 0) {
   });
 }
 
-export function updateFilter(filterCode, filterValues) {
+export function addFilter(filterCode, filterValue, multiSelect) {
   return ((dispatch) => {
-    dispatch(updateFilters(filterCode, filterValues));
+    dispatch({
+      type: PRODUCTS_ADD_FILTER,
+      filterCode,
+      filterValue,
+      multiSelect,
+    });
+  });
+}
+
+export function removeFilter(filterCode, filterValue) {
+  return ((dispatch) => {
+    dispatch({
+      type: PRODUCTS_REMOVE_FILTER,
+      filterCode,
+      filterValue,
+    });
   });
 }
 

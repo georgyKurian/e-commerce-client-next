@@ -2,7 +2,8 @@ import {
   PRODUCTS_START_FETCHING,
   PRODUCTS_STOP_FETCHING,
   PRODUCTS_ADD_PAGE,
-  PRODUCTS_UPDATE_FILTER,
+  PRODUCTS_ADD_FILTER,
+  PRODUCTS_REMOVE_FILTER,
   PRODUCTS_UPDATE_SORT_BY,
 } from '../actions/productsPage';
 
@@ -28,10 +29,27 @@ const productsPage = (state = {
         lastFetched: action.fetchTime,
       };
       return newState;
-    case PRODUCTS_UPDATE_FILTER:
+    case PRODUCTS_ADD_FILTER:
       newState.pages = {};
       newState.filters = { ...newState.filters };
-      newState.filters[action.filterCode] = action.filterValues;
+      if (action.multiSelect) {
+        newState.filters[action.filterCode] = [
+          ...newState.filters[action.filterCode],
+          action.filterValue,
+        ];
+      } else {
+        newState.filters[action.filterCode] = [action.filterValue];
+      }
+      return newState;
+    case PRODUCTS_REMOVE_FILTER:
+      newState.pages = {};
+      newState.filters = { ...newState.filters };
+      newState.filters[action.filterCode] = newState.filters[action.filterCode].filter(
+        (value) => value !== action.filterValue,
+      );
+      if (newState.filters[action.filterCode].length === 0) {
+        delete newState.filters[action.filterCode];
+      }
       return newState;
     case PRODUCTS_UPDATE_SORT_BY:
       newState.pages = {};
