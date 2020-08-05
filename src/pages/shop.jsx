@@ -9,9 +9,15 @@ import ProductCard from '../components/product/ProductCard';
 import ProductsBar from '../components/product/ProductsBar';
 
 const Shop = () => {
+  const { getId: productMap } = useSelector((state) => state.products);
+  const {
+    isFetching, pages, filters, sortBy,
+  } = useSelector((state) => state.productsPage);
+
   const pageReducer = (state, action) => {
     switch (action.type) {
       case 'ADVANCE_PAGE':
+        if ((state.page === 0 && !pages[0]) || isFetching) return state;
         return { ...state, page: state.page + 1 };
       case 'RESET_PAGE':
         return { ...state, page: 0 };
@@ -21,12 +27,6 @@ const Shop = () => {
   };
 
   const [pager, pagerDispatch] = useReducer(pageReducer, { page: 0 });
-
-  const { getId: productMap } = useSelector((state) => state.products);
-  const {
-    isFetching, pages, filters, sortBy,
-  } = useSelector((state) => state.productsPage);
-
   const bottomBoundaryRef = useRef(null);
   const reduxDispatch = useDispatch();
 
@@ -41,7 +41,7 @@ const Shop = () => {
   const scrollObserver = useCallback((node) => {
     new IntersectionObserver((entries) => {
       entries.forEach((eachEntry) => {
-        if (pages[0] && eachEntry.intersectionRatio > 0 && !isFetching) {
+        if (eachEntry.intersectionRatio > 0) {
           pagerDispatch({ type: 'ADVANCE_PAGE' });
         }
       },

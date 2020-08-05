@@ -22,18 +22,19 @@ const productsPage = (state = {
       newState.isFetching = false;
       return newState;
     case PRODUCTS_ADD_PAGE:
+      newState.pages = { ...state.pages };
       newState.pages[action.pageNumber] = {
         products: action.productIdList,
         lastFetched: action.lastSync,
       };
       return newState;
     case PRODUCTS_UPDATE_FILTER:
-      newState.pages = [];
+      newState.pages = {};
       newState.filters = { ...newState.filters };
       newState.filters[action.filterCode] = action.filterValues;
       return newState;
     case PRODUCTS_UPDATE_SORT_BY:
-      newState.pages = [];
+      newState.pages = {};
       newState.sortBy = action.sortByCode;
       return newState;
     default:

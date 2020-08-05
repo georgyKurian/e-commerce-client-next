@@ -10,39 +10,35 @@ const filters = [
     options: [
       {
         name: 'Kids',
-        value: 'k',
+        value: 'K',
       },
       {
         name: 'Men',
-        value: 'm',
+        value: 'M',
       },
       {
         name: 'Women',
-        value: 'f',
+        value: 'W',
+      },
+      {
+        name: 'Unisex',
+        value: 'U',
       },
     ],
   },
   {
-    name: 'Size',
-    parameterName: 'size',
+    name: 'category',
+    parameterName: 'category',
     type: 'text',
     multiSelect: false,
     options: [
       {
-        name: 'Small',
-        value: 's',
+        name: 'Shoes',
+        value: 'shoes',
       },
       {
-        name: 'Medium',
-        value: 'm',
-      },
-      {
-        name: 'Large',
-        value: 'l',
-      },
-      {
-        name: 'x-Large',
-        value: 'xl',
+        name: 'Clothing',
+        value: 'clothing',
       },
     ],
   },
