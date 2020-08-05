@@ -31,12 +31,12 @@ const Shop = () => {
   const reduxDispatch = useDispatch();
 
   useEffect(() => {
-    if (pager.page) { pagerDispatch({ type: 'RESET_PAGE' }); }
+    pagerDispatch({ type: 'RESET_PAGE' });
   }, [filters, sortBy]);
 
   useEffect(() => {
-    reduxDispatch(fetchProductsPage(pager.page));
-  }, [reduxDispatch, pager.page]);
+    if (!isFetching) reduxDispatch(fetchProductsPage(pager.page));
+  }, [reduxDispatch, pager]);
 
   const scrollObserver = useCallback((node) => {
     new IntersectionObserver((entries) => {

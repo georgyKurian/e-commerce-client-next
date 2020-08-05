@@ -25,7 +25,7 @@ const productsPage = (state = {
       newState.pages = { ...state.pages };
       newState.pages[action.pageNumber] = {
         products: action.productIdList,
-        lastFetched: action.lastSync,
+        lastFetched: action.fetchTime,
       };
       return newState;
     case PRODUCTS_UPDATE_FILTER:
