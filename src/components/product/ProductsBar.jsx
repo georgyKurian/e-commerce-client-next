@@ -3,6 +3,7 @@ import ProductFilter from './ProductFilter';
 import ProductSortBy from './ProductSortBy';
 import CloseSVG from '../../images/icons/close.svg';
 import { removeFilter } from '../../redux/actions/productsPage';
+import MenuBar from '../MenuBar';
 
 const filters = [
   {
@@ -58,19 +59,21 @@ const ProductsBar = () => {
   return (
     <>
       <div className="flex flex-wrap justify-between mb-4 border-t border-b border-gray-300 inner-wrap">
-        <ul className="flex">
-          {filters.map((filter) => (
-            <ProductFilter
-              key={filter.parameterName}
-              name={filter.name}
-              parameterName={filter.parameterName}
-              type={filter.type}
-              multiSelect={filter.multiSelect}
-              options={filter.options}
-            />
-          ))}
-        </ul>
-        <ProductSortBy />
+        <MenuBar>
+          <ul className="flex">
+            {filters.map((filter) => (
+              <ProductFilter
+                key={filter.parameterName}
+                name={filter.name}
+                parameterName={filter.parameterName}
+                type={filter.type}
+                multiSelect={filter.multiSelect}
+                options={filter.options}
+              />
+            ))}
+          </ul>
+          <ProductSortBy />
+        </MenuBar>
       </div>
       <div className="flex flex-wrap mb-4 text-xs inner-wrap">
         {Object.keys(currentFilters).map((filterKey) => {
