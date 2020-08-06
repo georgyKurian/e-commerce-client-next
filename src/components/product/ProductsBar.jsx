@@ -58,8 +58,8 @@ const ProductsBar = () => {
 
   return (
     <>
-      <div className="flex flex-wrap justify-between mb-4 border-t border-b border-gray-300 inner-wrap">
-        <MenuBar>
+      <div className="mb-4">
+        <MenuBar className="flex justify-between inner-wrap">
           <ul className="flex">
             {filters.map((filter) => (
               <ProductFilter
@@ -75,6 +75,7 @@ const ProductsBar = () => {
           <ProductSortBy />
         </MenuBar>
       </div>
+
       <div className="flex flex-wrap mb-4 text-xs inner-wrap">
         {Object.keys(currentFilters).map((filterKey) => {
           const filterObject = filters.find((filter) => filter.parameterName === filterKey);
