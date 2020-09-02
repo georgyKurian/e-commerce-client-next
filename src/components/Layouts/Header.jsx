@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import PropTypes, { element } from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect, useSelector } from 'react-redux';
 
 import HamburgerIcon from '../../images/icons/hamburger-icon.svg';
@@ -69,7 +69,7 @@ const Header = ({
         onClose={handleMenuCloseButtonClick}
       />
       )}
-      <div className={`${isFixed ? 'fixed top-0 z-10' : ''} top-menu-bar ${!scrollY.isGoingUp ? 'hide' : ''} w-full xl:px-10 border-b border-gray-400 outer-wrap bg-white`}>
+      <div className={`${isFixed ? 'fixed top-0 z-40' : ''} top-menu-bar ${!scrollY.isGoingUp ? 'hide' : ''} w-full xl:px-10 border-b border-gray-400 outer-wrap bg-white`}>
         <div className="">
           <nav className="justify-end hidden w-full lg:flex" aria-label="Secondary Navigation">
             <ul className="flex text-xs">
@@ -193,8 +193,10 @@ Header.propTypes = {
   itemsInCart: PropTypes.number,
   isFixed: PropTypes.bool,
   pageWrapperElement: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(element) }),
+    PropTypes.shape({
+      // eslint-disable-next-line react/forbid-prop-types
+      current: PropTypes.any,
+    }),
   ]).isRequired,
 };
 

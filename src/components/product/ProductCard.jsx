@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import FeaturedTag from './FeaturedTag';
 import { addToCart } from '../../redux/actions/cart';
-import AddSvgIcon from '../../../public/add.svg';
+import AddSvgIcon from '../../images/icons/add.svg';
 import Product from '../../models/Product';
 
 const colorList = [
@@ -117,12 +117,12 @@ const ProductCard = ({ product }) => {
           <button
             title="Add to Bag"
             type="button"
-            className="absolute flex items-center px-2 py-1 mx-auto text-base font-semibold text-white uppercase border-2 border-white rounded actions"
+            className="absolute flex items-center px-2 py-2 mx-auto text-base font-semibold text-white uppercase border-2 border-white rounded actions"
             onClick={handleAddToBag}
-            style={{ top: '40%', left: '50%', transform: 'translate(-50%,-50%)' }}
+            style={{ top: '40%', left: '50%', transform: 'translate(-50%, -50%)' }}
           >
             <span>Add to cart</span>
-            <AddSvgIcon className="w-8 h-8 mx-auto text-white fill-current" />
+            <AddSvgIcon className="w-5 h-5 ml-2 text-white fill-current stroke-current" strokeWidth="3" />
           </button>
 
         </div>
@@ -146,10 +146,10 @@ const ProductCard = ({ product }) => {
             <section className="mb-1 colors">
               <h5 className="mb-0 text-sm text-black uppercase">COLORS</h5>
               <div className="flex flex-wrap">
-                {colorList.map((colorData) => (
-                  <div className="m-1" key={colorData.code}>
-                    <span className="block w-4 h-4 border rounded-full" title={colorData.name} style={{ backgroundColor: colorData.code }} />
-                    <span className="sr-only">{colorData.name}</span>
+                {colorList.map((colordata) => (
+                  <div className="m-1" key={colordata.code}>
+                    <span className="block w-4 h-4 border rounded-full" title={colordata.name} style={{ backgroundColor: colordata.code }} />
+                    <span className="sr-only">{colordata.name}</span>
                   </div>
                 ))}
               </div>

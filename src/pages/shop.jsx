@@ -2,37 +2,46 @@ import { useSelector, useDispatch } from 'react-redux';
 import React, {
   useEffect, useReducer, useCallback, useRef, useMemo,
 } from 'react';
-import { fetchProductsIfNeeded } from '../redux/actions/productsPage';
+import { fetchProductsPage } from '../redux/actions/productsPage';
 import MyLayout from '../components/Layouts/MyLayout';
 import Product from '../models/Product';
 import ProductCard from '../components/product/ProductCard';
+import ProductsBar from '../components/product/ProductsBar';
 
 const Shop = () => {
+  const { getId: productMap } = useSelector((state) => state.products);
+  const {
+    isFetching, pages, filters, sortBy,
+  } = useSelector((state) => state.productsPage);
+
   const pageReducer = (state, action) => {
     switch (action.type) {
       case 'ADVANCE_PAGE':
+        if ((state.page === 0 && !pages[0]) || isFetching) return state;
         return { ...state, page: state.page + 1 };
+      case 'RESET_PAGE':
+        return { ...state, page: 0 };
       default:
         return state;
     }
   };
 
   const [pager, pagerDispatch] = useReducer(pageReducer, { page: 0 });
-
-  const { getId: productMap } = useSelector((state) => state.products);
-  const { isFetching, pages } = useSelector((state) => state.productsPage);
-
   const bottomBoundaryRef = useRef(null);
   const reduxDispatch = useDispatch();
 
   useEffect(() => {
-    reduxDispatch(fetchProductsIfNeeded(null, pager.page));
-  }, [reduxDispatch, pager.page]);
+    pagerDispatch({ type: 'RESET_PAGE' });
+  }, [filters, sortBy]);
+
+  useEffect(() => {
+    if (!isFetching) reduxDispatch(fetchProductsPage(pager.page));
+  }, [reduxDispatch, pager]);
 
   const scrollObserver = useCallback((node) => {
     new IntersectionObserver((entries) => {
       entries.forEach((eachEntry) => {
-        if (eachEntry.intersectionRatio > 0 && !isFetching) {
+        if (eachEntry.intersectionRatio > 0) {
           pagerDispatch({ type: 'ADVANCE_PAGE' });
         }
       },
@@ -66,6 +75,7 @@ const Shop = () => {
   return (
     <MyLayout title="Shop">
       <>
+        <ProductsBar />
         <div className="flex flex-row flex-wrap inner-wrap section items-ceter">
           {productList.map((product) => (
             <div

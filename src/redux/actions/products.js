@@ -20,11 +20,12 @@ function shouldFetchProducts(state) {
 export function addProducts(productDataList) {
   return (dispatch) => dispatch(addProductsAction(productDataList));
 }
+
 /**
  * Thunk action creator
  */
 export function fetchProducts(categories) {
-  return (dispatch) => getProducts(categories).then(
+  return (dispatch) => getProducts().then(
     (productDataList) => dispatch(addProducts(productDataList)),
   );
 }
