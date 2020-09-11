@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import FocusLock from 'react-focus-lock';
 import SVGDownKey from '../../images/icons/keyboard_arrow_down.svg';
 
 const DropDown = ({ isRight, buttonText, children }) => {
@@ -25,6 +26,8 @@ const DropDown = ({ isRight, buttonText, children }) => {
   return (
     <li className="relative py-1">
       <button
+        aria-haspopup="listbox"
+        aria-expanded={isDropDownOpen}
         type="button"
         className={`relative flex items-center bg-white px-4 py-2 uppercase border border-transparent focus:outline-none ${isDropDownOpen ? 'z-20 border-black border-b-transparent' : 'focus:border-black hover:border-black'}`}
         onClick={handleDropDownOpen}
@@ -34,7 +37,9 @@ const DropDown = ({ isRight, buttonText, children }) => {
       </button>
 
       <div className={`absolute border border-black ${isRight ? 'left-0' : 'right-0'} z-10 bg-white -mt-px ${isDropDownOpen ? 'block' : 'hidden'}`}>
-        {children}
+        <FocusLock disabled={!isDropDownOpen}>
+          {children}
+        </FocusLock>
       </div>
     </li>
   );
