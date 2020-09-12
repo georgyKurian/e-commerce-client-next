@@ -25,6 +25,7 @@ const ProductFilter = ({
   const onKeyPress = useCallback((e, value, index) => {
     if (e.key === 'Enter') {
       handleFilterChange(value, index);
+      e.stopPropagation();
     }
   }, [handleFilterChange, setFocus]);
 
@@ -44,7 +45,6 @@ const ProductFilter = ({
       ref={(focus === index) ? currentFocusRef : null}
     >
       {option.name}
-
     </li>
   ));
 

@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
+import {
+  useState, useEffect, useCallback, useRef,
+} from 'react';
 import PropTypes from 'prop-types';
 import FocusLock from 'react-focus-lock';
 import SVGDownKey from '../../images/icons/keyboard_arrow_down.svg';
 
 const DropDown = ({ isRight, buttonText, children }) => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const buttonRef = useRef();
 
   const handleDropDownOpen = () => {
     setIsDropDownOpen(true);
@@ -23,9 +26,24 @@ const DropDown = ({ isRight, buttonText, children }) => {
     return () => { document.removeEventListener('click', handleDropDownClose); };
   }, [isDropDownOpen]);
 
+  const handleKeyPress = useCallback((e) => {
+    switch (e.key) {
+      case 'Escape':
+        handleDropDownClose();
+        e.stopPropagation();
+        break;
+      case 'ArrowDown':
+      case 'ArrowUp':
+        handleDropDownOpen();
+        break;
+      default:
+    }
+  }, [handleDropDownClose, handleDropDownOpen]);
+
   return (
-    <li className="relative py-1">
+    <li className="relative py-1" onKeyDown={handleKeyPress}>
       <button
+        ref={buttonRef}
         aria-haspopup="listbox"
         aria-expanded={isDropDownOpen}
         type="button"
@@ -37,7 +55,7 @@ const DropDown = ({ isRight, buttonText, children }) => {
       </button>
 
       <div className={`absolute border border-black ${isRight ? 'left-0' : 'right-0'} z-10 bg-white -mt-px ${isDropDownOpen ? 'block' : 'hidden'}`}>
-        <FocusLock disabled={!isDropDownOpen}>
+        <FocusLock disabled={!isDropDownOpen} returnFocus>
           {children}
         </FocusLock>
       </div>
