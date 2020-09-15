@@ -23,9 +23,16 @@ const ProductFilter = ({
   }, [currentFocusRef.current]);
 
   const onKeyPress = useCallback((e, value, index) => {
-    if (e.key === 'Enter') {
-      handleFilterChange(value, index);
-      e.stopPropagation();
+    switch (e.key) {
+      case 'Enter':
+        handleFilterChange(value, index);
+        e.stopPropagation();
+        break;
+      case 'Tab':
+      case 'ArrowUp':
+        handleDropDownOpen();
+        break;
+      default:
     }
   }, [handleFilterChange, setFocus]);
 
