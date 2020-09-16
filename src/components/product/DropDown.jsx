@@ -31,10 +31,13 @@ const DropDown = ({ isRight, buttonText, children }) => {
       case 'Escape':
         handleDropDownClose();
         e.stopPropagation();
+        e.preventDefault();
         break;
       case 'ArrowDown':
       case 'ArrowUp':
         handleDropDownOpen();
+        e.stopPropagation();
+        e.preventDefault();
         break;
       case 'Tab':
         handleDropDownClose();

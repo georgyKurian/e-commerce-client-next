@@ -43,6 +43,7 @@ const ProductFilter = ({
       case 'Enter':
         handleFilterChange(value, index);
         e.stopPropagation();
+        e.preventDefault();
         break;
       default:
     }
