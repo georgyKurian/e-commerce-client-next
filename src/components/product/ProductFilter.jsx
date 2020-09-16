@@ -22,15 +22,27 @@ const ProductFilter = ({
     currentFocusRef.current.focus();
   }, [currentFocusRef.current]);
 
-  const onKeyPress = useCallback((e, value, index) => {
+  const onKeyPressOnDropDown = useCallback((e) => {
+    switch (e.key) {
+      case 'Home':
+        setFocus(0);
+        e.stopPropagation();
+        e.preventDefault();
+        break;
+      case 'End':
+        setFocus(options.length - 1);
+        e.stopPropagation();
+        e.preventDefault();
+        break;
+      default:
+    }
+  }, [setFocus]);
+
+  const handleKeyPressOnOption = useCallback((e, value, index) => {
     switch (e.key) {
       case 'Enter':
         handleFilterChange(value, index);
         e.stopPropagation();
-        break;
-      case 'Tab':
-      case 'ArrowUp':
-        handleDropDownOpen();
         break;
       default:
     }
@@ -46,7 +58,7 @@ const ProductFilter = ({
       onClick={() => {
         handleFilterChange(option.value, index);
       }}
-      onKeyPress={(e) => onKeyPress(e, option.value, index)}
+      onKeyDown={(e) => handleKeyPressOnOption(e, option.value, index)}
       value={option}
       tabIndex={(focus === index) ? 0 : -1}
       ref={(focus === index) ? currentFocusRef : null}
@@ -57,7 +69,7 @@ const ProductFilter = ({
 
   return (
     <DropDown isRight buttonText={name}>
-      <ul className="">
+      <ul className="" onKeyDown={onKeyPressOnDropDown}>
         {optionElements}
       </ul>
     </DropDown>

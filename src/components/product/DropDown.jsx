@@ -36,6 +36,9 @@ const DropDown = ({ isRight, buttonText, children }) => {
       case 'ArrowUp':
         handleDropDownOpen();
         break;
+      case 'Tab':
+        handleDropDownClose();
+        break;
       default:
     }
   }, [handleDropDownClose, handleDropDownOpen]);
