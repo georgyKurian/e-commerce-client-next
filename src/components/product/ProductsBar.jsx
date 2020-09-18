@@ -4,6 +4,8 @@ import ProductSortBy from './ProductSortBy';
 import CloseSVG from '../../images/icons/close.svg';
 import { removeFilter } from '../../redux/actions/productsPage';
 import MenuBar from '../MenuBar';
+import { MobileAndTablet, Desktop } from '../Devices';
+import SVGDownKey from '../../images/icons/keyboard_arrow_down.svg';
 
 const filters = [
   {
@@ -59,21 +61,35 @@ const ProductsBar = () => {
   return (
     <>
       <div className="mb-4">
-        <MenuBar className="flex justify-between inner-wrap">
-          <ul className="flex">
-            {filters.map((filter) => (
-              <ProductFilter
-                key={filter.parameterName}
-                name={filter.name}
-                parameterName={filter.parameterName}
-                type={filter.type}
-                multiSelect={filter.multiSelect}
-                options={filter.options}
-              />
-            ))}
-          </ul>
-          <ProductSortBy />
-        </MenuBar>
+        <MobileAndTablet>
+          <div className="flex">
+            <button type="button" className="flex-1 px-2 py-2 border border-l-0 border-r-0 border-black">
+              <span className="float-left">Filter By</span>
+              <SVGDownKey className="float-right w-3 mt-1" />
+            </button>
+            <button type="button" className="flex-1 px-2 py-2 border border-r-0 border-black">
+              <span className="float-left">Sort By</span>
+              <SVGDownKey className="float-right w-3 mt-1" />
+            </button>
+          </div>
+        </MobileAndTablet>
+        <Desktop>
+          <MenuBar className="flex justify-between inner-wrap">
+            <ul className="flex">
+              {filters.map((filter) => (
+                <ProductFilter
+                  key={filter.parameterName}
+                  name={filter.name}
+                  parameterName={filter.parameterName}
+                  type={filter.type}
+                  multiSelect={filter.multiSelect}
+                  options={filter.options}
+                />
+              ))}
+            </ul>
+            <ProductSortBy />
+          </MenuBar>
+        </Desktop>
       </div>
 
       <div className="flex flex-wrap mb-4 text-xs inner-wrap">
