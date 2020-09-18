@@ -1,17 +1,21 @@
-import { useState, useEffect } from 'react';
+import {
+  useState, useEffect, useCallback, useRef,
+} from 'react';
 import PropTypes from 'prop-types';
+import FocusLock from 'react-focus-lock';
 import SVGDownKey from '../../images/icons/keyboard_arrow_down.svg';
 
 const DropDown = ({ isRight, buttonText, children }) => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const buttonRef = useRef();
 
-  const handleDropDownOpen = () => {
+  const handleDropDownOpen = useCallback(() => {
     setIsDropDownOpen(true);
-  };
+  });
 
-  const handleDropDownClose = () => {
+  const handleDropDownClose = useCallback(() => {
     setIsDropDownOpen(false);
-  };
+  });
 
   useEffect(() => {
     if (isDropDownOpen) {
@@ -22,9 +26,41 @@ const DropDown = ({ isRight, buttonText, children }) => {
     return () => { document.removeEventListener('click', handleDropDownClose); };
   }, [isDropDownOpen]);
 
+  const handleKeyPress = useCallback((e) => {
+    switch (e.key) {
+      case 'Escape':
+        handleDropDownClose();
+        e.stopPropagation();
+        e.preventDefault();
+        break;
+      case 'Enter':
+        if (isDropDownOpen) {
+          handleDropDownClose();
+        } else {
+          handleDropDownOpen();
+        }
+        e.stopPropagation();
+        e.preventDefault();
+        break;
+      case 'ArrowDown':
+      case 'ArrowUp':
+        handleDropDownOpen();
+        e.stopPropagation();
+        e.preventDefault();
+        break;
+      case 'Tab':
+        handleDropDownClose();
+        break;
+      default:
+    }
+  }, [handleDropDownClose, handleDropDownOpen]);
+
   return (
-    <li className="relative py-1">
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    <li className="relative py-1" onKeyDown={handleKeyPress}>
       <button
+        ref={buttonRef}
+        aria-expanded={isDropDownOpen}
         type="button"
         className={`relative flex items-center bg-white px-4 py-2 uppercase border border-transparent focus:outline-none ${isDropDownOpen ? 'z-20 border-black border-b-transparent' : 'focus:border-black hover:border-black'}`}
         onClick={handleDropDownOpen}
@@ -34,7 +70,9 @@ const DropDown = ({ isRight, buttonText, children }) => {
       </button>
 
       <div className={`absolute border border-black ${isRight ? 'left-0' : 'right-0'} z-10 bg-white -mt-px ${isDropDownOpen ? 'block' : 'hidden'}`}>
-        {children}
+        <FocusLock disabled={!isDropDownOpen} returnFocus>
+          {children}
+        </FocusLock>
       </div>
     </li>
   );

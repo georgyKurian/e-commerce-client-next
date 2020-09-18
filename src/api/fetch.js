@@ -5,7 +5,7 @@ const defaultHeader = { 'Content-Type': 'application/json' };
 const defaultOption = {
 };
 
-export default (url, { headers, params, ...otherOptions }) => {
+const fetchAPI = (url, { headers, params, ...otherOptions }) => {
   let qs = null;
   if (params) {
     qs = `?${Object.keys(params)
@@ -26,10 +26,13 @@ export default (url, { headers, params, ...otherOptions }) => {
     });
 };
 
-export const getResponse = (url, { headers, ...otherOptions }) => fetch(
+const getResponse = (url, { headers, ...otherOptions }) => fetch(
   baseURL + url,
   { ...defaultOption, headers: ({ ...defaultHeader, ...headers }), ...otherOptions },
 )
   .catch((err) => {
     console.error(err);
   });
+
+export default fetchAPI;
+export { getResponse };

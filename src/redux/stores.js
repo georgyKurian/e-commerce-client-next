@@ -11,9 +11,11 @@ const makeConfiguredStore = (reducer, initialState) => createStore(
   ),
 );
 
-export default (initialState = {}, { isServer }) => {
+const initStore = (initialState = {}, { isServer }) => {
   if (isServer) {
     return makeConfiguredStore(reducers, initialState);
   }
   return makeConfiguredStore(reducers, initialState);
 };
+
+export default initStore;
