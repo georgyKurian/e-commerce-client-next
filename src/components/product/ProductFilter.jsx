@@ -34,24 +34,27 @@ const ProductFilter = ({
     }
   }, [handleFilterChange, setFocus]);
 
-  const optionElements = options.map((option, index) => (
-    <li
-      key={option.name}
-      role="option"
-      aria-selected={currentValue && currentValue.includes(option.value)}
-      className="px-4 py-2 text-sm font-normal text-left text-gray-700 hover:text-gray-900 hover:bg-gray-200 focus:bg-gray-200"
-      style={{ minWidth: '15rem' }}
-      onClick={() => {
-        handleFilterChange(option.value, index);
-      }}
-      onKeyDown={(e) => handleKeyPressOnOption(e, option.value, index)}
-      value={option}
-      tabIndex={(focus === index) ? 0 : -1}
-      ref={(focus === index) ? currentFocusRef : null}
-    >
-      {option.name}
-    </li>
-  ));
+  const optionElements = options.map((option, index) => {
+    const isSetected = currentValue && currentValue.includes(option.value);
+    return (
+      <li
+        key={option.name}
+        role="option"
+        aria-selected={isSetected}
+        className={`px-4 py-2 text-sm font-normal text-left text-gray-700 hover:text-gray-900 ${isSetected ? 'bg-gray-300 border-t border-b border-gray-500' : ''} hover:bg-gray-300 focus:bg-gray-300`}
+        style={{ minWidth: '15rem' }}
+        onClick={() => {
+          handleFilterChange(option.value, index);
+        }}
+        onKeyDown={(e) => handleKeyPressOnOption(e, option.value, index)}
+        value={option}
+        tabIndex={(focus === index) ? 0 : -1}
+        ref={(focus === index) ? currentFocusRef : null}
+      >
+        {option.name}
+      </li>
+    );
+  });
 
   return (
     <DropDown isRight buttonText={name}>
