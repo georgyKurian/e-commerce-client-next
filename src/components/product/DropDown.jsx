@@ -9,13 +9,13 @@ const DropDown = ({ isRight, buttonText, children }) => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const buttonRef = useRef();
 
-  const handleDropDownOpen = () => {
+  const handleDropDownOpen = useCallback(() => {
     setIsDropDownOpen(true);
-  };
+  });
 
-  const handleDropDownClose = () => {
+  const handleDropDownClose = useCallback(() => {
     setIsDropDownOpen(false);
-  };
+  });
 
   useEffect(() => {
     if (isDropDownOpen) {
@@ -33,6 +33,15 @@ const DropDown = ({ isRight, buttonText, children }) => {
         e.stopPropagation();
         e.preventDefault();
         break;
+      case 'Enter':
+        if (isDropDownOpen) {
+          handleDropDownClose();
+        } else {
+          handleDropDownOpen();
+        }
+        e.stopPropagation();
+        e.preventDefault();
+        break;
       case 'ArrowDown':
       case 'ArrowUp':
         handleDropDownOpen();
@@ -47,10 +56,10 @@ const DropDown = ({ isRight, buttonText, children }) => {
   }, [handleDropDownClose, handleDropDownOpen]);
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <li className="relative py-1" onKeyDown={handleKeyPress}>
       <button
         ref={buttonRef}
-        aria-haspopup="listbox"
         aria-expanded={isDropDownOpen}
         type="button"
         className={`relative flex items-center bg-white px-4 py-2 uppercase border border-transparent focus:outline-none ${isDropDownOpen ? 'z-20 border-black border-b-transparent' : 'focus:border-black hover:border-black'}`}

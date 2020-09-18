@@ -11,7 +11,7 @@ const ProductFilter = ({
   const currentValue = useSelector((state) => state.productsPage.filters[parameterName]);
   const dispatch = useDispatch();
   const currentFocusRef = useRef();
-  const [focus, setFocus] = useRoveFocus(options ? options.length : 0);
+  const [focus, elementRef, setFocus] = useRoveFocus(options ? options.length : 0);
 
   const handleFilterChange = useCallback((value, index) => {
     dispatch(addFilter(parameterName, value, multiSelect));
@@ -19,30 +19,15 @@ const ProductFilter = ({
   }, [parameterName, multiSelect, dispatch, addFilter, setFocus]);
 
   useEffect(() => {
-    currentFocusRef.current.focus();
-  }, [currentFocusRef.current]);
-
-  const onKeyPressOnDropDown = useCallback((e) => {
-    switch (e.key) {
-      case 'Home':
-        setFocus(0);
-        e.stopPropagation();
-        e.preventDefault();
-        break;
-      case 'End':
-        setFocus(options.length - 1);
-        e.stopPropagation();
-        e.preventDefault();
-        break;
-      default:
+    if (currentFocusRef.current) {
+      currentFocusRef.current.focus();
     }
-  }, [setFocus]);
+  }, [focus]);
 
   const handleKeyPressOnOption = useCallback((e, value, index) => {
     switch (e.key) {
       case 'Enter':
         handleFilterChange(value, index);
-        e.stopPropagation();
         e.preventDefault();
         break;
       default:
@@ -70,7 +55,7 @@ const ProductFilter = ({
 
   return (
     <DropDown isRight buttonText={name}>
-      <ul className="" onKeyDown={onKeyPressOnDropDown}>
+      <ul className="" ref={elementRef}>
         {optionElements}
       </ul>
     </DropDown>

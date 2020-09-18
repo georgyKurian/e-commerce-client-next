@@ -1,29 +1,50 @@
-import { useCallback, useState, useEffect } from 'react';
+import {
+  useCallback, useState, useEffect, useRef,
+} from 'react';
 
-export default function useRoveFocus(size) {
-  const [currentFocus, setCurrentFocus] = useState(0);
+export default function useRoveFocus(size, initialValue = 0) {
+  const [currentFocus, setCurrentFocus] = useState(initialValue);
+  const ref = useRef();
 
   const handleKeyDown = useCallback(
     (e) => {
-      if (e.keyCode === 40) {
-        // Down arrow
-        e.preventDefault();
-        setCurrentFocus(currentFocus === size - 1 ? 0 : currentFocus + 1);
-      } else if (e.keyCode === 38) {
-        // Up arrow
-        e.preventDefault();
-        setCurrentFocus(currentFocus === 0 ? size - 1 : currentFocus - 1);
+      const lastIndex = size - 1;
+      switch (e.key) {
+        case 'Home':
+          setCurrentFocus(0);
+          e.stopPropagation();
+          e.preventDefault();
+          break;
+        case 'End':
+          setCurrentFocus(lastIndex);
+          e.stopPropagation();
+          e.preventDefault();
+          break;
+        case 'ArrowDown':
+          setCurrentFocus(currentFocus === lastIndex ? 0 : currentFocus + 1);
+          e.stopPropagation();
+          e.preventDefault();
+          break;
+        case 'ArrowUp':
+          setCurrentFocus(currentFocus === 0 ? lastIndex : currentFocus - 1);
+          e.stopPropagation();
+          e.preventDefault();
+          break;
+        default:
       }
     },
     [size, currentFocus, setCurrentFocus],
   );
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown, false);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown, false);
-    };
-  }, [handleKeyDown]);
+    if (ref.current) {
+      ref.current.addEventListener('keydown', handleKeyDown, false);
+      return () => {
+        ref.current.removeEventListener('keydown', handleKeyDown, false);
+      };
+    }
+    return null;
+  }, [handleKeyDown, ref.current]);
 
-  return [currentFocus, setCurrentFocus];
+  return [currentFocus, ref, setCurrentFocus];
 }
