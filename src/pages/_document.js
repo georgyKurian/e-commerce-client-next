@@ -10,7 +10,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           {/* Here we will mount our modal portal */}
-          <div id="modal" className="absolute inset-0 z-50" />
+          <div id="modal" />
           <NextScript />
         </body>
       </Html>
