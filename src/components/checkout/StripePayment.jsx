@@ -77,9 +77,10 @@ const StripePayment = ({ clientSecret }) => {
       })
       .then(({ paymentIntent, error }) => {
         // Handle result.error or result.paymentIntent
+
         if (paymentIntent) {
-          dispatch(checkoutComplete);
-          // router.push('/payment/successfull');
+          dispatch(checkoutComplete());
+          router.push('/payment/successfull');
         } else {
           setCardError(error.message);
           setIsLoading(false);
