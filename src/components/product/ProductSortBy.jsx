@@ -1,8 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useCallback } from 'react';
 import DropDown from './DropDown';
 import { updateSorting } from '../../redux/actions/productsPage';
+import TextOption from './DropDownOptions/TextOption';
+import useRoveFocus from '../customHooks/useRoveFocus';
 
-const SORT_BY = [
+const options = [
   {
     name: 'Price [low - high]',
     value: 'price-low-to-high',
@@ -18,33 +21,38 @@ const SORT_BY = [
 ];
 
 const ProductSortBy = () => {
-  const sortByValue = useSelector((state) => state.productsPage.sortBy);
+  const currentValue = useSelector((state) => state.productsPage.sortBy);
   const dispatch = useDispatch();
+  const [focus, elementRef, setFocus] = useRoveFocus(options ? options.length : 0);
 
-  const sortBy = SORT_BY.find((sort) => sort.value === sortByValue);
+  const currentSortBy = options.find((sort) => sort.value === currentValue);
 
-  const handleSortByChange = (sortValue) => {
+  const handleSortByChange = useCallback((sortValue, index) => {
     dispatch(updateSorting(sortValue));
-  };
+    setFocus(index);
+  }, [dispatch, updateSorting, setFocus]);
+
+  const optionElements = options.map((option, index) => {
+    const isSetected = currentValue && currentValue.includes(option.value);
+    const isFocussed = focus === index;
+    return (
+      <TextOption
+        key={option.value}
+        index={index}
+        name={option.name}
+        value={option.value}
+        handleChange={handleSortByChange}
+        isFocussed={isFocussed}
+        isSelected={isSetected}
+      />
+    );
+  });
 
   return (
     <ul>
-      <DropDown isRight={false} buttonText={!sortBy ? 'Sort By' : sortBy.name}>
-        <ul className="">
-          {
-              SORT_BY.map((sort) => (
-                <li key={sort.name}>
-                  <button
-                    type="button"
-                    className={`px-4 py-2 text-sm text-left font-normal text-gray-700 hover:text-gray-900 hover:bg-gray-200 ${sortBy?.value === sort.value ? 'font-semibold' : ''}`}
-                    style={{ minWidth: '15rem' }}
-                    onClick={() => handleSortByChange(sort.value)}
-                  >
-                    {sort.name}
-                  </button>
-                </li>
-              ))
-            }
+      <DropDown isRight={false} buttonText={!currentSortBy ? 'Sort By' : currentSortBy.name}>
+        <ul className="" ref={elementRef}>
+          {optionElements}
         </ul>
       </DropDown>
     </ul>

@@ -167,10 +167,9 @@ export function checkoutComplete() {
       updateOrderStatus(orderId, 'Paid')
         .finally(() => {
           dispatch(clearOrder());
+          const { checkout: newCheckout } = getState();
+          saveCheckoutToLocalStorage(newCheckout);
         });
-
-      const { checkout: newCheckout } = getState();
-      saveCheckoutToLocalStorage(newCheckout);
     }
   };
 }

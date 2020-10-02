@@ -9,7 +9,7 @@ const MyLayout = ({
   headerContent, children, title, isPaddingTop, isNavFixed = true,
 }) => {
   const pageWrapperElement = useRef(null);
-  const mainCss = (isPaddingTop) ? 'pt-4 md:pt-6 lg:pt-8 xl:pt-12' : '';
+  const mainCss = (isPaddingTop) ? 'pt-4 md:pt-6 overflow-hidden lg:pt-8 xl:pt-12' : '';
   return (
     <>
       <Head>

@@ -5,16 +5,20 @@ import PropTypes from 'prop-types';
 import FocusLock from 'react-focus-lock';
 import SVGDownKey from '../../images/icons/keyboard_arrow_down.svg';
 
-const DropDown = ({ isRight, buttonText, children }) => {
+const DropDown = ({
+  isRight, buttonText, children, onOpen, onClose,
+}) => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const buttonRef = useRef();
 
   const handleDropDownOpen = useCallback(() => {
     setIsDropDownOpen(true);
+    onOpen();
   });
 
   const handleDropDownClose = useCallback(() => {
     setIsDropDownOpen(false);
+    onClose();
   });
 
   useEffect(() => {
@@ -84,9 +88,13 @@ DropDown.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 DropDown.defaultProps = {
   isRight: true,
+  onOpen: () => {},
+  onClose: () => {},
 };
 export default DropDown;
