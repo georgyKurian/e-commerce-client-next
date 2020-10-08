@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useRef } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import Meta from './Meta';
 
 const MyLayout = ({
   headerContent, children, title, isPaddingTop, isNavFixed = true,
@@ -14,9 +15,7 @@ const MyLayout = ({
     <>
       <Head>
         <title>{`E | ${title}`}</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+        <Meta />
       </Head>
       <div ref={pageWrapperElement}>
         <Header isFixed={isNavFixed} pageWrapperElement={pageWrapperElement}>

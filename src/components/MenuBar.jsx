@@ -52,9 +52,10 @@ const MenuBar = ({ children, className }) => {
 
   return (
     <div className="relative h-12">
-      <div ref={refMenu} className="absolute w-full h-full" />
-      <div className={`bg-white z-40 border-t border-b border-gray-500 ${className} ${isFixed ? 'fixed border inset-x-0 transition duration-300 delay-200 ease-in-out' : ''} ${scrollY.isGoingUp && isFixed ? 'transform translate-y-20' : ''}`} style={{ top: '10px' }}>
-        {children}
+      <div ref={refMenu} className="absolute w-full h-full">
+        <div className={`bg-white z-40 border-t border-b border-gray-500 ${className} ${isFixed ? 'fixed border inset-x-0 transition duration-300 delay-200 ease-in-out' : ''} ${scrollY.isGoingUp && isFixed ? 'transform translate-y-20' : ''}`} style={{ top: '10px' }}>
+          {children}
+        </div>
       </div>
     </div>
   );

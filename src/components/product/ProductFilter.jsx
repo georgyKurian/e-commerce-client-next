@@ -19,7 +19,7 @@ const ProductFilter = ({
   }, [parameterName, multiSelect, dispatch, addFilter, setFocus]);
 
   const optionElements = options.map((option, index) => {
-    const isSetected = currentValue && currentValue.includes(option.value);
+    const isSetected = !!(currentValue && currentValue.includes(option.value));
     const isFocussed = focus === index;
     if (type === 'text') {
       return (
