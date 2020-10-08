@@ -16,7 +16,11 @@ const Logout = () => {
 
   return (
     <MyLayout>
-      Please wait while logging out...
+      <div className="flex items-center mx-auto inner-wrap">
+        <div className="mx-auto text-center lg:w-1/2">
+          <p className="px-6 py-6 bg-gray-200 border border-gray-300 rounded-lg">Please wait while logging out...</p>
+        </div>
+      </div>
     </MyLayout>
   );
 };
