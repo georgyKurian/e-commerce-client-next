@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import MyLayout from '../components/Layouts/MyLayout';
 import OrderList from '../components/order/OrderList';
