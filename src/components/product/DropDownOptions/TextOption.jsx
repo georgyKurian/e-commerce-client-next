@@ -42,13 +42,10 @@ const TextOption = ({
 TextOption.propTypes = {
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOf([PropTypes.string, PropTypes.number]).isRequired,
-  handleChange: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  handleChange: PropTypes.func.isRequired,
   isFocussed: PropTypes.bool.isRequired,
-  isSelected: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    value: PropTypes.string,
-  })).isRequired,
+  isSelected: PropTypes.bool.isRequired,
 };
 
 export default TextOption;

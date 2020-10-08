@@ -33,7 +33,7 @@ const ProductSortBy = () => {
   }, [dispatch, updateSorting, setFocus]);
 
   const optionElements = options.map((option, index) => {
-    const isSetected = currentValue && currentValue.includes(option.value);
+    const isSelected = !!((currentValue && currentValue.includes(option.value)));
     const isFocussed = focus === index;
     return (
       <TextOption
@@ -43,7 +43,7 @@ const ProductSortBy = () => {
         value={option.value}
         handleChange={handleSortByChange}
         isFocussed={isFocussed}
-        isSelected={isSetected}
+        isSelected={isSelected}
       />
     );
   });
