@@ -1,11 +1,37 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MyLayout from '../components/Layouts/MyLayout';
 import OrderList from '../components/order/OrderList';
 import Order from '../models/Order';
 import { getUserOrders } from '../api/Order';
 
-class Orders extends React.Component {
+const OrdersPage = () => {
+  const [orderDataList, setOrderData] = useState([]);
+  const [isFetching, setFetching] = useState(false);
+
+  useEffect(() => {
+    if (!isFetching) {
+      setFetching(true);
+      getUserOrders()
+        .then((orderList) => {
+          setOrderData(orderList);
+        })
+        .finally(() => { setFetching(false); });
+    }
+  }, []);
+
+  const orderList = orderDataList.map(
+    (orderData) => new Order(orderData),
+  );
+
+  return (
+    <MyLayout title="My Orders">
+      <OrderList orders={orderList} />
+    </MyLayout>
+  );
+};
+
+/* class Orders extends React.Component {
   static async getInitialProps() {
     const orderDataList = await getUserOrders();
     return { orderDataList };
@@ -13,9 +39,7 @@ class Orders extends React.Component {
 
   render() {
     const { orderDataList } = this.props;
-    const orderList = orderDataList.map(
-      (orderData) => new Order(orderData),
-    );
+
     return (
       <MyLayout title="My Orders">
         <OrderList orders={orderList} />
@@ -26,6 +50,6 @@ class Orders extends React.Component {
 
 Orders.propTypes = {
   orderDataList: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+}; */
 
-export default Orders;
+export default OrdersPage;
