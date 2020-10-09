@@ -26,6 +26,7 @@ const CheckoutPage = (() => {
   const productIdList = useSelector((state) => state.products.getAllIds);
   const dispatch = useDispatch();
   const router = useRouter();
+  let isEmptyCart = false;
 
   const cartObject = useMemo(
     () => new Cart(items, productList, productIdList),
@@ -56,9 +57,13 @@ const CheckoutPage = (() => {
     setCurrentStep(2);
   };
 
-  if (items.length > 0) {
+  if (items.length === 0 && currentStep < 2) {
+    isEmptyCart = true;
+  }
+
+  if (!isEmptyCart) {
     return (
-      <MyLayout title="Cart">
+      <MyLayout title="Checkout">
         <div className="inner-wrap">
           <div className=" mx-auto lg:w-8/12">
             <div className="w-full">
@@ -86,13 +91,13 @@ const CheckoutPage = (() => {
                 <StripePayment clientSecret={checkout.paymentIntentSecret} />
               </Elements>
             ) : (
-              <div>
+              <div className="flex justify-center p-6 mx-auto bg-gray-200 border border-gray-300 rounded xl:w-2/3">
                 <span>
                   Sorry! We are experiencing some problem with payment system.
                   Try after some time
                 </span>
               </div>
-            )}
+              )}
           </div>
           )}
           </div>
@@ -102,7 +107,7 @@ const CheckoutPage = (() => {
   }
 
   return (
-    <MyLayout title="Cart">
+    <MyLayout title="Checkout">
       <p>Your cart is empty. Add some awesome products!</p>
     </MyLayout>
   );
