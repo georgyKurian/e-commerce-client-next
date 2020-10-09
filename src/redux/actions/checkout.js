@@ -4,6 +4,7 @@ import {
   updateOrderItems as updateOrderItemsAPI,
   updateOrderAddress, updateOrderStatus,
 } from '../../api/Order';
+import { clearShoppingCart } from './cart';
 
 export const CREATE_ORDER = 'CREATE_ORDER';
 export const UPDATE_ORDER = 'UPDATE_ORDER';
@@ -157,6 +158,7 @@ export function updateCheckoutBillingAddress(billingAddress) {
  */
 export function checkoutComplete() {
   return (dispatch, getState) => {
+    dispatch(clearShoppingCart());
     const {
       checkout: {
         order: { _id: orderId },

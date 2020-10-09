@@ -38,6 +38,12 @@ function updateItem(productId, quantity) {
   };
 }
 
+function clearCart() {
+  return {
+    type: REMOVE_ALL,
+  };
+}
+
 function rehydrateCartAction(cart) {
   return {
     type: REHYDRATE_CART,
@@ -45,8 +51,9 @@ function rehydrateCartAction(cart) {
   };
 }
 
-function saveCartToLocalStorage(cart) {
-  localStorage.set('cart', cart, true);
+function saveCartToLocalStorage(getState) {
+  const { cart: newCart } = getState();
+  localStorage.set('cart', newCart, true);
 }
 
 /**
@@ -61,8 +68,7 @@ export function addToCart(productId, quantity = 1) {
     } else {
       dispatch(updateItem(productId, (cart.items[foundIndex].quantity + quantity)));
     }
-    const { cart: newCart } = getState();
-    saveCartToLocalStorage(newCart);
+    saveCartToLocalStorage(getState);
   };
 }
 
@@ -72,8 +78,7 @@ export function addToCart(productId, quantity = 1) {
 export function removeFromCart(productId) {
   return (dispatch, getState) => {
     dispatch(deleteItem(productId));
-    const { cart: newCart } = getState();
-    saveCartToLocalStorage(newCart);
+    saveCartToLocalStorage(getState);
   };
 }
 
@@ -83,8 +88,7 @@ export function removeFromCart(productId) {
 export function updateCartQuantity(productId, quantity) {
   return (dispatch, getState) => {
     dispatch(updateItem(productId, quantity));
-    const { cart: newCart } = getState();
-    saveCartToLocalStorage(newCart);
+    saveCartToLocalStorage(getState);
   };
 }
 
@@ -97,5 +101,15 @@ export function rehydrateCart() {
     if (cart?.items?.length) {
       dispatch(rehydrateCartAction(cart));
     }
+  };
+}
+
+/**
+ * Thunk action creator
+ */
+export function clearShoppingCart() {
+  return (dispatch, getState) => {
+    dispatch(clearCart());
+    saveCartToLocalStorage(getState);
   };
 }

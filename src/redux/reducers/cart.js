@@ -1,9 +1,11 @@
 /* eslint-disable no-case-declarations */
 import {
-  ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, REHYDRATE_CART,
+  ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, REHYDRATE_CART, REMOVE_ALL,
 } from '../actions/cart';
 
-const cart = (state = { items: [] }, action) => {
+const defaultState = { items: [] };
+
+const cart = (state = defaultState, action) => {
   const newState = { ...state };
   const lastUpdated = Date.now();
 
@@ -36,6 +38,8 @@ const cart = (state = { items: [] }, action) => {
         return newState;
       }
       return state;
+    case REMOVE_ALL:
+      return { ...defaultState };
     case REHYDRATE_CART:
       return { ...action.cart };
     default:
