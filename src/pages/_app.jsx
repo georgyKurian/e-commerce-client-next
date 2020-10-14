@@ -59,10 +59,7 @@ class MyApp extends App {
     } = this.props;
     return (
       <>
-        <Head>
-          {/* Import CSS for nprogress */}
-          <link rel="stylesheet" type="text/css" href="/nprogress.css" />
-        </Head>
+        <Head />
         <Provider store={store}>
           <Component {...pageProps} cssStyle="min-width:10px;" />
         </Provider>
