@@ -1,16 +1,16 @@
 module.exports = {
-  theme: {
-    purge: {
-      content: [
-        './src/components/**/*',
-        './src/pages/**/*',
-        './src/models/**/*',
-      ],
-      options: {
-        whitelist: ['bg-red-500', 'px-4'],
-        whitelistPatternsChildren: [/carousel/, /html/],
-      },
+  purge: {
+    content: [
+      './src/components/**/*',
+      './src/pages/**/*',
+      './src/models/**/*',
+    ],
+    options: {
+      whitelist: ['bg-red-500', 'px-4'],
+      whitelistPatternsChildren: [/carousel/, /html/],
     },
+  },
+  theme: {
     screens: {
       sm: '640px',
       md: '960px',
