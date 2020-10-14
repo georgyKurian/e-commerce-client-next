@@ -5,10 +5,8 @@ import MyLayout from '../../components/Layouts/MyLayout';
 import ProductView from '../../components/product/ProductView';
 import Product from '../../models/Product';
 import Review from '../../models/Review';
-import ReviewList from '../../components/product/ReviewList';
 import { fetchProductDetails } from '../../redux/actions/productDetails';
 import { fetchReviews } from '../../redux/actions/reviews';
-import Rating from '../../components/product/Rating';
 
 class ProductPage extends React.Component {
   static async getInitialProps({ store, query }) {
