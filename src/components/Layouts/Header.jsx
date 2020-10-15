@@ -156,6 +156,7 @@ const Header = ({
                   </form>
                 </div>
                 <button type="button" className="p-2 mr-2 lg:hidden" onClick={handleSearchToggleClick}>
+                  <span className="sr-only">Open Search</span>
                   <SearchIcon role="img" aria-hidden="true" className="w-5 h-5" />
                 </button>
               </div>

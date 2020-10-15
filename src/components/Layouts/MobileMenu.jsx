@@ -7,9 +7,11 @@ const MobileMenu = ({
   isAdmin, isLoggedIn, onClose, isMenuClosing,
 }) => {
   const firstLink = useRef(null);
+
   useEffect(() => {
     firstLink.current.focus();
   }, [firstLink]);
+
   return (
     <nav id="mobile-menu" className={`mobile-fly-in-menu ${isMenuClosing ? 'close' : ''}`}>
       <div className="relative flex items-center justify-center h-16 px-5">

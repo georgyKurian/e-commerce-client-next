@@ -3,7 +3,6 @@ import React from 'react';
 import App from 'next/app';
 import NProgress from 'nprogress';
 import Router from 'next/router';
-import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
 import initStore from '../redux/stores';
@@ -59,7 +58,6 @@ class MyApp extends App {
     } = this.props;
     return (
       <>
-        <Head />
         <Provider store={store}>
           <Component {...pageProps} cssStyle="min-width:10px;" />
         </Provider>
