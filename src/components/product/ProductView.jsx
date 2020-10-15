@@ -82,7 +82,7 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
     }
 
     ratingElementList.push(
-      <div className="flex items-center mb-2">
+      <div key={i} className="flex items-center mb-2">
         <button className="p-px text-sm underline uppercase hover:bg-black hover:text-white" type="button">
           {i / 10}
           {' Stars'}
@@ -171,7 +171,7 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
             <h4 className="mb-2">Select Size</h4>
             <ul className="mb-2 grid grid-cols-4 gap-0">
               {sizeList.map((size) => (
-                <li key="size.name">
+                <li key={size.name}>
                   <button onClick={() => { handleSizeSelect(size.name); }} type="button" className={`w-full px-2 py-2 text-sm uppercase border ronded hover:text-white hover:bg-black focus:text-white focus:bg-black ${sizeSelected === size.name ? 'is-active' : ''}`}>{size.name}</button>
                 </li>
               ))}
@@ -216,7 +216,7 @@ const Features = ({ featureList }) => {
 
   featureList.forEach((feature, index) => {
     const featureElementsIndex = (index <= midSize) ? 0 : 1;
-    featureElements[featureElementsIndex].push(<li className="mb-4">{feature}</li>);
+    featureElements[featureElementsIndex].push(<li className="mb-4" key={feature}>{feature}</li>);
   });
 
   return (

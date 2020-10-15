@@ -35,12 +35,19 @@ class ProductPage extends React.Component {
 }
 
 ProductPage.propTypes = {
-  productDetails: PropTypes.arrayOf(PropTypes.object).isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.object),
+  productDetails: PropTypes.shape({
+    data: PropTypes.shape({
+      _id: PropTypes.string,
+      name: PropTypes.string,
+    }),
+  }).isRequired,
+  reviews: PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.object),
+  }),
 };
 
 ProductPage.defaultProps = {
-  reviews: [],
+  reviews: { items: [] },
 };
 
 export default connect(({ productDetails, reviews }) => ({
