@@ -68,11 +68,12 @@ const Rating = ({ rating, reviewCount, className }) => {
 Rating.propTypes = {
   className: PropTypes.string,
   rating: PropTypes.number.isRequired,
-  reviewCount: PropTypes.number.isRequired,
+  reviewCount: PropTypes.number,
 };
 
 Rating.defaultProps = {
   className: '',
+  reviewCount: undefined,
 };
 
 export default Rating;
