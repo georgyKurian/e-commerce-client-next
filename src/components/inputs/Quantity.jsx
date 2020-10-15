@@ -14,14 +14,18 @@ const quantitySelect = (({
       options.push(<option key={index} value={index}>{index}</option>);
     }
     return (
-      <select onChange={handleDropdownChange} value={value} {...otherProps}>
-        {options}
-        <option value="10+">10+</option>
-      </select>
+      <label htmlFor="product-quantity">
+        <span className="sr-only">Quantity</span>
+        <select onChange={handleDropdownChange} value={value} {...otherProps}>
+          {options}
+          <option value="10+">10+</option>
+        </select>
+      </label>
     );
   }
   return (
-    <>
+    <label htmlFor="product-quantity">
+      <span className="sr-only">Quantity</span>
       <input
         name={name}
         className="px-4 py-6 pb-1 border border-gray-500 rounded-lg"
@@ -30,7 +34,7 @@ const quantitySelect = (({
         onChange={handleDropdownChange}
         {...otherProps}
       />
-    </>
+    </label>
   );
 });
 
