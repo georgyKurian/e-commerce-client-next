@@ -8,6 +8,9 @@ import { addToCart } from '../../redux/actions/cart';
 import Quantity from '../inputs/Quantity';
 import Rating from './Rating';
 import ReviewList from './ReviewList';
+import Features from './Features';
+import SizeSelect from './size/SizeSelect';
+import SelectColor from './color/SelectColor';
 
 const colorList = [
   {
@@ -169,31 +172,19 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
           <div className="mb-4 text-lg font-semibold">{product.getFormattedPrice()}</div>
           <section className="mb-4 sizes">
             <h4 className="mb-2">Select Size</h4>
-            <ul className="mb-2 grid grid-cols-4 gap-0">
-              {sizeList.map((size) => (
-                <li key={size.name}>
-                  <button onClick={() => { handleSizeSelect(size.name); }} type="button" className={`w-full px-2 py-2 text-sm uppercase border ronded hover:text-white hover:bg-black focus:text-white focus:bg-black ${sizeSelected === size.name ? 'is-active' : ''}`}>{size.name}</button>
-                </li>
-              ))}
-            </ul>
+            <SizeSelect
+              sizeList={sizeList}
+              selectedSize={sizeSelected}
+              onSizeSelect={handleSizeSelect}
+            />
           </section>
           <section className="mb-4 colors">
             <h4 className="mb-2">Select Color</h4>
-            <ul className="flex flex-wrap mb-2">
-              {colorList.map((colourdata) => (
-                <li key={colourdata.name} className="mb-2 mr-2">
-                  <button
-                    type="button"
-                    title={colourdata.name}
-                    className={`border-2 overflow-hidden rounded-full focus:outline-none ${colorSelected === colourdata.name ? 'is-active' : ''}`}
-                    onClick={() => { handleColorSelect(colourdata.name); }}
-                  >
-                    <span className="block w-8 h-8 border-2 rounded-full" style={{ backgroundColor: colourdata.code }} />
-                    <span className="sr-only">{colourdata.name}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <SelectColor
+              colourList={colorList}
+              selectedColor={colorSelected}
+              onChange={handleColorSelect}
+            />
           </section>
           <div>
             <Quantity className="w-20 px-4 py-2 mr-2 border border-gray-500 appearance-none customDropDown" value={quantity} onQuantityChange={setQuantity} />
@@ -207,36 +198,6 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
 
 ProductView.propTypes = {
   product: PropTypes.instanceOf(Product).isRequired,
-};
-
-const Features = ({ featureList }) => {
-  if (!Array.isArray(featureList)) { return null; }
-  const midSize = Math.floor(featureList.length / 2);
-  const featureElements = [[], []];
-
-  featureList.forEach((feature, index) => {
-    const featureElementsIndex = (index <= midSize) ? 0 : 1;
-    featureElements[featureElementsIndex].push(<li className="mb-4" key={feature}>{feature}</li>);
-  });
-
-  return (
-    <>
-      <ul className="flex-1 ml-4 list-disc">
-        {featureElements[0]}
-      </ul>
-      <ul className="flex-1 ml-4 list-disc">
-        {featureElements[1]}
-      </ul>
-    </>
-  );
-};
-
-Features.propTypes = {
-  featureList: PropTypes.arrayOf(PropTypes.string),
-};
-
-Features.defaultProps = {
-  featureList: null,
 };
 
 export default ProductView;
