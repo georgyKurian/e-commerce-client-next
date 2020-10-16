@@ -7,7 +7,9 @@ const SizeOption = ({
   const focusRef = useRef();
 
   useEffect(() => {
-    if (isFocussed && focusRef.current) { focusRef.current.focus(); }
+    if (isFocussed && focusRef.current) {
+      focusRef.current.focus();
+    }
   }, [focusRef.current, isFocussed]);
 
   const handleClick = useCallback(() => {
@@ -15,11 +17,12 @@ const SizeOption = ({
   }, [handleChange, name, index]);
 
   return (
-    <li key={name}>
+    <li>
       <button
-        disabled={inStock}
+        disabled={!inStock}
+        tabIndex={isFocussed ? 0 : -1}
         type="button"
-        className={`w-full px-2 py-2 text-sm uppercase border ronded hover:text-white hover:bg-black focus:text-white focus:bg-black ${isSelected ? 'is-active' : ''}`}
+        className={`w-full px-2 py-2 text-sm uppercase border ronded hover:text-white hover:bg-black focus:text-white focus:bg-gray-700 ${isSelected ? 'is-active' : ''}`}
         onClick={handleClick}
         ref={focusRef}
       >

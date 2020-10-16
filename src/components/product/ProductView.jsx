@@ -38,7 +38,7 @@ const sizeList = [
   },
   {
     name: 'm',
-    isStock: false,
+    isStock: true,
   },
   {
     name: 'l',

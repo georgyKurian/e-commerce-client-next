@@ -18,6 +18,7 @@ const ColorOption = ({
     <li className="mb-2 mr-2">
       <button
         type="button"
+        tabIndex={isFocussed ? 0 : -1}
         title={name}
         className={`border-2 overflow-hidden rounded-full focus:outline-none ${isSelected ? 'is-active' : ''}`}
         onClick={handleClick}
