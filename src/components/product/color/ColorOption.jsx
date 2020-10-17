@@ -1,28 +1,23 @@
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 const ColorOption = ({
   index, name, code, handleChange, isSelected, isFocussed,
 }) => {
-  const focusRef = useRef();
-
-  useEffect(() => {
-    if (isFocussed && focusRef.current) { focusRef.current.focus(); }
-  }, [focusRef.current, isFocussed]);
-
   const handleClick = useCallback(() => {
     handleChange(name, index);
   }, [handleChange, name, index]);
 
   return (
-    <li className="mb-2 mr-2">
+    <li className="my-2 mr-2">
       <button
+        role="option"
+        aria-selected={isSelected}
         type="button"
-        tabIndex={isFocussed ? 0 : -1}
+        tabIndex={-1}
         title={name}
-        className={`border-2 overflow-hidden rounded-full focus:outline-none ${isSelected ? 'is-active' : ''}`}
+        className={`border-2 overflow-hidden rounded-full ${isFocussed ? 'is-focus' : ''} ${isSelected ? 'is-active' : ''}`}
         onClick={handleClick}
-        ref={focusRef}
       >
         <span className="block w-8 h-8 border-2 rounded-full" style={{ backgroundColor: code }} />
         <span className="sr-only">{name}</span>

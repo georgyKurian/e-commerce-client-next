@@ -171,7 +171,6 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
           <h1>{product.getName()}</h1>
           <div className="mb-4 text-lg font-semibold">{product.getFormattedPrice()}</div>
           <section className="mb-4 sizes">
-            <h4 className="mb-2">Select Size</h4>
             <SizeSelect
               sizeList={sizeList}
               selectedSize={sizeSelected}
@@ -179,7 +178,6 @@ const ProductView = ({ product, ratingList, reviewsList }) => {
             />
           </section>
           <section className="mb-4 colors">
-            <h4 className="mb-2">Select Color</h4>
             <SelectColor
               colourList={colorList}
               selectedColor={colorSelected}

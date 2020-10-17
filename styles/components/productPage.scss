@@ -9,6 +9,7 @@ ul.thumbs {
 .colors button {
   @apply border-transparent;
 
+  &.is-focus,
   &.is-active,
   &:focus,
   &:hover {

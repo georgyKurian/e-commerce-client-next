@@ -23,9 +23,12 @@ const SizeSelect = ({ sizeList, selectedSize, onSizeSelect }) => {
   ));
 
   return (
-    <ul className="mb-2 grid grid-cols-4 gap-0" ref={elementRef}>
-      {sizeElements}
-    </ul>
+    <>
+      <h4 className="mb-2" id="select-size-label">Select Size</h4>
+      <ul className="mb-2 grid grid-cols-4 gap-0" ref={elementRef} role="listbox" aria-labelledby="select-size-label" tabIndex={0}>
+        {sizeElements}
+      </ul>
+    </>
   );
 };
 

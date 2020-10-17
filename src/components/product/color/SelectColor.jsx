@@ -11,19 +11,22 @@ const SelectColor = ({ colourList, selectedColor, onChange }) => {
   };
 
   return (
-    <ul className="flex flex-wrap mb-2" ref={elementRef}>
-      {colourList.map((colourdata, index) => (
-        <ColorOption
-          key={colourdata.name}
-          index={index}
-          name={colourdata.name}
-          code={colourdata.code}
-          handleChange={onColourChangeHandle}
-          isSelected={selectedColor === colourdata.name}
-          isFocussed={index === focus}
-        />
-      ))}
-    </ul>
+    <>
+      <h4 className="mb-2" id="select-color-label">Select Color</h4>
+      <ul className="flex flex-wrap mb-2" ref={elementRef} role="listbox" aria-labelledby="select-color-label" tabIndex={0}>
+        {colourList.map((colourdata, index) => (
+          <ColorOption
+            key={colourdata.name}
+            index={index}
+            name={colourdata.name}
+            code={colourdata.code}
+            handleChange={onColourChangeHandle}
+            isSelected={selectedColor === colourdata.name}
+            isFocussed={index === focus}
+          />
+        ))}
+      </ul>
+    </>
   );
 };
 SelectColor.propTypes = {
