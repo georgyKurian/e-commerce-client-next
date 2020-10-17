@@ -19,12 +19,12 @@ const CartItem = ({
   };
 
   return (
-    <div
+    <article
       className="relative flex mb-6 border-gray-600 lg:border lg:mb-6"
     >
       <div className="flex w-5/12 lg:w-1/3">
         <Link href="/products/[id]" as={`/products/${id}`}>
-          <a className="relative block w-full" style={{ paddingTop: '100%' }}>
+          <a className="relative block w-full" style={{ paddingTop: '100%' }} role="presentation" aria-hidden="true" tabIndex="-1">
             <img
               src={images ? images[0] : ''}
               alt="Product"
@@ -39,7 +39,11 @@ const CartItem = ({
           <div className="flex items-start flex-grow pb-2 pr-6 lg:pr-0 lg:py-5 lg:flex-row lg:justify-between lg:items-start">
             <div className="flex flex-col justify-center flex-grow">
               <Link href="/products/[id]" as={`/products/${id}`}>
-                <a className="leading-tight text-gray-700">{name}</a>
+                <a className="focus:no-underline hover:no-underline">
+                  <h3 className="text-lg font-semibold leading-tight text-gray-700">
+                    {name}
+                  </h3>
+                </a>
               </Link>
             </div>
             <div className="hidden leading-tight lg:block">
@@ -48,6 +52,7 @@ const CartItem = ({
           </div>
           <div className="flex-none -mt-4 -mr-4 md:m-0">
             <button type="button" className="p-5 mx-auto text-black cursor-pointer" aria-label="Removes this product from the cart" onClick={handleRemoveItem}>
+              <span className="sr-only">Remove from cart</span>
               <CloseIconSvg role="img" className="w-4 h-4 hover:opacity-50" />
             </button>
           </div>
@@ -65,7 +70,7 @@ const CartItem = ({
           </form>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
