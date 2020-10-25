@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useCallback } from 'react';
 
 const SizeOption = ({
-  index, name, inStock, handleChange, isSelected, isFocussed,
+  index, htmlid, name, inStock, handleChange, isSelected, isFocussed,
 }) => {
   const handleClick = useCallback(() => {
     handleChange(name, index);
@@ -11,6 +11,7 @@ const SizeOption = ({
   return (
     <li>
       <button
+        htmlid={htmlid}
         role="option"
         aria-selected={isSelected}
         disabled={!inStock}
@@ -27,6 +28,7 @@ const SizeOption = ({
 
 SizeOption.propTypes = {
   index: PropTypes.number.isRequired,
+  htmlid: PropTypes.string,
   name: PropTypes.string.isRequired,
   inStock: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
@@ -35,6 +37,7 @@ SizeOption.propTypes = {
 };
 
 SizeOption.defaultProps = {
+  htmlid: null,
 };
 
 export default SizeOption;

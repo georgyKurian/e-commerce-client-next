@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 
 const ColorOption = ({
-  index, name, code, handleChange, isSelected, isFocussed,
+  index, htmlId, name, code, handleChange, isSelected, isFocussed,
 }) => {
   const handleClick = useCallback(() => {
     handleChange(name, index);
@@ -11,6 +11,7 @@ const ColorOption = ({
   return (
     <li className="my-2 mr-2">
       <button
+        htmlid={htmlId}
         role="option"
         aria-selected={isSelected}
         type="button"
@@ -27,6 +28,7 @@ const ColorOption = ({
 };
 
 ColorOption.propTypes = {
+  htmlId: PropTypes.string,
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
@@ -36,6 +38,7 @@ ColorOption.propTypes = {
 };
 
 ColorOption.defaultProps = {
+  htmlId: null,
 };
 
 export default ColorOption;

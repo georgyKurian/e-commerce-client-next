@@ -74,7 +74,11 @@ const DropDown = ({
         <SVGDownKey className={`w-2 h-2 ml-2 -mt-1 ${isDropDownOpen ? 'transform rotate-180' : ''}`} />
       </button>
 
-      <div className={`absolute border border-black ${isRight ? 'left-0' : 'right-0'} z-10 bg-white -mt-px ${isDropDownOpen ? 'block' : 'hidden'}`} role="listbox">
+      <div
+        className={`absolute border border-black ${isRight ? 'left-0' : 'right-0'} z-10 bg-white -mt-px ${isDropDownOpen ? 'block' : 'hidden'}`}
+        role="listbox"
+        tabIndex="-1"
+      >
         <FocusLock disabled={!isDropDownOpen} returnFocus>
           {children}
         </FocusLock>
